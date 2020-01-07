@@ -1,0 +1,31 @@
+{
+    "plugins": [
+      "react-hot-loader/babel",
+      ["@babel/plugin-transform-runtime",
+        {
+          "regenerator": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ],
+      "transform-inline-environment-variables"
+    ],
+    "presets": [
+      [
+        "@babel/preset-env", 
+        { 
+          "useBuiltIns": "usage", 
+          "corejs": 3, 
+          "targets": { 
+            "node": "current",
+            "browsers": [ "> 1%", "last 2 versions", "ie >= 11" ] 
+          } 
+        }
+      ], 
+      "@babel/preset-react"
+    ]
+  }

@@ -1,0 +1,205 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a {
+  color: var(--accent);
+}
+
+div.site-content {
+  width: 100%;
+  height: auto;
+  background-color: var(--bg);
+  color: var(--color);
+}
+
+div.site-content.secondary {
+  background-color: var(--bgSecondary);
+  color: var(--colorSecondary);
+}
+
+body.light {
+  --bg: #f0eae4;
+  --bgDark: #505050;
+  --bgSecondary: #71706E;
+  --bgAccent: #78c3de;
+  --bgDarkHover: black;
+  --btnColor: #fff;
+  --btnBgColor: #78c3de;
+  --btnHoverColor: #eee;
+  --btnHoverBgColor: #39a7cf;
+  --btnBorderColor: #f0eae4;
+  --inputBackgroundColor: #f0eae4;
+  --inputBorderColor: #fff;
+  --inputBorderRadius: 4px;
+  --inputBorderWidth: 5px;
+  --inputColor: #505050;
+  --inputHoverBorderColor: #fff;
+  --inputHoverBorderWidth: 5px;
+  --inputHoverBoxShadow: inset 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px #747474;
+  --inputHoverBackgroundColor: #fff;
+  --inputErrorColor: #ef7862;
+  --inputSuccessColor: #81D86C;
+  --inputStatusBorderWidth: 5px;
+  --inputPlaceholderColor: #969696;
+  --labelColor: #969696;
+  --labelFontWeight: 600;
+  --labelOpacity: 0;
+  --labelTextTransform: none;
+  --rgb: 0;
+  --a: 2;
+  --color: #505050;
+  --colorSecondary: #CDCDCC;
+  --accent: #78c3de;
+  --hoverAccent: #39a7cf;
+  --darkGrey: #505050;
+  --grey: #969696;
+  --lightGrey: #C7C7C7;
+  --red: #ef7862;
+  --green: #81D86C;
+}
+
+body.dark {
+
+  --bg: #241c14;
+  --bgDark: #171717;
+  --bgSecondary: #82765d;
+  --bgAccent: #98b4be;
+  --bgDarkHover: grey;
+  --btnColor: #eee;
+  --btnBgColor: #98b4be;
+  --btnHoverColor: #333;
+  --btnHoverBgColor: #80a2af;
+  --btnBorderColor: #eeeae6;
+  --inputBackgroundColor: #eeeae6;
+  --inputBorderColor: #eee;
+  --inputBorderRadius: 4px;
+  --inputBorderWidth: 5px;
+  --inputColor: #d0d0d0;
+  --inputHoverBorderColor: #999;
+  --inputHoverBorderWidth: 5px;
+  --inputHoverBoxShadow: inset 1px 1px rgba(255, 255, 255, 0.0375),
+    0 0 8px #919191;
+  --inputHoverBackgroundColor: #1e1e1e;
+  --inputErrorColor: #925e68;
+  --inputErrorBorderWidth: 5px;
+  --inputPlaceholderColor: #747474;
+  --labelColor: #747474;
+  --labelFontWeight: 600;
+  --labelOpacity: 0;
+  --labelTextTransform: none;
+  --rgb: 255;
+  --a: 1;
+  --color: #d0d0d0;
+  --colorSecondary: #d5d5c4;
+  --accent: #98b4be;
+  --hoverAccent: #6891a0;
+  --grey: #747474;
+  --lightGrey: #969696;
+  --darkGrey: #d0d0d0;
+  --red: #ba9d97;
+  --green: #97b490;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--grey);
+  transition: color 250ms ease-in-out;
+}
+
+a {
+  color: var(--accent);
+  transition: color 250ms ease-in-out;
+}
+a:hover {
+  color: var(--hoverAccent);
+}
+
+button {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--btnBgColor);
+  color: var(--btnColor);
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+  text-align: center;
+  margin: 2px;
+}
+
+.dark-switcher {
+  width:20px;
+  height:20px;
+  font-size:20px;
+  margin: 2px;
+}
+
+button:focus, a:focus, .dark-switcher:focus {
+  outline-offset: 2px;
+  outline: 2px solid var(--hoverAccent);
+}
+
+button.secondary, button.disabled {
+  background: var(--grey);
+  color: var(--lightGrey);
+}
+
+button.small {
+  height: 80px;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+button.large {
+  height: 160px;
+  font-size: 50px;
+  line-height: 1.15;
+}
+
+button.primary {
+  font-weight: bold;
+}
+
+button.box {
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+button.box.dark {
+  background: var(--bgDark);
+  color: var(--inputBackgroundColor);
+  width: 260px;
+  height: 260px;
+}
+
+button.box.light {
+  background: var(--bg);
+  color: var(--bgDark);
+  width: 170px;
+  height: 170px;
+}
+
+button.box.light.selected, button.box.dark.selected, button:hover, button:active, button.box.light:hover, button.box.light:active, button.box.dark:hover, button.box.dark:active {
+  background: var(--btnBgColor);
+  color: var(--btnColor);
+}
+
+
+
