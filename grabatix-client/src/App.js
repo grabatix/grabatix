@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       <div className="site-content">
         <h1>GRABATIX</h1>
-        <button className="box dark" onClick={sentryTest}>Click Me</button>
+        <button className="box dark" onClick={()=>{}}>Click Me</button>
         <a href="#">Link</a>
         <div
           className="dark-switcher"
@@ -33,6 +33,12 @@ function App() {
           tabIndex={0}
         >
           {theme === "dark" ? <FaSun /> : <FaMoon />}
+        </div>
+        <div style={{display: 'flex'}}>
+        <div className="form-group">
+          <label htmlFor="test">Test</label>
+          <input type="text" name="test" placeholder="some value" defaultValue="" disabled/>
+        </div>
         </div>
       </div>
     </div>
