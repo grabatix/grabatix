@@ -34,11 +34,33 @@ function App() {
         >
           {theme === "dark" ? <FaSun /> : <FaMoon />}
         </div>
-        <div style={{display: 'flex'}}>
-        <div className="form-group">
-          <label htmlFor="test">Test</label>
-          <input type="text" name="test" placeholder="some value" defaultValue="" disabled/>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+          <div className="form-group">
+            <label htmlFor="test">Test</label>
+            <input type="text" name="test" placeholder="some value" defaultValue=""/>
+          </div>
         </div>
+        <div className="radio-group">
+          <input
+            name={`test-radio`}
+            id={`test-radio`}
+            type="radio"
+            checked={false}
+            onChange={()=>{}}
+            className=""
+          />
+          <label htmlFor={`test-radio`}>{`Test Radio`}</label>
+        </div>
+        <div className="checkbox-group">
+          <input
+            type="checkbox"
+            id={'checkbox-test'}
+            name={'checkbox-test'}
+            checked={true}
+            onChange={()=>{}}
+            className=""
+          />
+			    <label htmlFor={'checkbox-test'}>{`Test Checkbox`}</label>
         </div>
       </div>
     </div>
