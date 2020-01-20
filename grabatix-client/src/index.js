@@ -4,7 +4,7 @@ import "./vendors"
 import React from "react"
 import ReactDOM from "react-dom"
 import "./index.css"
-import App from "./App"
+import App from "./components/App"
 import * as Sentry from "@sentry/browser"
 import * as serviceWorker from "./serviceWorker"
 
