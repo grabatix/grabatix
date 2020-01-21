@@ -1,11 +1,29 @@
 import React, { useEffect, useState } from "react"
 import { FaMoon, FaSun } from "react-icons/fa"
-import logo from './logo.svg';
+import InputGroup from "./FormComponents/InputGroup"
+import CheckBoxGroup from "./FormComponents/CheckBoxGroup"
+import RadioGroup from "./FormComponents/RadioGroup"
+import TextAreaGroup from "./FormComponents/TextAreaGroup"
 import './App.css';
 
 function App() {
   const initTheme = typeof window !== 'undefined' && window.__theme ? window.__theme : null;
   const [theme, setTheme] = useState(initTheme)
+  const [inputValue, setInputValue] = useState('');
+  const [textareaValue, setTextareaValue] = useState('');
+  const [checked, setChecked] = useState(false);
+  const [radioId, setRadioId] = useState('');
+  const handleInputChange = e => {
+    if (e.target.type === 'checkbox') {
+      setChecked(e.target.checked)
+    } else if (e.target.type === 'radio') {
+      setRadioId(e.target.id)
+    } else if (e.target.type === 'textarea') { 
+      setTextareaValue(e.target.value)
+    } else {
+      setInputValue(e.target.value)
+    }
+  }
   const ONCE = []
   useEffect(() => {
     setTheme(window.__theme)
@@ -35,33 +53,53 @@ function App() {
           {theme === "dark" ? <FaSun /> : <FaMoon />}
         </div>
         <div style={{display: 'flex', flexDirection: 'row'}}>
-          <div className="form-group">
-            <label htmlFor="test">Test</label>
-            <input type="text" name="test" placeholder="some value" defaultValue=""/>
-          </div>
-        </div>
-        <div className="radio-group">
-          <input
-            name={`test-radio`}
-            id={`test-radio`}
-            type="radio"
-            checked={false}
-            onChange={()=>{}}
-            className=""
+          <InputGroup
+            id="input-test"
+            label="Test Input"
+            required={false}
+            type="text"
+            maxLength={120}
+            placeholder="Try me"
+            disabled={false}
+            validation={`.*`}
+            handleInputChange={handleInputChange}
+            value={inputValue}
+            error={''}
           />
-          <label htmlFor={`test-radio`}>{`Test Radio`}</label>
         </div>
-        <div className="checkbox-group">
-          <input
-            type="checkbox"
-            id={'checkbox-test'}
-            name={'checkbox-test'}
-            checked={true}
-            onChange={()=>{}}
-            className=""
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+          <TextAreaGroup 
+            id="textarea-test"
+            label="Test Textarea"
+            required={false}
+            maxLength={240}
+            placeholder="Write Here"
+            disabled={false}
+            handleInputChange={handleInputChange}
+            value={textareaValue}
+            error={''}
           />
-			    <label htmlFor={'checkbox-test'}>{`Test Checkbox`}</label>
         </div>
+        <RadioGroup
+          id={`test-radio1`}
+          name="test-group"
+          checked={radioId === `test-radio1`}
+          handleInputChange={handleInputChange}
+          label="Test Radio Button 1"
+        />
+        <RadioGroup
+          id={`test-radio2`}
+          name="test-group"
+          checked={radioId === `test-radio2`}
+          handleInputChange={handleInputChange}
+          label="Test Radio Button 2"
+        />
+        <CheckBoxGroup
+          id={'checkbox-test'}
+          checked={checked}
+          handleInputChange={handleInputChange}
+          label="Test Checkbox"
+        />
       </div>
     </div>
   );

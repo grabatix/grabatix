@@ -1,0 +1,80 @@
+/*** CUSTOM CHECKBOXES ***/
+
+div.checkbox-group {
+    flex: 1 1 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+  }
+  input[type="checkbox"]:not(:checked),
+  input[type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+  }
+  input[type="checkbox"]:not(:checked) + label,
+  input[type="checkbox"]:checked + label {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    padding-left: 25px;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0;
+  }
+  input[type="checkbox"]:not(:checked) + label:before,
+  input[type="checkbox"]:checked + label:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 4px solid var(--inputBorderColor);
+    background: transparent;
+    border-radius: 0;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    line-height: unset;
+  }
+  input[type="checkbox"]:checked + label:before {
+    background: var(--bgAccent);
+  }
+  
+  input[type="checkbox"]:disabled:not(:checked) + label:before,
+  input[type="checkbox"]:disabled:checked + label:before {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    border-color: var(--lightGrey);
+  }
+  
+  input[type="checkbox"]:disabled + label {
+    box-sizing: border-box;
+    color: var(--lightGrey);
+  }
+  input[type="checkbox"]:focus + label {
+    outline-offset: 2px;
+    outline: 2px solid var(--hoverAccent);
+    box-sizing: border-box;
+  }
+  input[type="checkbox"] + label:hover:before {
+    border-color: var(--labelColor);
+    box-sizing: border-box;
+  }
+  input[type="checkbox"]:invalid + label, input[type="checkbox"].error + label {
+    color: var(--inputErrorColor);
+  }
+  input[type="checkbox"]:invalid + label:before, input[type="checkbox"].error + label:before {
+    border-color: var(--inputErrorColor);
+  }
+  input[type="checkbox"].validated + label {
+    color: var(--green);
+  }
+  input[type="checkbox"].validated + label:before{
+    border-color: var(--green);
+  }
+  /*** END CUSTOM CHECKBOXES ***/
+  
