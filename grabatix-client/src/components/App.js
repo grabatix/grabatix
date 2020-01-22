@@ -8,9 +8,15 @@ import RadioGroup from "./FormComponents/RadioGroup"
 import TextAreaGroup from "./FormComponents/TextAreaGroup"
 import './App.css';
 
+const supportsDarkMode = () =>
+    window && window.matchMedia("(prefers-color-scheme: dark)").matches === true
+
 const App = () => {
   const context = useContext(AppContext);
-  const initTheme = typeof window !== 'undefined' && window.__theme ? window.__theme : null;
+  let initTheme = typeof window !== 'undefined' && window.__theme ? window.__theme : null;
+  if ( !initTheme ) {
+    initTheme = supportsDarkMode() ? "dark" : "light";
+  }
   const [theme, setTheme] = useState(initTheme)
   const [inputValue, setInputValue] = useState('');
   const [textareaValue, setTextareaValue] = useState('');
