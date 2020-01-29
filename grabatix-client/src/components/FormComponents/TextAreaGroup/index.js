@@ -1,19 +1,20 @@
 import React from "react";
+import PropTypes from "prop-types"
 import "./index.css"
 
 const TextAreaGroup = ({
 	id,
 	specialStyle,
 	label,
-	required,
+	required = false,
 	maxLength,
 	minHeight = 150,
-	error,
+	error = "",
 	placeholder,
 	handleBlur = () => {},
 	handleInputChange,
 	value,
-	disabled,
+	disabled = false,
 }) => {
     const style = { minHeight }
 	return (
@@ -45,5 +46,20 @@ const TextAreaGroup = ({
 		</div>
 	);
 };
+
+TextAreaGroup.propTypes = {
+	id: PropTypes.string.isRequired,
+	specialStyle: PropTypes.string,
+	label: PropTypes.string.isRequired,
+	required: PropTypes.bool.isRequired,
+	error: PropTypes.string,
+	value: PropTypes.string.isRequired,
+	maxLength: PropTypes.number,
+	minHeight: PropTypes.number,
+	placeholder: PropTypes.string,
+	disabled: PropTypes.bool.isRequired,
+	handleInputChange: PropTypes.func.isRequired,
+	handleBlur: PropTypes.func,
+}
 
 export default TextAreaGroup;

@@ -1,23 +1,18 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useState, useContext } from "react"
 import { LiveAnnouncer } from "react-aria-live";
 import { AppContext } from "../providers/AppProvider"
-import { FaMoon, FaSun } from "react-icons/fa"
+import DarkSwitcher from "./DarkSwitcher"
+import Button from "./Button"
 import InputGroup from "./FormComponents/InputGroup"
 import CheckBoxGroup from "./FormComponents/CheckBoxGroup"
 import RadioGroup from "./FormComponents/RadioGroup"
 import TextAreaGroup from "./FormComponents/TextAreaGroup"
+import SubmitButton from "./FormComponents/SubmitButton"
 import './App.css';
-
-const supportsDarkMode = () =>
-    window && window.matchMedia("(prefers-color-scheme: dark)").matches === true
 
 const App = () => {
   const context = useContext(AppContext);
-  let initTheme = typeof window !== 'undefined' && window.__theme ? window.__theme : null;
-  if ( !initTheme ) {
-    initTheme = supportsDarkMode() ? "dark" : "light";
-  }
-  const [theme, setTheme] = useState(initTheme)
+  
   const [inputValue, setInputValue] = useState('');
   const [textareaValue, setTextareaValue] = useState('');
   const [checked, setChecked] = useState(false);
@@ -33,35 +28,16 @@ const App = () => {
       setInputValue(e.target.value)
     }
   }
-  const ONCE = []
-  useEffect(() => {
-    setTheme(window.__theme)
-    window.__onThemeChange = () => setTheme(window.__theme)
-  }, ONCE)
+  
   return (
     <LiveAnnouncer>
       <div className="App">
         <div className="site-content">
           <h1>GRABATIX</h1>
-          <button className="box dark" onClick={()=>{}}>Click Me</button>
+          <Button classNames="box dark" innerText="Click Me"/>
+          <Button classNames="box light" innerText="$5"/>
           <a href="#">Link</a>
-          <div
-            className="dark-switcher"
-            onClick={e => window && window.__setPreferredTheme(theme === "dark" ? "light" : "dark")}
-            aria-label={
-              theme === "dark"
-                ? "Click to Disable NightMode"
-                : "Click to Enable Night Mode"
-            }
-            title={
-              theme === "dark"
-              ? "Disable Night Mode"
-              : "Enable Night Mode"
-            }
-            tabIndex={0}
-          >
-            {theme === "dark" ? <FaSun /> : <FaMoon />}
-          </div>
+          <DarkSwitcher/>
           <div style={{display: 'flex', flexDirection: 'row'}}>
             <InputGroup
               id="input-test"
@@ -96,6 +72,7 @@ const App = () => {
             checked={radioId === `test-radio1`}
             handleInputChange={handleInputChange}
             label="Test Radio Button 1"
+            disabled={false}
           />
           <RadioGroup
             id={`test-radio2`}
@@ -103,13 +80,16 @@ const App = () => {
             checked={radioId === `test-radio2`}
             handleInputChange={handleInputChange}
             label="Test Radio Button 2"
+            disabled={false}
           />
           <CheckBoxGroup
             id={'checkbox-test'}
             checked={checked}
             handleInputChange={handleInputChange}
             label="Test Checkbox"
+            disabled={false}
           />
+          <SubmitButton handleClick={(e)=>{ e.preventDefault(); console.log("Submit Clicked");}}/>
         </div>
       </div>
     </LiveAnnouncer>

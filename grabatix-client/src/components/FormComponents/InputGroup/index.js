@@ -1,17 +1,18 @@
 import React from "react";
+import PropTypes from "prop-types"
 import './index.css'
 
 const InputGroup = ({
 	id,
 	specialStyle = "",
 	label,
-	required,
+	required = false,
 	error,
 	value,
 	type,
 	maxLength,
 	placeholder,
-	disabled,
+	disabled = false,
 	validation,
 	handleInputChange,
 	handleBlur = () => {},
@@ -48,5 +49,22 @@ const InputGroup = ({
 		</div>
 	);
 };
+
+InputGroup.propTypes = {
+	id: PropTypes.string.isRequired,
+	specialStyle: PropTypes.string,
+	label: PropTypes.string.isRequired,
+	required: PropTypes.bool.isRequired,
+	error: PropTypes.string,
+	value: PropTypes.string.isRequired,
+	type: PropTypes.string.isRequired,
+	maxLength: PropTypes.number,
+	placeholder: PropTypes.string,
+	disabled: PropTypes.bool.isRequired,
+	validation: PropTypes.string,
+	handleInputChange: PropTypes.func.isRequired,
+	handleBlur: PropTypes.func,
+	inputMode: PropTypes.string,
+}
 
 export default InputGroup;
