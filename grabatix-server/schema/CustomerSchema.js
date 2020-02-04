@@ -1,16 +1,27 @@
 const mongoose,  { Schema } = require('mongoose');
-const CloudinaryImageSchema = require("./CloudinaryImage")
+
+const CloudinaryImageSchema = require("./CloudinaryImageSchema");
+const AddressSchema = require("./AddressSchema")
+const TransactionSchema = require('./TransactionSchema')
 
 mongoose.Promise = Promise;
 
-const EmployeeSchema = new Schema({
+const CustomerSchema = new Schema({
+    "DisplayName": String,
+    "Title": String, 
     "GivenName": String,
     "FamilyName": String,
+    "Suffix": String,
     "PrimaryEmailAddr": {
         "Address": String
     },
+    "PrimaryPhone": {
+        "FreeFormNumber": String
+    }, 
     "Id": String,
-    "V4IDPseudonym": String,
+    "BillAddr": {
+        type: AddressSchema
+    },
     "SyncToken": String,
     "username": {
         type: String,
@@ -29,7 +40,10 @@ const EmployeeSchema = new Schema({
     },
     "ProfileImage": {
         type: CloudinaryImageSchema
+    },
+    "Transactions": {
+        type: TransactionSchema
     }
 })
 
-module.exports = EmployeeSchema;
+module.exports = CustomerSchema;
