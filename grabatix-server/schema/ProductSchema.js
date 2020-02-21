@@ -15,6 +15,12 @@ const ProductSchema = new Schema({
         "value": String
     },
     "UnitPrice": Number,
+    "PricePoints":[{
+        "id": Number,
+        "price": Number,
+        "minQuantity": Number,
+        "maxQuantity": Number
+    }],
     "Category": {
         type: ProductCategorySchema
     },

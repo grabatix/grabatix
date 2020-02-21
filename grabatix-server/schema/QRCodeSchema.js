@@ -2,7 +2,7 @@ const mongoose,  { Schema } = require('mongoose');
 
 mongoose.Promise = Promise;
 
-const TransactionSchema = new Schema({
+const QRCodeSchema = new Schema({
 });
 
-module.exports = TransactionSchema;
+module.exports = QRCodeSchema;
