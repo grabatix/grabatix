@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Header from '../components/Header'
-import ProfileBadge from "../components/ProfileBadge"
-import ProfileMenu from "../components/ProfileMenu"
+import ProfileBlock from "../components/ProfileBlock"
 
 const Attendant = ({children, isLoggedIn, ...props}) => (
     <>
         <Header>
-            <ProfileBadge isLoggedIn={isLoggedIn}/>
-            <ProfileMenu isLoggedIn={isLoggedIn} />
+            <ProfileBlock isLoggedIn={isLoggedIn}/>
         </Header>
         <main>
             {children}

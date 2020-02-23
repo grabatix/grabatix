@@ -1,0 +1,12 @@
+.login-link {
+    color: inherit;
+    font-size:20px;
+    margin: 4px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+    border-color: 0;
+    border: none;
+    background: transparent;
+}

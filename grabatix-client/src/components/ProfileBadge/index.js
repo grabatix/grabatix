@@ -4,8 +4,8 @@ import { MdAccountCircle } from "react-icons/md"
 
 import "./index.css"
 
-const ProfileBadge = ({isLoggedIn, ...props}) => (
-    <button className={`profile-container ${isLoggedIn ? "loggedin" : "loggedout"}`} onClick={()=>{}}>
+const ProfileBadge = ({isLoggedIn, handleClick, ...props}) => (
+    <button className={`profile-container ${isLoggedIn ? "loggedin" : "loggedout"}`} onClick={handleClick}>
         {
             isLoggedIn && <MdAccountCircle/>
         }
@@ -13,7 +13,8 @@ const ProfileBadge = ({isLoggedIn, ...props}) => (
 )
 
 ProfileBadge.propTypes = {
-    isLoggedIn: PropTypes.bool.isRequired
+    isLoggedIn: PropTypes.bool.isRequired,
+    handleClick: PropTypes.func.isRequired
 }
 
 export default ProfileBadge

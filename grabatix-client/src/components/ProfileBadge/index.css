@@ -10,6 +10,7 @@
     -webkit-appearance: none;
     appearance: none;
     padding: 0;
+    z-index: 16;
 }
 
 .profile-container.loggedin {
