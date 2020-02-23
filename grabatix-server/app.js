@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path")
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -128,14 +129,16 @@ const expressApp = workerId => {
   });
   app.use("*", apiLimiter);
 
-  app.get("/", (req, res, next) => {
-    res.send(`Hello World! You have entered grabatix universe ${workerId}.`);
-  });
-
   // debug("Configuring MongoDB Connection and Controllers")
   // connect to DB and make connection available to Data Models
 
   // Listen on port 3000 or assigned port
+
+  app.use(express.static(path.join(__dirname, "../grabatix-client", "build")))
+
+  app.get("/", (req, res, next) => {
+    res.sendFile(path.join(__dirname, "../grabatix-client", 'build', 'index.html'));
+  });
 
   return app;
 };

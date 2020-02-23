@@ -4,7 +4,11 @@
   "description": "An SAAS application for selling QR Code Tickets online and processing POS via scanning devices.",
   "main": "grabatix-server/cluster.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "node start-client.js",
+    "server": "node ./grabatix-server/cluster",
+    "start": "node ./grabatix-server/cluster",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -58,5 +62,8 @@
     "underscore": "^1.9.2",
     "uuid": "^3.4.0",
     "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0"
   }
 }

@@ -4,7 +4,7 @@ import { FaMoon, FaSun } from "react-icons/fa"
 import "./index.css"
 
 const DarkSwitcher = () => {
-    let initTheme = typeof window !== 'undefined' && window.__theme ? window.__theme : null;
+    let initTheme = typeof window !== 'undefined' && window.__theme ? window.__theme : "light";
     const [theme, setTheme] = useState(initTheme)
     const ONCE = []
     useEffect(() => {
@@ -12,7 +12,7 @@ const DarkSwitcher = () => {
         window.__onThemeChange = () => setTheme(window.__theme)
     }, ONCE)
     return (
-        <div
+        <button
             className="dark-switcher"
             onClick={e => window && window.__setPreferredTheme(theme === "dark" ? "light" : "dark")}
             aria-label={
@@ -28,7 +28,7 @@ const DarkSwitcher = () => {
             tabIndex={0}
           >
             {theme === "dark" ? <FaSun /> : <FaMoon />}
-        </div>
+        </button>
     )
 }
 

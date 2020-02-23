@@ -1,0 +1,13 @@
+.profile-menu-container {
+    position: absolute;
+    z-index: 15;
+    background: var(--bgSecondary);
+    color: var(--bgDark);
+    transition: color 250ms ease-in-out, background-color 250ms ease-in-out, border-color 250ms ease-in-out;
+    width: 200px;
+    cursor: pointer;
+    top: 80px;
+    left: 0;
+    padding: 10px;
+    border: 2px solid var(--darkGrey);
+}

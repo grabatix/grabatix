@@ -1,7 +1,14 @@
-div.dark-switcher {
+button.dark-switcher {
     width:20px;
     height:20px;
     font-size:20px;
     margin: 4px;
     cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+    border-color: 0;
+    border: none;
+    color: var(--btnColor);
+    background: transparent;
 }

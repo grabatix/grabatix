@@ -1,0 +1,24 @@
+header {
+    box-sizing: border-box;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--bgDark);
+    color: var(--white);
+    transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+    padding: 0 15px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
+nav {
+
+}
+
+.nav-link {
+
+}
