@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import ProfileBadge from "../ProfileBadge"
 import ProfileMenu from "../ProfileMenu"
-import Login from "../Login"
+import LoginButton from "../LoginButton"
+import LoginModal from '../LoginModal'
 
 import "./index.css"
 
@@ -16,12 +17,12 @@ const ProfileBlock = ({isLoggedIn}) => {
         <div className="profile-block-container">
             <ProfileBadge isLoggedIn={isLoggedIn} handleClick={handleMenuOpenState}/>
             <ProfileMenu isLoggedIn={isLoggedIn} isOpen={isOpen} handleClick={handleMenuOpenState}>
-                <Login isLoggedIn={isLoggedIn} />
+                <LoginButton isLoggedIn={isLoggedIn} />
+                <LoginModal isLoggedIn={isLoggedIn} type="login"/>
             </ProfileMenu>
         </div>
     )
 }
-
 
 ProfileBlock.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired

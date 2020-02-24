@@ -1,0 +1,10 @@
+div.form-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+div.form-row.wrapped {
+    flex-wrap: wrap;
+}

@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from 'prop-types'
 import './index.css'
 
-const SubmitButton = ({handleClick, disabled = false, value = "Submit", hasErrors = false, error = ""}) => (
+const SubmitButton = ({classNames = "", handleClick, disabled = false, value = "Submit", hasErrors = false, error = ""}) => (
     <div className="submit-button-group">
         <input
             type="submit"
-            className="submit-btn"
+            className={"submit-btn " + classNames}
             id="submit"
             onClick={handleClick}
             disabled={disabled}
@@ -27,7 +27,8 @@ SubmitButton.propTypes = {
     disabled: PropTypes.bool,
     hasErrors: PropTypes.bool,
     error: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
+    classNames: PropTypes.string
 }
 
 export default SubmitButton

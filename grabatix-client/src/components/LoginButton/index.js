@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import "./index.css"
 
-const Login = ({isLoggedIn}) => (
+const LoginButton = ({isLoggedIn}) => (
     <button className="login-link">
         {
             isLoggedIn ? "Logout" : "Login"
@@ -11,8 +11,8 @@ const Login = ({isLoggedIn}) => (
     </button>
 )
 
-Login.propTypes = {
+LoginButton.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired
 }
 
-export default Login;
+export default LoginButton;

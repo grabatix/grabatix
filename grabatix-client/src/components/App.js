@@ -91,7 +91,7 @@ const App = () => {
               label="Test Checkbox"
               disabled={false}
             />
-            <SubmitButton handleClick={(e)=>{ e.preventDefault(); console.log("Submit Clicked");}}/>
+            <SubmitButton classNames="large" handleClick={(e)=>{ e.preventDefault(); console.log("Submit Clicked");}}/>
           </AttendantLayout>
         </div>
       </div>
