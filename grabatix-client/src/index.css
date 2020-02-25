@@ -156,6 +156,10 @@ a:hover {
   color: var(--hoverAccent);
 }
 
+form {
+  width: 100%;
+}
+
 label {
   box-sizing: border-box;
   color: var(--labelColor);

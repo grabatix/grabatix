@@ -10,10 +10,12 @@ import RadioGroup from "./FormComponents/RadioGroup"
 import TextAreaGroup from "./FormComponents/TextAreaGroup"
 import SubmitButton from "./FormComponents/SubmitButton"
 import './App.css';
+import LoginModal from "./LoginModal";
 
 const App = () => {
   const context = useContext(AppContext);
   const [isLoggedIn, setLogin] = useState(false);
+  const [isOpen, setOpenStatus] = useState(true);
   const [inputValue, setInputValue] = useState('');
   const [textareaValue, setTextareaValue] = useState('');
   const [checked, setChecked] = useState(false);
@@ -29,14 +31,20 @@ const App = () => {
       setInputValue(e.target.value)
     }
   }
+
+  const handleOpenStatus = e => {
+    e.preventDefault();
+    setOpenStatus(!isOpen)
+  }
   
   return (
     <LiveAnnouncer>
       <div className="App">
         <div className="site-content">
-          <AttendantLayout isLoggedIn={isLoggedIn}>
+          <AttendantLayout isLoggedIn={isLoggedIn} setLoginStatus={setLogin}>
+            <LoginModal type="login" isLoggedIn={isLoggedIn} isOpen={isOpen} setOpen={handleOpenStatus}/>
             <h1>GRABATIX</h1>
-            <Button classNames="box dark" innerText="Click Me" handleClick={(e)=>setLogin(!isLoggedIn)}/>
+            <Button classNames="box dark" innerText="Click Me" handleClick={handleOpenStatus}/>
             <Button classNames="box light" innerText="$5" handleClick={()=>{}}/>
             <a href="#">Link</a>
             <DarkSwitcher/>

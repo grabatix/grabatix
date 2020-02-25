@@ -1,4 +1,4 @@
-.login-link {
+.menu-link {
     color: inherit;
     font-size:20px;
     margin: 4px;
@@ -9,4 +9,5 @@
     border-color: 0;
     border: none;
     background: transparent;
+    display: block;
 }
