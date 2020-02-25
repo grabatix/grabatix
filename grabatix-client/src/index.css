@@ -179,3 +179,20 @@ label span {
   top: -1px;
   color: var(--labelColor);
 }
+
+/**** GRABATIX LOGO SVG STYLES ****/
+.logo-1 {
+  font-size : 60px;
+  fill: #231f20;
+  font-family: HandelGotD-Bol, Handel Gothic D;
+}
+.logo-2 {
+  letter-spacing:-0.013em;
+}
+.logo-3 {
+  letter-spacing: -0.011em;
+}
+.logo-4 {
+  letter-spacing:-0.005em;
+}
+/*********************************/

@@ -66,7 +66,7 @@ const expressApp = workerId => {
   app.use(morgan("dev"));
 
   // Specify the port.
-  const port = process.env.PORT || 8080;
+  const port = process.env.PORT || 4000;
 
   debug("Configuring Subdomain Middleware")
   // ADD Subdomain, if any, to the request object
@@ -139,6 +139,12 @@ const expressApp = workerId => {
   app.get("/", (req, res, next) => {
     res.sendFile(path.join(__dirname, "../grabatix-client", 'build', 'index.html'));
   });
+
+  // set up last to handle 404 errors
+  app.use("*", (req, res, next) => {
+    res.statusCode = 404;
+    res.json({error: "Not Found"})
+  })
 
   return app;
 };

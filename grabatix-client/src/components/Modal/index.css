@@ -29,8 +29,10 @@
     position: relative;
 }
 
-.modal-container > .close-button {
+.modal-container > .close-btn {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 20px;
+    cursor: pointer;
+    color: var(--darkGrey);
 }

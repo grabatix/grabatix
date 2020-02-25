@@ -10,7 +10,6 @@ const CloseBtn = ({handleClick}) => (
 		height="20px"
 		width="20px"
 		xmlns="http://www.w3.org/2000/svg"
-        style={{ position: "absolute", top: 15, right: 15, cursor: "pointer" }}
 		onClick={handleClick}
 		className="close-btn"
 	>

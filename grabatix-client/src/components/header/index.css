@@ -2,7 +2,8 @@ header {
     box-sizing: border-box;
     height: 80px;
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
+    justify-content: space-between;
     align-items: center;
     background-color: var(--bgDark);
     color: var(--white);
