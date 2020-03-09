@@ -11,3 +11,8 @@
     background: transparent;
     display: block;
 }
+
+.menu-link:disabled {
+    color: var(--darkGrey);
+    cursor: not-allowed;
+}

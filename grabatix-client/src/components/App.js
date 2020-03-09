@@ -36,12 +36,14 @@ const App = () => {
     e.preventDefault();
     setOpenStatus(!isOpen)
   }
-  
+
+  const setAccountOpen = async () => true
+  const setReportsOpen = async () => true
   return (
     <LiveAnnouncer>
       <div className="App">
         <div className="site-content">
-          <AttendantLayout isLoggedIn={isLoggedIn} setLoginStatus={setLogin}>
+          <AttendantLayout isLoggedIn={isLoggedIn} setLoginStatus={setLogin} setAccountOpen={setAccountOpen}>
             <LoginModal type="login" isLoggedIn={isLoggedIn} isOpen={isOpen} setOpen={handleOpenStatus}/>
             <h1>GRABATIX</h1>
             <Button classNames="box dark" innerText="Click Me" handleClick={handleOpenStatus}/>

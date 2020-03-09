@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import "./index.css"
 
-const MenuButton = ({value, handleClick, role, disabled, hidden}) => (
+const MenuButton = ({value, handleClick, role, disabled, hidden}) => value && (
     <button 
         className="menu-link" 
         onClick={handleClick} 
