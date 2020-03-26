@@ -7,15 +7,19 @@ import SubMenuButton from '../SubMenuButton'
 
 import "./index.css"
 
-const ProfileBlock = ({isLoggedIn, setLoginStatus, setAccountOpen, setReportsOpen = async () => (''), includeReports = false}) => {
+const ProfileBlock = ({isLoggedIn, setLoginStatus, handleModalOpen, setAccountOpen, setReportsOpen = async () => (''), includeReports = false}) => {
     const [isOpen, setOpenMenu] = useState(false)
     const handleMenuOpenState = e => {
         e && e.preventDefault();
         setOpenMenu(!isOpen);
     }
-    const handleLoginStatus = e => {
+    const handleLoginClick = type => {
+        handleModalOpen(type);
+        setOpenMenu(false)
+    }
+    const handleLogout = e => {
         e && e.preventDefault();
-        setLoginStatus(!isLoggedIn);
+        setLoginStatus(false);
     }
     const openAccount = async (e) => {
         e.preventDefault();
@@ -41,8 +45,14 @@ const ProfileBlock = ({isLoggedIn, setLoginStatus, setAccountOpen, setReportsOpe
             <ProfileMenu isLoggedIn={isLoggedIn} isOpen={isOpen} handleClick={handleMenuOpenState}>
                 <MenuButton value={"Account"} handleClick={openAccount} disabled={!isLoggedIn} hidden={false} />
                 <SubMenuButton value={includeReports ? "Reports" : ""} handleClick={openReports} disabled={!isLoggedIn} hidden={!includeReports} />
-                <MenuButton value={isLoggedIn ? "Log-Out" : "Log-In"} handleClick={handleLoginStatus} disabled={false} hidden={false}/>
-                <MenuButton value={isLoggedIn ? "" : "Sign-Up"} handleClick={handleLoginStatus} disabled={isLoggedIn} hidden={isLoggedIn}/>
+                {
+                    isLoggedIn ? (
+                        <MenuButton value={"Log-Out"} handleClick={handleLogout} disabled={false} hidden={false}/>
+                    ) : (
+                        <MenuButton value={"Log-In"} handleClick={(e)=>handleLoginClick("login")} disabled={false} hidden={false}/>
+                    )
+                }
+                <MenuButton value={isLoggedIn ? "" : "Sign-Up"} handleClick={(e)=>handleLoginClick("signup")} disabled={isLoggedIn} hidden={isLoggedIn}/>
             </ProfileMenu>
         </div>
     )
@@ -50,6 +60,7 @@ const ProfileBlock = ({isLoggedIn, setLoginStatus, setAccountOpen, setReportsOpe
 
 ProfileBlock.propTypes = {
     isLoggedIn: PropTypes.bool.isRequired,
+    handleModalOpen: PropTypes.func.isRequired,
     setLoginStatus: PropTypes.func.isRequired,
     setAccountOpen: PropTypes.func.isRequired,
     setReportsOpen: PropTypes.func,

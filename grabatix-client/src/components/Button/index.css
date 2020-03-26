@@ -18,6 +18,12 @@ button.btn.secondary, button.btn.disabled {
     color: var(--lightGrey);
 }
 
+button.btn.xs {
+    height: 40px;
+    font-size: 18px !important;
+    line-height: 1.25;
+}
+
 button.btn.small {
     height: 80px !important;
     font-size: 20px !important;
