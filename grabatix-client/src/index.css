@@ -41,6 +41,7 @@ div.site-content {
   height: auto;
   background-color: var(--bg);
   color: var(--color);
+  padding: 0 5px;
 }
 
 div.site-content.secondary {
@@ -420,6 +421,10 @@ label span {
 
 .pl-3 {
   padding-left: 3rem;
+}
+
+.center-text {
+  text-align: center;
 }
 
 /*********************************/

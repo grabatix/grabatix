@@ -34,9 +34,9 @@ const AdminLayout = ({children, isLoggedIn, setLoginStatus, setAccountOpen, setR
                     <>
                     <LoginModal type={modalType} isLoggedIn={isLoggedIn} isOpen={isOpen} setOpen={handleModalOpenStatus}/>
                     <FlexContainer flexClasses="column justify-center align-center align-content-center">
-                        <h1>Are you an existing customer?</h1>
+                        <h1 className="center-text">Are you an existing customer?</h1>
                         <p><Button classNames="primary xs" role="button" handleClick={(e) => handleModalOpen("login")} innerText="Log-In Here"/></p>
-                        <h2>Need to create an account?</h2>
+                        <h2 className="center-text">Need to create an account?</h2>
                         <p><Button classNames="primary xs" role="button" handleClick={(e) => handleModalOpen("signup")} innerText="Sign-Up Now!"/></p>
                     </FlexContainer>
                     </>

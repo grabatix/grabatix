@@ -86,10 +86,13 @@ const expressApp = workerId => {
   //body parser for routes our app
   app.use(bodyParser.json());
   // parsing application/json
-  const extendedUrlParser = bodyParser.urlencoded({
-    extended: true
-  });
-  const unextendedUrlParser = bodyParser.urlencoded({ extended: false });
+  const urlParsers = {
+    extendedUrlParser : bodyParser.urlencoded({
+      extended: true
+    }),
+    unextendedUrlParser: bodyParser.urlencoded({ extended: false })
+  };
+
   app.use(bodyParser.text());
   app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
@@ -139,6 +142,15 @@ const expressApp = workerId => {
   app.get("/", (req, res, next) => {
     res.sendFile(path.join(__dirname, "../grabatix-client", 'build', 'index.html'));
   });
+
+  const apiVersions = {
+    ccAuth: "v1",
+    customer: "v1",
+    company: "v1"
+  };
+
+  require("./routes/company-routes")({app, urlParsers, version: apiVersions['company']})
+  require("./routes/customer-routes")({app, urlParsers, version: apiVersions['customer']})
 
   // set up last to handle 404 errors
   app.use("*", (req, res, next) => {
