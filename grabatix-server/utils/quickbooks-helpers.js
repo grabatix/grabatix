@@ -25,7 +25,7 @@ const createQuickBooksOptionsObject = (method = "POST", body, oauth2_token_json)
     };
 };
 
-const paymentAPIEndpoints = {
+const qbAPIEndpoints = {
     tokens: "/quickbooks/v4/payments/tokens",
     charges: "/quickbooks/v4/payments/charges",
     echecks: "/quickbooks/v4/payments/echecks"

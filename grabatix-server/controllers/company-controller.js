@@ -2,26 +2,27 @@ const OAuthClient = require("intuit-oauth");
 const Company = require("../models/Company");
 const { dataUri }= require('../utils/multer-uploads')
 const { uploader } = require('../utils/cloudinary-config.js')
-const { createQuickBooksOptionsObject, paymentAPIEndpoints, paymentsUri, oAuthClient } = require("../utils/quickbooks-helpers")
+const { createQuickBooksOptionsObject, qbAPIEndpoints, paymentsUri, oAuthClient } = require("../utils/quickbooks-helpers")
 const callApi = require("../utils/fetch")
 
 // GET details of existing company.
 exports.company_detail_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: companydetail: ' + req.params.id + ' GET');
+    res.send('NOT IMPLEMENTED: companydetail: ' + req.params.companyid + ' GET');
 };
 
 // Create New Company.
 exports.company_detail_post = function(req, res) {
-    res.send('NOT IMPLEMENTED: companydetail: ' + req.params.id + ' POST');
+    res.send('NOT IMPLEMENTED: companydetail: POST');
 };
 
 // update fields of existing company
 exports.company_detail_patch = function(req, res) {
-    res.send('NOT IMPLEMENTED: companydetail: ' + req.params.id + ' PATCH');
+    res.send('NOT IMPLEMENTED: companydetail: ' + req.params.companyid + ' PATCH');
 };
 
 // Upload companycreate form on POST.
 exports.company_createupload_post =  async (req, res) => {
+    const { companyid } = req.params;
     if (req.file) {
         const file = dataUri(req).content;
         try {
@@ -53,21 +54,22 @@ exports.company_processpayment_post = function(req, res) {
 
 // Handle companyoauth on GET.
 exports.company_auth_get = function(req, res) {
+    const { companyid } = req.params;
     const authUri = oAuthClient.authorizeUri({
         scope: [OAuthClient.scopes.Accounting, OAuthClient.scopes.Payment, OAuthClient.scopes.Profile, OAuthClient.scopes.OpenId],
-        state: req.params.id
+        state: companyid
     });
-    console.log("");
-    console.log("**********************************************");
-    console.log({ authUri });
-    console.log("**********************************************");
-    console.log("");
+
     res.redirect(authUri);
 };
 
 // Handle companyauthcallback on GET.
 exports.company_authcallback_get = async (req, res, next) => {
     const id = req.query.state;
+
+    // TODO: validate id 
+    
+    // then....
     try {
         const authResponse = await oAuthClient.createToken(req.url)
         const oauth2_token_json = authResponse.getJson();
@@ -105,15 +107,13 @@ exports.company_authcallback_get = async (req, res, next) => {
 
 // Handle companyrefreshtoken on POST.
 exports.company_refreshtoken_get = async (req, res) => {
+    const { companyid } = req.params;
     try {
         const authResponse = await oAuthClient.refresh()
         const oauth2_token_json = authResponse.getJson();
+
         // TODO: Store Token in DB
-        console.log("");
-        console.log("**********************************************");
-        console.log({ oauth2_token_json });
-        console.log("**********************************************");
-        console.log("");
+
         res.json(oauth2_token_json);
     } catch (e) {
       console.error(e);
@@ -121,3 +121,39 @@ exports.company_refreshtoken_get = async (req, res) => {
       res.json({ err });
     };
 };
+
+exports.company_listitems_get = (req, res) => {
+    res.send('NOT IMPLEMENTED: listitems: ' + req.params.companyid + ' GET');
+}
+
+exports.company_createitem_post = (req, res) => {
+    res.send('NOT IMPLEMENTED: createitem: ' + req.params.companyid + ' POST');
+}
+
+exports.company_updateitem_put = (req, res) => {
+    res.send('NOT IMPLEMENTED: updateitem: ' + req.params.companyid + ' PUT ' + req.params.itemid);
+}
+
+exports.company_listcategories_get = (req, res) => {
+    res.send('NOT IMPLEMENTED: listcategories: ' + req.params.companyid + ' GET');
+}
+
+exports.company_createcategory_post = (req, res) => {
+    res.send('NOT IMPLEMENTED: createcategory: ' + req.params.companyid + ' POST');
+}
+
+exports.company_updatecategory_put = (req, res) => {
+    res.send('NOT IMPLEMENTED: updatecategory: ' + req.params.companyid + ' PUT ' + req.params.categoryid);
+}
+
+exports.company_listemployees_get = (req, res) => {
+    res.send('NOT IMPLEMENTED: listemployees: ' + req.params.companyid + ' GET');
+}
+
+exports.company_createemployee_post = (req, res) => {
+    res.send('NOT IMPLEMENTED: createemployee: ' + req.params.companyid + ' POST');
+}
+
+exports.company_updateemployee_put = (req, res) => {
+    res.send('NOT IMPLEMENTED: updateemployee: ' + req.params.companyid + ' PUT ' + req.params.employeeid);
+}
