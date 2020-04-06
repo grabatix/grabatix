@@ -2,8 +2,9 @@ const OAuthClient = require("intuit-oauth");
 const Company = require("../models/Company");
 const { dataUri }= require('../utils/multer-uploads')
 const { uploader } = require('../utils/cloudinary-config.js')
-const { createQuickBooksOptionsObject, qbAPIEndpoints, paymentsUri, oAuthClient } = require("../utils/quickbooks-helpers")
+const { createQuickBooksOptionsObject, qbAPIEndpoints, paymentsUri, oAuthClient, MINOR_VERSION } = require("../utils/quickbooks-helpers")
 const callApi = require("../utils/fetch")
+let realmId;
 
 // GET details of existing company.
 exports.company_detail_get = function(req, res) {
@@ -77,7 +78,7 @@ exports.company_authcallback_get = async (req, res, next) => {
         // TODO: Store Token in DB
 
         // GET COMPANY INFO
-        const companyID = oAuthClient.getToken().realmId;
+        realmId = oAuthClient.getToken().realmId;
         const url =
             oAuthClient.environment == "sandbox"
                 ? OAuthClient.environment.sandbox
@@ -85,7 +86,7 @@ exports.company_authcallback_get = async (req, res, next) => {
 
         try {
             const data = await oAuthClient.makeApiCall({
-              url: url + "v3/company/" + companyID + "/companyinfo/" + companyID
+              url: url + "v3/company/" + realmId + "/companyinfo/" + realmId
             })
             const companyData = data.getJson();
 
@@ -122,8 +123,29 @@ exports.company_refreshtoken_get = async (req, res) => {
     };
 };
 
-exports.company_listitems_get = (req, res) => {
-    res.send('NOT IMPLEMENTED: listitems: ' + req.params.companyid + ' GET');
+exports.company_listitems_get = async (req, res) => {
+    const { companyid } = req.params;
+    const url =
+        oAuthClient.environment == "sandbox"
+            ? OAuthClient.environment.sandbox
+            : OAuthClient.environment.production;
+
+    try {
+        const query = "Select * from Item";
+        const data = await oAuthClient.makeApiCall({
+            url: url + "v3/company/" + realmId + "/query?query=" + query + "&minorversion=" + MINOR_VERSION
+        })
+        const itemData = data.getJson();
+
+        // TODO: Store Data in DB 
+        // TODO: Send data back to page via redirect or some other method
+
+        res.json({itemData})
+    } catch (e) {
+        console.error(e);
+        res.statusCode = 400;
+        res.json({ err });
+    }
 }
 
 exports.company_createitem_post = (req, res) => {

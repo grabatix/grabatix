@@ -1,5 +1,7 @@
 const OAuthClient = require("intuit-oauth");
 
+const MINOR_VERSION = '47';
+
 const oAuthConfig = {
     clientId: process.env.QB_CLIENT_ID,
     clientSecret: process.env.QB_CLIENT_SECRET,
@@ -37,5 +39,5 @@ const paymentsUri =
           : "https://api.intuit.com";
 
 module.exports = {
-    createQuickBooksOptionsObject, paymentAPIEndpoints, paymentsUri, oAuthClient
+    createQuickBooksOptionsObject, qbAPIEndpoints, paymentsUri, oAuthClient, MINOR_VERSION
 }
