@@ -1,5 +1,5 @@
-const mongoose,  { Schema } = require('mongoose');
-
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 mongoose.Promise = Promise;
 
 const IntuitTokenSchema = new Schema({

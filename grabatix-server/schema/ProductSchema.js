@@ -1,4 +1,5 @@
-const mongoose,  { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 const ProductCategorySchema = require("./ProductCategorySchema")
 const CloudinaryImageSchema = require("./CloudinaryImageSchema")
 
