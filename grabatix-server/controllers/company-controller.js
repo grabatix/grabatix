@@ -55,7 +55,7 @@ exports.company_processpayment_post = function(req, res) {
 exports.company_auth_get = function(req, res) {
     const authUri = oAuthClient.authorizeUri({
         scope: [OAuthClient.scopes.Accounting, OAuthClient.scopes.Payment, OAuthClient.scopes.Profile, OAuthClient.scopes.OpenId],
-        state: "intuit-test"
+        state: req.params.id
     });
     console.log("");
     console.log("**********************************************");
@@ -67,18 +67,12 @@ exports.company_auth_get = function(req, res) {
 
 // Handle companyauthcallback on GET.
 exports.company_authcallback_get = async (req, res, next) => {
+    const id = req.query.state;
     try {
         const authResponse = await oAuthClient.createToken(req.url)
-        console.log(authResponse)
         const oauth2_token_json = authResponse.getJson();
 
         // TODO: Store Token in DB
-        
-        console.log("");
-        console.log("**********************************************");
-        console.log({ oauth2_token_json });
-        console.log("**********************************************");
-        console.log(""); 
 
         // GET COMPANY INFO
         const companyID = oAuthClient.getToken().realmId;
@@ -91,14 +85,12 @@ exports.company_authcallback_get = async (req, res, next) => {
             const data = await oAuthClient.makeApiCall({
               url: url + "v3/company/" + companyID + "/companyinfo/" + companyID
             })
-            const companyData = data.text();
-            console.log(
-                "Company Data:" + JSON.stringify(companyData)
-            );
+            const companyData = data.getJson();
 
-            // TODO: Store Data in DB
+            // TODO: Store Data in DB 
+            // TODO: Send data back to page via redirect or some other method
 
-            res.json({oauth2_token_json, companyData})
+            res.json({id, oauth2_token_json, companyData})
         } catch (e) {
             console.error(e);
             res.statusCode = 400;
