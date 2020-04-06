@@ -29,19 +29,22 @@ module.exports = async ({app, urlParsers: { unextendedUrlParser, extendedUrlPars
     router.get("/:companyid/auth/refresh", asyncMiddleware, company_controller.company_refreshtoken_get);
 
     // Quickbooks Items
-    router.get("/:companyid/item", company_controller.company_listitems_get);
+    router.get("/:companyid/items", company_controller.company_listitems_get);
+    router.get("/:companyid/item/:itemid", company_controller.company_itemdetail_get);
     router.post("/:companyid/item/create", extendedUrlParser, company_controller.company_createitem_post);
-    router.put("/:companyid/item/:itemid", extendedUrlParser, company_controller.company_updateitem_put);
+    router.put("/:companyid/item/update/:itemid", extendedUrlParser, company_controller.company_updateitem_put);
 
     // Quickbooks Categories
-    router.get("/:companyid/category", company_controller.company_listcategories_get);
+    router.get("/:companyid/categories", company_controller.company_listcategories_get);
+    router.get("/:companyid/category/:categoryid", company_controller.company_categorydetail_get);
     router.post("/:companyid/category/create", extendedUrlParser, company_controller.company_createcategory_post);
-    router.put("/:companyid/category/:categoryid", extendedUrlParser, company_controller.company_updatecategory_put);
+    router.put("/:companyid/category/update/:categoryid", extendedUrlParser, company_controller.company_updatecategory_put);
 
     // Company Employees via Quickbooks
-    router.get("/:companyid/employee", company_controller.company_listemployees_get);
+    router.get("/:companyid/employees", company_controller.company_listemployees_get);
+    router.get("/:companyid/employee/:employeeid", company_controller.company_employeedetail_get);
     router.post("/:companyid/employee/create", extendedUrlParser, company_controller.company_createemployee_post);
-    router.put("/:companyid/employee/:employeeid", extendedUrlParser, company_controller.company_updateemployee_put);
+    router.put("/:companyid/employee/update/:employeeid", extendedUrlParser, company_controller.company_updateemployee_put);
 
     // Quickbooks Process Payment
     router.post("/:companyid/payment", extendedUrlParser, asyncMiddleware, company_controller.company_processpayment_post);
