@@ -32,11 +32,12 @@ class QBOAuth {
     this.realmId = realmId;
   }
 
-  getCompanyInfo = async () => {
+  getCompanyInfo = async (id = undefined) => {
     const {oAuthClient, quickbooksBaseUri, realmId, minorVersion} = this;
+    const companyId = id ? id : realmId;
     try {
       const response = await oAuthClient.makeApiCall({
-        url: quickbooksBaseUri + "v3/company/" + realmId + "/companyinfo/" + realmId + "?minorversion=" + minorVersion
+        url: quickbooksBaseUri + "v3/company/" + companyId + "/companyinfo/" + companyId + "?minorversion=" + minorVersion
       })
       const companyData = response.getJson();
       return companyData
@@ -78,6 +79,19 @@ class QBOAuth {
     try {
       const response = await oAuthClient.makeApiCall({
         url: quickbooksBaseUri + "v3/company/" + realmId + "/item/" + itemId + "?minorversion=" + minorVersion
+      })
+      const itemDetail = response.getJson();
+      return itemDetail
+    } catch (e) {
+      return Promise.reject(e)
+    }
+  }
+
+  getEmployeeDetail = async (employeeId) => {
+    const {oAuthClient, quickbooksBaseUri, realmId, minorVersion} = this;
+    try {
+      const response = await oAuthClient.makeApiCall({
+        url: quickbooksBaseUri + "v3/company/" + realmId + "/employee/" + employeeId + "?minorversion=" + minorVersion
       })
       const itemDetail = response.getJson();
       return itemDetail

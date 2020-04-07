@@ -16,7 +16,7 @@ const company_controller = require("../controllers/company-controller")
  */
 module.exports = async ({app, urlParsers: { unextendedUrlParser, extendedUrlParser }, version = "v1"}) => {
     // GET, POST, PATCH company details
-    router.get("/:companyid/list", company_controller.company_detail_get);
+    router.get("/:companyid/info", company_controller.company_detail_get);
     router.post("/create", extendedUrlParser, company_controller.company_detail_post);
     router.patch("/:companyid/update", extendedUrlParser, company_controller.company_detail_patch);
 

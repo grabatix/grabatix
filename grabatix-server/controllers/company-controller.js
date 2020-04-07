@@ -8,8 +8,23 @@ const callApi = require("../utils/fetch")
 // TODO: ADD TIMEOUT TO REQUESTS TO EITHER QBO or MongoDB
 
 // GET details of existing company.
-exports.company_detail_get = function(req, res) {
-    res.send('NOT IMPLEMENTED: companydetail: ' + req.params.companyid + ' GET');
+exports.company_detail_get = async (req, res) => {
+    const {companyid} = req.params;
+    if (companyid) {
+        try {
+            const companyInfo = await qboAuth.getCompanyInfo(companyid)
+            res.json({companyInfo})
+        } catch (error) {
+            console.error(error);
+            res.statusCode = 400;
+            const message = error && error.error_description ? error.error_description : "Bad Request"
+            res.json({error: { message, statusCode: 400 } });
+        }
+    } else {
+        console.error(`CompanyID missing.`);
+        res.statusCode = 404;
+        res.json({ error: { message: "Not Found", statusCode: 404} });
+    }
 };
 
 // Create New Company.
@@ -39,9 +54,9 @@ exports.company_createupload_post =  async (req, res) => {
                 messge: 'Your image has been uploded successfully to cloudinary',
                 data: { image }
             })
-        } catch (err) {
+        } catch (error) {
             res.statusCode = 400;
-            res.json({ error: { message: "Invalid File", data: err} });
+            res.json({ error: { message: "Invalid File", data: error} });
         }
     } else {
         res.statusCode = 400;
@@ -55,7 +70,7 @@ exports.company_processpayment_post = function(req, res) {
 };
 
 // Handle companyoauth on GET.
-exports.company_auth_get = function(req, res) {
+exports.company_auth_get = (req, res) => {
     const { companyid } = req.params;
     const authUri = qboAuth.oAuthClient.authorizeUri({
         scope: [OAuthClient.scopes.Accounting, OAuthClient.scopes.Payment, OAuthClient.scopes.Profile, OAuthClient.scopes.OpenId],
@@ -82,19 +97,19 @@ exports.company_authcallback_get = async (req, res, next) => {
         qboAuth.updateRealmId(qboAuth.oAuthClient.getToken().realmId);
 
         try {
-            const companyData = await qboAuth.getCompanyInfo()
+            const companyInfo = await qboAuth.getCompanyInfo()
 
             // TODO: Store Data in DB 
             // TODO: Send data back to page via redirect or some other method
 
-            res.json({id, oauth2_token_json, companyData})
-        } catch (e) {
-            throw new Error(e.message)
+            res.json({id, oauth2_token_json, companyInfo})
+        } catch (error) {
+            throw new Error(error)
         }
-    } catch(e) {
-        console.error(e);
+    } catch(error) {
+        console.error(error);
         res.statusCode = 400;
-        res.json({ err });
+        res.json({ error });
     }
 };
 
@@ -108,10 +123,10 @@ exports.company_refreshtoken_get = async (req, res) => {
         // TODO: Store Token in DB
 
         res.json(oauth2_token_json);
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error(error);
       res.statusCode = 400;
-      res.json({ err });
+      res.json({ error });
     };
 };
 
@@ -125,10 +140,10 @@ exports.company_listitems_get = async (req, res) => {
         const items = await qboAuth.queryQuickbooks(query)
 
         res.json({items})
-    } catch (e) {
-        console.error(e);
+    } catch (error) {
+        console.error(error);
         res.statusCode = 400;
-        res.json({ err });
+        res.json({ error });
     }
 }
 
@@ -142,10 +157,10 @@ exports.company_itemdetail_get = async (req, res) => {
         const item = await qboAuth.getItemDetail(itemid)
 
         res.json({item})
-    } catch (e) {
-        console.error(e);
+    } catch (error) {
+        console.error(error);
         res.statusCode = 400;
-        res.json({ err });
+        res.json({ error });
     }
 }
 
@@ -166,10 +181,10 @@ exports.company_listcategories_get = async (req, res) => {
         // TODO: Store Data in DB 
 
         res.json({categories})
-    } catch (e) {
-        console.error(e);
+    } catch (error) {
+        console.error(error);
         res.statusCode = 400;
-        res.json({ err });
+        res.json({ error });
     }
 }
 
@@ -182,10 +197,10 @@ exports.company_categorydetail_get = async (req, res) => {
     try {
         const category = await qboAuth.getItemDetail(categoryid)
         res.json({category})
-    } catch (e) {
-        console.error(e);
+    } catch (error) {
+        console.error(error);
         res.statusCode = 400;
-        res.json({ err });
+        res.json({ error });
     }
 }
 
@@ -198,12 +213,35 @@ exports.company_updatecategory_put = async (req, res) => {
 }
 
 exports.company_listemployees_get = async (req, res) => {
-    res.send('NOT IMPLEMENTED: listemployees: ' + req.params.companyid + ' GET');
+    const { companyid } = req.params;
+    try {
+        const query = "Select * from Employee";
+        const employees = await qboAuth.queryQuickbooks(query)
+
+        // TODO: Store Data in DB 
+
+        res.json({employees})
+    } catch (error) {
+        console.error(error);
+        res.statusCode = 400;
+        res.json({ error });
+    }
 }
 
 exports.company_employeedetail_get = async (req, res) => {
     const { companyid, employeeid } = req.params;
-    res.json({ companyid, employeeid })
+    
+    // TODO: Validate employeeid
+    // TODO: Use DB or object in memory? Decide Y or N?
+
+    try {
+        const employee = await qboAuth.getEmployeeDetail(employeeid)
+        res.json({employee})
+    } catch (error) {
+        console.error(error);
+        res.statusCode = 400;
+        res.json({ error });
+    }
 }
 
 exports.company_createemployee_post = async (req, res) => {
