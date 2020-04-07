@@ -5,6 +5,8 @@ const { uploader } = require('../utils/cloudinary-config.js')
 const { qboAuth } = require("../utils/quickbooks-helpers")
 const callApi = require("../utils/fetch")
 
+// TODO: ADD TIMEOUT TO REQUESTS TO EITHER QBO or MongoDB
+
 // GET details of existing company.
 exports.company_detail_get = function(req, res) {
     res.send('NOT IMPLEMENTED: companydetail: ' + req.params.companyid + ' GET');
@@ -87,9 +89,7 @@ exports.company_authcallback_get = async (req, res, next) => {
 
             res.json({id, oauth2_token_json, companyData})
         } catch (e) {
-            console.error(e);
-            res.statusCode = 400;
-            res.json({ err });
+            throw new Error(e.message)
         }
     } catch(e) {
         console.error(e);
@@ -164,7 +164,6 @@ exports.company_listcategories_get = async (req, res) => {
         const categories = await qboAuth.queryQuickbooks(query)
 
         // TODO: Store Data in DB 
-        // TODO: Send data back to page via redirect or some other method
 
         res.json({categories})
     } catch (e) {
@@ -176,7 +175,18 @@ exports.company_listcategories_get = async (req, res) => {
 
 exports.company_categorydetail_get = async (req, res) => {
     const { companyid, categoryid } = req.params;
-    res.json({ companyid, categoryid })
+    
+    // TODO: Validate categoryid
+    // TODO: Use DB or object in memory? Decide Y or N?
+
+    try {
+        const category = await qboAuth.getItemDetail(categoryid)
+        res.json({category})
+    } catch (e) {
+        console.error(e);
+        res.statusCode = 400;
+        res.json({ err });
+    }
 }
 
 exports.company_createcategory_post = async (req, res) => {

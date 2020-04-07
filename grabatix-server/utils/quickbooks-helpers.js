@@ -10,15 +10,16 @@ const oAuthConfig = {
 
 const MINOR_VERSION = '47'
 
+const paymentsAPIEndpoints = {
+  tokens: "/quickbooks/v4/payments/tokens",
+  charges: "/quickbooks/v4/payments/charges",
+  echecks: "/quickbooks/v4/payments/echecks"
+}
+
 class QBOAuth {
   constructor(oAuthConfig, minorVersion){
     if (!(this instanceof QBOAuth)) {
       return new QBOAuth(oAuthConfig, minorVersion);
-    }
-    this.qbAPIEndpoints = {
-      tokens: "/quickbooks/v4/payments/tokens",
-      charges: "/quickbooks/v4/payments/charges",
-      echecks: "/quickbooks/v4/payments/echecks"
     }
     this.oAuthClient = new OAuthClient(oAuthConfig);
     this.quickbooksBaseUri =
@@ -32,15 +33,15 @@ class QBOAuth {
   }
 
   getCompanyInfo = async () => {
-    const {oAuthClient, quickbooksBaseUri, realmId} = this;
+    const {oAuthClient, quickbooksBaseUri, realmId, minorVersion} = this;
     try {
       const response = await oAuthClient.makeApiCall({
-        url: quickbooksBaseUri + "v3/company/" + realmId + "/companyinfo/" + realmId
+        url: quickbooksBaseUri + "v3/company/" + realmId + "/companyinfo/" + realmId + "?minorversion=" + minorVersion
       })
       const companyData = response.getJson();
       return companyData
     } catch (e) {
-      throw new Error(e)
+      return Promise.reject(e)
     }
   }
 
@@ -68,12 +69,12 @@ class QBOAuth {
         const queryData = response.getJson();
         return queryData;
     } catch (e) {
-        throw new Error(e)
+        return Promise.reject(e)
     }
   }
 
   getItemDetail = async (itemId) => {
-    const {oAuthClient, quickbooksBaseUri, realmId} = this;
+    const {oAuthClient, quickbooksBaseUri, realmId, minorVersion} = this;
     try {
       const response = await oAuthClient.makeApiCall({
         url: quickbooksBaseUri + "v3/company/" + realmId + "/item/" + itemId + "?minorversion=" + minorVersion
@@ -81,7 +82,7 @@ class QBOAuth {
       const itemDetail = response.getJson();
       return itemDetail
     } catch (e) {
-      throw new Error(e)
+      return Promise.reject(e)
     }
   }
 }
