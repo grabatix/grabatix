@@ -99,6 +99,13 @@ class QBOAuth {
       return Promise.reject(e)
     }
   }
+
+  handleQBError = (res, error) => {
+    console.error(error);
+    res.statusCode = 400;
+    const message = error && error.error_description ? error.error_description : "Bad Request"
+    res.json({error: { message, statusCode: 400 } });
+  }
 }
 
 const qboAuth = new QBOAuth(oAuthConfig, MINOR_VERSION)

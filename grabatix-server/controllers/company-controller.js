@@ -15,10 +15,7 @@ exports.company_detail_get = async (req, res) => {
             const companyInfo = await qboAuth.getCompanyInfo(companyid)
             res.json({companyInfo})
         } catch (error) {
-            console.error(error);
-            res.statusCode = 400;
-            const message = error && error.error_description ? error.error_description : "Bad Request"
-            res.json({error: { message, statusCode: 400 } });
+            qboAuth.handleQBError(res, error);
         }
     } else {
         console.error(`CompanyID missing.`);
@@ -107,9 +104,7 @@ exports.company_authcallback_get = async (req, res, next) => {
             throw new Error(error)
         }
     } catch(error) {
-        console.error(error);
-        res.statusCode = 400;
-        res.json({ error });
+        qboAuth.handleQBError(res, error);
     }
 };
 
@@ -124,9 +119,7 @@ exports.company_refreshtoken_get = async (req, res) => {
 
         res.json(oauth2_token_json);
     } catch (error) {
-      console.error(error);
-      res.statusCode = 400;
-      res.json({ error });
+        qboAuth.handleQBError(res, error);
     };
 };
 
@@ -141,9 +134,7 @@ exports.company_listitems_get = async (req, res) => {
 
         res.json({items})
     } catch (error) {
-        console.error(error);
-        res.statusCode = 400;
-        res.json({ error });
+        qboAuth.handleQBError(res, error);
     }
 }
 
@@ -158,9 +149,7 @@ exports.company_itemdetail_get = async (req, res) => {
 
         res.json({item})
     } catch (error) {
-        console.error(error);
-        res.statusCode = 400;
-        res.json({ error });
+        qboAuth.handleQBError(res, error);
     }
 }
 
@@ -182,9 +171,7 @@ exports.company_listcategories_get = async (req, res) => {
 
         res.json({categories})
     } catch (error) {
-        console.error(error);
-        res.statusCode = 400;
-        res.json({ error });
+        qboAuth.handleQBError(res, error);
     }
 }
 
@@ -198,9 +185,7 @@ exports.company_categorydetail_get = async (req, res) => {
         const category = await qboAuth.getItemDetail(categoryid)
         res.json({category})
     } catch (error) {
-        console.error(error);
-        res.statusCode = 400;
-        res.json({ error });
+        qboAuth.handleQBError(res, error);
     }
 }
 
@@ -222,9 +207,7 @@ exports.company_listemployees_get = async (req, res) => {
 
         res.json({employees})
     } catch (error) {
-        console.error(error);
-        res.statusCode = 400;
-        res.json({ error });
+        qboAuth.handleQBError(res, error);
     }
 }
 
@@ -238,9 +221,7 @@ exports.company_employeedetail_get = async (req, res) => {
         const employee = await qboAuth.getEmployeeDetail(employeeid)
         res.json({employee})
     } catch (error) {
-        console.error(error);
-        res.statusCode = 400;
-        res.json({ error });
+        qboAuth.handleQBError(res, error);
     }
 }
 
