@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const asyncMiddleware = require("../utils/async-middleware");
+const asyncMiddleware = require("../../utils/async-middleware");
 const jwt = require("jsonwebtoken");
-const customer_controller = require("../controllers/customer-controller")
+const customerController = require("../../controllers/customer")
 
 /**
  * Function to add routes as middleware on app via app.Router in express
@@ -13,5 +13,5 @@ const customer_controller = require("../controllers/customer-controller")
  * @param {string} app.version - representing version of this api
  */
 module.exports = async ({app, urlParsers, version = "v1"}) => {
-    app.use(`/api/${version}/customer`, router);
+    app.use(`${process.env.BASE_API_URL}/${version}/customer`, router);
 }

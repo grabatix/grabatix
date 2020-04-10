@@ -144,19 +144,27 @@ const expressApp = workerId => {
   });
 
   const apiVersions = {
+    attendant: "v1",
     ccAuth: "v1",
     customer: "v1",
-    company: "v1"
+    company: "v1",
+    user: "v1"
   };
 
-  require("./routes/company-routes")({app, urlParsers, version: apiVersions['company']})
-  require("./routes/customer-routes")({app, urlParsers, version: apiVersions['customer']})
+  require("./routes/attendant")({app, urlParsers, version: apiVersions['attendant']})
+  require("./routes/company")({app, urlParsers, version: apiVersions['company']})
+  require("./routes/customer")({app, urlParsers, version: apiVersions['customer']})
+  require("./routes/user")({app, urlParsers, version: apiVersions['user']})
 
   // set up last to handle 404 errors
   app.use("*", (req, res, next) => {
     res.statusCode = 404;
     res.json({error: "Not Found"})
   })
+
+  const { connectToDatabase } = require("./database/connection");
+
+  connectToDatabase()
 
   return app;
 };

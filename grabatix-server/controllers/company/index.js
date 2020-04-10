@@ -1,5 +1,5 @@
 const OAuthClient = require("intuit-oauth");
-const Company = require("../models/Company");
+const Company = require("../database/models/Company");
 const { dataUri }= require('../utils/multer-uploads')
 const { uploader } = require('../utils/cloudinary-config.js')
 const { qboAuth } = require("../utils/quickbooks-helpers")

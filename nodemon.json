@@ -1,0 +1,5 @@
+{
+    "watch": ["grabatix-server"],
+    "exec": "NODE_ENV=development node grabatix-server/cluster.js",
+    "ext": "js"
+  }

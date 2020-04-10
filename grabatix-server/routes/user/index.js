@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const asyncMiddleware = require("../utils/async-middleware");
 const jwt = require("jsonwebtoken");
-const attendant_controller = require("../controllers/attendant-controller")
+const { multerUploads }= require('../../utils/multer-uploads')
+const { cloudinaryConfig } = require('../../utils/cloudinary-config.js')
+const userController = require("../../controllers/user")
 
 /**
  * Function to add routes as middleware on app via app.Router in express
@@ -12,6 +14,10 @@ const attendant_controller = require("../controllers/attendant-controller")
  * @param {Object} app.urlParsers.unextendedUrlParser - unexteneded url encoding
  * @param {string} app.version - representing version of this api
  */
-module.exports = async ({app, urlParsers, version = "v1"}) => {
-    app.use(`/api/${version}/attendant`, router);
+module.exports = async ({app, urlParsers: { unextendedUrlParser, extendedUrlParser }, version = "v1"}) => {
+
+    router.post("/login", asyncMiddleware, userController.user_login_post);
+    router.post("/signup", asyncMiddleware, userController.user_signup_post);
+
+    app.use(`${process.env.BASE_API_URL}/${version}/user`, router);
 }
