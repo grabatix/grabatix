@@ -45,7 +45,7 @@ exports.user_login_post = async (req, res) => {
 };
 
 exports.user_signup_post = async (req, res) => {
-    const { firstName, lastName, email, password } = req.body
+    const { firstName, lastName, email, password, role = "Customer" } = req.body
 
     if (!/\b\w+\@\w+\.\w+(?:\.\w+)?\b/.test(email)) {
         return res.status(500).json({ success: false, data: 'Enter a valid email address.' })
@@ -56,16 +56,17 @@ exports.user_signup_post = async (req, res) => {
         })
     }
         
-    let [err, user] = await to(
+    let [createdError, user] = await to(
         createUser({
             firstName,
             lastName,
-             email,
-             password: await hashPassword(password)
+            email,
+            password: await hashPassword(password),
+            role: role
         })
     )
         
-    if (err) {
+    if (createdError) {
         return res.status(500).json({ success: false, data: 'Email is already taken' })
     }
         
