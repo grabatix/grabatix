@@ -1,4 +1,4 @@
-const Customer = require("../database/models/Customer");
+const Customer = require("../../database/models/Customer");
 
 // GET details of existing customer.
 exports.customer_detail_get = function(req, res) {

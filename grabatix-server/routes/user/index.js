@@ -1,8 +1,5 @@
 const router = require("express").Router();
-const asyncMiddleware = require("../utils/async-middleware");
-const jwt = require("jsonwebtoken");
-const { multerUploads }= require('../../utils/multer-uploads')
-const { cloudinaryConfig } = require('../../utils/cloudinary-config.js')
+const asyncMiddleware = require("../../utils/async-middleware");
 const userController = require("../../controllers/user")
 
 /**

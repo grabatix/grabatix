@@ -17,6 +17,9 @@ const companyController = require("../../controllers/company")
  * @param {string} app.version - representing version of this api
  */
 module.exports = async ({app, urlParsers: { unextendedUrlParser, extendedUrlParser }, version = "v1"}) => {
+
+    router.use(passport.authenticate('jwt', { failureRedirect: '/login' }), utils.checkIsInRole(ROLES.Admin))
+    
     // GET, POST, PATCH company details
     router.get("/:companyid/info", companyController.company_detail_get);
     router.post("/create", extendedUrlParser, companyController.company_detail_post);
@@ -50,8 +53,6 @@ module.exports = async ({app, urlParsers: { unextendedUrlParser, extendedUrlPars
 
     // Quickbooks Process Payment
     router.post("/:companyid/payment", extendedUrlParser, asyncMiddleware, companyController.company_processpayment_post);
-
-    router.use(passport.authenticate('jwt', { failureRedirect: '/login' }), utils.checkIsInRole(ROLES.Admin))
 
     app.use(`${process.env.BASE_API_URL}/${version}/company`, router);
 }

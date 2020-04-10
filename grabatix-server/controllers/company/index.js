@@ -1,9 +1,9 @@
 const OAuthClient = require("intuit-oauth");
-const Company = require("../database/models/Company");
-const { dataUri }= require('../utils/multer-uploads')
-const { uploader } = require('../utils/cloudinary-config.js')
-const { qboAuth } = require("../utils/quickbooks-helpers")
-const callApi = require("../utils/fetch")
+const Company = require("../../database/models/Company");
+const { dataUri }= require('../../utils/multer-uploads')
+const { uploader } = require('../../utils/cloudinary-config.js')
+const { qboAuth } = require("../../utils/quickbooks-helpers")
+const callApi = require("../../utils/fetch")
 
 // TODO: ADD TIMEOUT TO REQUESTS TO EITHER QBO or MongoDB
 
