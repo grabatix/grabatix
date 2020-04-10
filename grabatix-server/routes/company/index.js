@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const asyncMiddleware = require("../../utils/async-middleware");
-const jwt = require("jsonwebtoken");
+const passport = require("passport");
+const { ROLES } = require('../../utils')
+const { utils } = require('../../auth')
 const { multerUploads }= require('../../utils/multer-uploads')
 const { cloudinaryConfig } = require('../../utils/cloudinary-config.js')
 const companyController = require("../../controllers/company")
@@ -48,6 +50,8 @@ module.exports = async ({app, urlParsers: { unextendedUrlParser, extendedUrlPars
 
     // Quickbooks Process Payment
     router.post("/:companyid/payment", extendedUrlParser, asyncMiddleware, companyController.company_processpayment_post);
+
+    router.use(passport.authenticate('jwt', { failureRedirect: '/login' }), utils.checkIsInRole(ROLES.Admin))
 
     app.use(`${process.env.BASE_API_URL}/${version}/company`, router);
 }

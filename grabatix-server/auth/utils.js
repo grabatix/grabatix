@@ -32,4 +32,30 @@ const verifyPassword = async (candidate, actual) => {
     return await bcrypt.compare(candidate, actual)
 }
 
-module.exports = { setup, signToken, hashPassword, verifyPassword }
+const checkIsInRole = (...roles) => (req, res, next) => {
+    if (!req.user) {
+        return res.redirect("/login")
+    }
+
+    const hasRole = roles.find(role => req.user.role === role)
+    if (!hasRole) {
+        return res.redirect('/login')
+    }
+
+    return next();
+}
+
+const getRedirectUrl = role => {
+    switch (role) {
+        case ROLES.Admin:
+            return "/admin";
+        case ROLES.Attendant:
+            return "/attendant";
+        case ROLES.Customer:
+            return "/customer";
+        default:
+            return "/"
+    }
+}
+
+module.exports = { setup, signToken, hashPassword, verifyPassword, checkIsInRole, getRedirectUrl }

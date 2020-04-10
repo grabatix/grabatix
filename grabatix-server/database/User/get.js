@@ -8,4 +8,8 @@ const getUserByEmail = async (email) => {
   return await User.findOne({ email }).exec();
 }
 
-module.exports = { getUserById, getUserByEmail }
+const getUserByProviderId = async (providerId) => {
+  return await User.findOne({ providerId }).exec()
+}
+
+module.exports = { getUserById, getUserByEmail, getUserByProviderId }

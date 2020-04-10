@@ -1,5 +1,5 @@
 const { to } = require("await-to-js")
-const { verifyPassword, hashPassword } = require('../../auth/utils')
+const { verifyPassword, hashPassword, getRedirectUrl } = require('../../auth/utils')
 const { login } = require('../../auth/strategies/jwt')
 const { createUser, getUserByEmail } = require("../../database/User")
 
@@ -39,7 +39,7 @@ exports.user_login_post = async (req, res) => {
         })
         .json({
             success: true,
-            data: '/'
+            data: getRedirectUrl(user.role)
         })
     
 };
@@ -90,6 +90,6 @@ exports.user_signup_post = async (req, res) => {
         })
         .json({
             success: true,
-            data: '/'
+            data: getRedirectUrl(user.role)
         })
 };

@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const compression = require("compression");
 const cors = require("cors");
 const session = require("express-session");
+const passport = require("passport");
 const multer = require("multer");
 const morgan = require("morgan");
 const upload = multer();
@@ -132,8 +133,11 @@ const expressApp = workerId => {
   });
   app.use("*", apiLimiter);
 
-  // debug("Configuring MongoDB Connection and Controllers")
-  // connect to DB and make connection available to Data Models
+  debug("Configuring Passport Authentication Middleware")
+  //
+  const { initialiseAuthentication } = require('./auth')
+  app.use(passport.initialize());
+  initialiseAuthentication(app);
 
   // Listen on port 3000 or assigned port
 
@@ -143,18 +147,14 @@ const expressApp = workerId => {
     res.sendFile(path.join(__dirname, "../grabatix-client", 'build', 'index.html'));
   });
 
-  const apiVersions = {
-    attendant: "v1",
-    ccAuth: "v1",
-    customer: "v1",
-    company: "v1",
-    user: "v1"
-  };
+  const { VERSIONS } = require("./utils/versions")
 
-  require("./routes/attendant")({app, urlParsers, version: apiVersions['attendant']})
-  require("./routes/company")({app, urlParsers, version: apiVersions['company']})
-  require("./routes/customer")({app, urlParsers, version: apiVersions['customer']})
-  require("./routes/user")({app, urlParsers, version: apiVersions['user']})
+  require("./routes/attendant")({app, urlParsers, version: VERSIONS['attendant']})
+  require("./routes/company")({app, urlParsers, version: VERSIONS['company']})
+  require("./routes/customer")({app, urlParsers, version: VERSIONS['customer']})
+  require("./routes/user")({app, urlParsers, version: VERSIONS['user']})
+
+
 
   // set up last to handle 404 errors
   app.use("*", (req, res, next) => {
