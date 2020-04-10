@@ -101,7 +101,7 @@ const expressApp = workerId => {
 
   debug("Configuring CSRF Middleware")
   // send csrf cookies
-  const csrfProtection = require('./utils/csrfProtection')
+  const csrfProtection = require('./middleware/csrfProtection')
   app.use(csrfProtection);
 
   // for parsing multipart/form-data
@@ -139,22 +139,15 @@ const expressApp = workerId => {
   app.use(passport.initialize());
   initialiseAuthentication(app);
 
-  // Listen on port 3000 or assigned port
-
+  // Send Static Assets and set up API
+  debug("Configure Static Assets and API")
   app.use(express.static(path.join(__dirname, "../grabatix-client", "build")))
-
   app.get("/", (req, res, next) => {
     res.sendFile(path.join(__dirname, "../grabatix-client", 'build', 'index.html'));
   });
 
-  const { VERSIONS } = require("./utils/versions")
-
-  require("./routes/attendant")({app, urlParsers, version: VERSIONS['attendant']})
-  require("./routes/company")({app, urlParsers, version: VERSIONS['company']})
-  require("./routes/customer")({app, urlParsers, version: VERSIONS['customer']})
-  require("./routes/user")({app, urlParsers, version: VERSIONS['user']})
-
-
+  const { router } = require("./routes/router")
+  router(app, urlParsers);
 
   // set up last to handle 404 errors
   app.use("*", (req, res, next) => {
@@ -162,8 +155,9 @@ const expressApp = workerId => {
     res.json({error: "Not Found"})
   })
 
+  // Set Up Connection to DataStore
+  debug("Configure Database Connection")
   const { connectToDatabase } = require("./database/connection");
-
   connectToDatabase()
 
   return app;

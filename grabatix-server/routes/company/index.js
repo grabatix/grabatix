@@ -1,10 +1,10 @@
 const router = require("express").Router();
-const asyncMiddleware = require("../../utils/async-middleware");
+const asyncMiddleware = require("../../middleware/async-middleware");
 const passport = require("passport");
-const { ROLES } = require('../../utils')
+const { ROLES } = require('../../config')
 const { utils } = require('../../auth')
-const { multerUploads }= require('../../utils/multer-uploads')
-const { cloudinaryConfig } = require('../../utils/cloudinary-config.js')
+const { multerUploads }= require('../../middleware/multer-uploads')
+const { cloudinaryConfig } = require('../../middleware/cloudinary-config.js')
 const companyController = require("../../controllers/company")
 
 /**
@@ -19,7 +19,7 @@ const companyController = require("../../controllers/company")
 module.exports = async ({app, urlParsers: { unextendedUrlParser, extendedUrlParser }, version = "v1"}) => {
 
     router.use(passport.authenticate('jwt', { failureRedirect: '/login' }), utils.checkIsInRole(ROLES.Admin))
-    
+
     // GET, POST, PATCH company details
     router.get("/:companyid/info", companyController.company_detail_get);
     router.post("/create", extendedUrlParser, companyController.company_detail_post);

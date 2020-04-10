@@ -3,8 +3,8 @@
 const jsonwebtoken = require("jsonwebtoken");
 const onHeaders = require("on-headers");
 const uuidv4 = require("uuid/v4");
-const encrypt = require("./crypto").encrypt;
-const decrypt = require("./crypto").decrypt;
+const encrypt = require("../utils/crypto").encrypt;
+const decrypt = require("../utils/crypto").decrypt;
 const util = require("util");
 const crypto = require("crypto");
 

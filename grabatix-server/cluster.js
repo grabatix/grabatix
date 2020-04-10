@@ -1,7 +1,7 @@
 const cluster = require("cluster");
 const http = require("http");
 const sticky = require("sticky-session"); // to enable sticky sessions
-const expressApp = require("./app");
+const expressApp = require("./server");
 const { createLogger, transports } = require('winston');
 const debug = require('debug')('cluster');
 

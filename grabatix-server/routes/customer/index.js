@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const asyncMiddleware = require("../../utils/async-middleware");
+const asyncMiddleware = require("../../middleware/async-middleware");
 const passport = require("passport");
-const { ROLES } = require('../../utils')
+const { ROLES } = require('../../config')
 const { utils } = require('../../auth')
 const customerController = require("../../controllers/customer")
 
