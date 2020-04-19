@@ -1,0 +1,3 @@
+export const ADD_SUBDOMAIN = "ADD_SUBDOMAIN"
+
+export const TRANSITION_STATE = "TRANSITION_STATE"

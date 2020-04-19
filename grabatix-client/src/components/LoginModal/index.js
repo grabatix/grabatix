@@ -10,11 +10,14 @@ import "./index.css"
 
 const LoginModal = ({isLoggedIn, type, isOpen, setOpen}) => {
     const [username, setUsername] = useState("");
+    const [companyname, setCompanyname] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordComfirmation] = useState("");
     const handleInputChange = ({target: { name, value}}) => {
         if (name === 'username') {
           setUsername(value)
+        } else if (name === 'companyname') {
+          setCompanyname(value)
         } else if (name === 'password') {
           setPassword(value)
         }  else if (name === 'confirmpassword') {
@@ -80,6 +83,19 @@ const LoginModal = ({isLoggedIn, type, isOpen, setOpen}) => {
                                     handleInputChange={handleInputChange}
                                     value={username}
                                     error={''}
+                                />
+                                <InputGroup
+                                    id="companyname"
+                                    label="Company Name"
+                                    required={true}
+                                    type="text"
+                                    maxLength={120}
+                                    placeholder={"Company Name"}
+                                    disabled={false}
+                                    validation={".*"}
+                                    handleInputChange={handleInputChange}
+                                    value={companyname}
+                                    error={""}
                                 />
                             </FormRow>
                             <FormRow>

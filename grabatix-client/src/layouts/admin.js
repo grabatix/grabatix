@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import PropTypes from 'prop-types'
 import Header from '../components/Header'
 import ProfileBlock from "../components/ProfileBlock"
@@ -6,10 +6,14 @@ import Logo from "../components/Logo"
 import Button from "../components/Button"
 import LoginModal from "../components/LoginModal";
 import FlexContainer from "../components/FlexContainer"
+import { AdminContext } from '../providers/AdminProvider'
 
-const AdminLayout = ({children, isLoggedIn, setLoginStatus, setAccountOpen, setReportsOpen, ...props}) => {
+const AdminLayout = ({children, ...props}) => {
     const [modalType, setModalType] = useState("login");
     const [isOpen, setOpenStatus] = useState(false);
+
+    const {isLoggedIn} = useContext(AdminContext)
+
     const handleModalOpen = type => {
         setModalType(type)
         setOpenStatus(true)
@@ -21,7 +25,7 @@ const AdminLayout = ({children, isLoggedIn, setLoginStatus, setAccountOpen, setR
     return (
         <>
             <Header>
-                <ProfileBlock isLoggedIn={isLoggedIn} setLoginStatus={setLoginStatus} handleModalOpen={handleModalOpen} setAccountOpen={setAccountOpen} setReportsOpen={setReportsOpen} includeReports={true}/>
+                {/* <ProfileBlock isLoggedIn={isLoggedIn} setLoginStatus={setLoginStatus} handleModalOpen={handleModalOpen} setAccountOpen={setAccountOpen} setReportsOpen={setReportsOpen} includeReports={true}/> */}
             </Header>
             <main>
                 <FlexContainer flexClasses="row justify-center align-center">
@@ -52,10 +56,6 @@ const AdminLayout = ({children, isLoggedIn, setLoginStatus, setAccountOpen, setR
 
 AdminLayout.propTypes = {
     children: PropTypes.node,
-    isLoggedIn: PropTypes.bool.isRequired,
-    setLoginStatus: PropTypes.func.isRequired,
-    setAccountOpen: PropTypes.func.isRequired,
-    setReportsOpen: PropTypes.func.isRequired
 }
 
 export default AdminLayout

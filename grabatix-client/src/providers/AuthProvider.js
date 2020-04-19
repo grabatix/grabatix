@@ -1,25 +1,25 @@
-import React, { Component } from "react"
+import React, { useReducer, useContext } from "react"
 import {} from "./actions/auth-actions";
 import reducer from "./reducers/auth-reducer"
-
-const isBrowser = () => typeof window !== "undefined"
+import { AppContext } from "./AppProvider"
 
 export const AuthContext = React.createContext()
 
-class AuthProvider extends Component {
-    state = {}
+const AuthProvider = ({children}) => {
 
-    render() {
-        const {
-          props: { children },
-          state,
-        } = this
-        return (
-          <AuthContext.Provider value={state}>
-            {children}
-          </AuthContext.Provider>
-        )
-    }
+  const {isBrowser} = useContext(AppContext)
+
+  const initialState = {
+    isLoggedIn: false
+  }
+  
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  return (
+    <AuthContext.Provider value={{...state}}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 export default AuthProvider

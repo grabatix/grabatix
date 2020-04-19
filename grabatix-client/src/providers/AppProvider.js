@@ -1,30 +1,37 @@
-import React, { Component } from "react"
-import {} from "./actions/app-actions";
+import React, { useReducer } from "react"
+import { ADD_SUBDOMAIN, TRANSITION_STATE } from "./actions/app-actions";
 import reducer from "./reducers/app-reducer"
-
-const isBrowser = () => typeof window !== "undefined"
+import * as appStates from "./states/app-states"
 
 export const AppContext = React.createContext()
 
-class AppProvider extends Component {
-    state = {
-        loading: false,
-        loaded: false,
-        submitting: false,
-        submitted: false,
+const AppProvider = ({children}) => {
+
+    const isBrowser = () => typeof window !== "undefined"
+    
+    const initialState = {
+        appState: appStates.LOADING_STATE,
+        subdomain: undefined,
+    }
+    
+    const [state, dispatch] = useReducer(reducer, initialState)
+
+    const transitionToState = state => {
+      if (Object.keys(appStates).includes(state)) {
+        dispatch({type: TRANSITION_STATE, payload: { appState: appStates[state]} });
+      }
     }
 
-    render() {
-        const {
-          props: { children },
-          state,
-        } = this
-        return (
-          <AppContext.Provider value={state}>
-            {children}
-          </AppContext.Provider>
-        )
+    const addSubdomain = () => {
+      const [subdomain] = isBrowser() ? window.location.hostname.split('.') : [""];
+      dispatch({ type: ADD_SUBDOMAIN, payload: { subdomain } })
     }
+
+    return (
+      <AppContext.Provider value={{...state, isBrowser, transitionToState, addSubdomain}}>
+        {children}
+      </AppContext.Provider>
+    )
 }
 
 export default AppProvider

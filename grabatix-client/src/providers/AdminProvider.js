@@ -1,25 +1,25 @@
-import React, { Component } from "react"
+import React, { useContext, useReducer } from "react"
 import {} from "./actions/admin-actions";
 import reducer from "./reducers/admin-reducer"
-
-const isBrowser = () => typeof window !== "undefined"
+import { AppContext } from "./AppProvider"
+import { AuthContext } from "./AuthProvider"
 
 export const AdminContext = React.createContext()
 
-class AdminProvider extends Component {
-    state = {}
+const AdminProvider = ({children}) => {
+  const {isBrowser} = useContext(AppContext)
+  const {isLoggedIn, hasAdminPrivileges} = useContext(AuthContext)
 
-    render() {
-        const {
-          props: { children },
-          state,
-        } = this
-        return (
-          <AdminContext.Provider value={state}>
-            {children}
-          </AdminContext.Provider>
-        )
-    }
+  const initialState = {}
+  
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  return (
+    <AdminContext.Provider value={{...state}}>
+      {children}
+    </AdminContext.Provider>
+  )
+
 }
 
 export default AdminProvider
