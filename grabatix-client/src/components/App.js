@@ -1,12 +1,23 @@
-import React, { useState, useContext } from "react"
+import React, { useEffect, useContext } from "react"
 import './App.css';
 
 import { LiveAnnouncer } from "react-aria-live";
 import AppRouter from "../routes/AppRouter"
+import {AppContext} from "../providers/AppProvider"
 import AuthProvider from "../providers/AuthProvider"
+import Loading from "./Loading"
 import ErrorBoundary from "./ErrorBoundary"
 
 const App = () => {
+  const {appState, isBrowser, transitionToState, addSubdomain, subdomain} = useContext(AppContext)
+
+  useEffect(()=> {
+      if (typeof subdomain === "undefined") {
+          addSubdomain();
+      } else if (appState.loading && typeof subdomain !== "undefined") {
+          transitionToState("LOADED_STATE")
+      }
+  }, [subdomain]);
 
   return (
     <LiveAnnouncer>
@@ -14,7 +25,9 @@ const App = () => {
         <div className="site-content">
           <ErrorBoundary>
             <AuthProvider>
-              <AppRouter />
+              { 
+                appState.loading ? <Loading/> : <AppRouter /> 
+              }
             </AuthProvider>
           </ErrorBoundary>
         </div>

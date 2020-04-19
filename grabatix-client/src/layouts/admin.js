@@ -7,12 +7,13 @@ import Button from "../components/Button"
 import LoginModal from "../components/LoginModal";
 import FlexContainer from "../components/FlexContainer"
 import { AdminContext } from '../providers/AdminProvider'
+import { AuthContext } from '../providers/AuthProvider'
 
 const AdminLayout = ({children, ...props}) => {
     const [modalType, setModalType] = useState("login");
     const [isOpen, setOpenStatus] = useState(false);
 
-    const {isLoggedIn} = useContext(AdminContext)
+    const { isLoggedIn, user } = useContext(AuthContext)
 
     const handleModalOpen = type => {
         setModalType(type)
@@ -22,10 +23,13 @@ const AdminLayout = ({children, ...props}) => {
         e.preventDefault();
         setOpenStatus(!isOpen)
     }
+
+    const setAccountOpen = async () => true
+    const setReportsOpen = async () => true
     return (
         <>
             <Header>
-                {/* <ProfileBlock isLoggedIn={isLoggedIn} setLoginStatus={setLoginStatus} handleModalOpen={handleModalOpen} setAccountOpen={setAccountOpen} setReportsOpen={setReportsOpen} includeReports={true}/> */}
+                <ProfileBlock isLoggedIn={isLoggedIn} handleModalOpen={handleModalOpen} setAccountOpen={setAccountOpen} setReportsOpen={setReportsOpen} includeReports={true}/>
             </Header>
             <main>
                 <FlexContainer flexClasses="row justify-center align-center">

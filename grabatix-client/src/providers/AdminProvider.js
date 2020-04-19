@@ -10,7 +10,9 @@ const AdminProvider = ({children}) => {
   const {isBrowser} = useContext(AppContext)
   const {isLoggedIn, hasAdminPrivileges} = useContext(AuthContext)
 
-  const initialState = {}
+  const initialState = {
+    isAdminUser: isLoggedIn && hasAdminPrivileges
+  }
   
   const [state, dispatch] = useReducer(reducer, initialState)
 
