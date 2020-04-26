@@ -12,11 +12,13 @@ const AuthProvider = ({children}) => {
   const initialState = {
     isLoggedIn: false
   }
+
+  const checkRoles = role => true;
   
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
-    <AuthContext.Provider value={{...state}}>
+    <AuthContext.Provider value={{...state, checkRoles}}>
       {children}
     </AuthContext.Provider>
   )

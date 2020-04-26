@@ -7,6 +7,8 @@ import SubMenuButton from '../SubMenuButton'
 
 import "./index.css"
 
+// TO DO: CONVERT ALL FUNCTIONS IN PROPS TO IMPORT FROM CONTEXT
+
 const ProfileBlock = ({isLoggedIn, setLoginStatus, handleModalOpen, setAccountOpen, setReportsOpen = async () => (''), includeReports = false}) => {
     const [isOpen, setOpenMenu] = useState(false)
     const handleMenuOpenState = e => {
