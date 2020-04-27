@@ -21,6 +21,7 @@ const AppRouter = () => {
                         <Register path="register" />
                         <Account path="account">
                             <AdminAccount path="/" />
+                            <Edit path="edit" />
                             <Reports path="reports">
                                 <ReportsHome path="/" />
                                 <Transactions path="transactions" />
@@ -41,18 +42,21 @@ const AppRouter = () => {
                         <Account path="account">
                             <ConsumerAccount path="/" />
                             <Codes path="codes" />
+                            <Edit path="edit" />
                             <History path="history" />
                         </Account>
-                        <Purchase path="items">
+                        <Purchase path="purchase">
                             <PurchaseHome path="/" />
                             <Cart path="cart" />
                             <Checkout path="checkout" />
                         </Purchase>
                     </ConsumerLayout>
                     <AttendantLayout path="attendant">
-                        <AttendantHome path="/" />
+                        <Account path="account" >
+                            <AttendantAccount path="/" />
+                            <Edit path="edit" />
+                        </Account>
                         <Scan path="scan" />
-                        <Account path="account" />
                     </AttendantLayout>
                     <UnAuthorized path="unauthorized" />
                 </Router>
