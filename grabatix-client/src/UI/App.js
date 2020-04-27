@@ -5,8 +5,8 @@ import { LiveAnnouncer } from "react-aria-live";
 import AppRouter from "../routes/AppRouter"
 import {AppContext} from "../providers/AppProvider"
 import AuthProvider from "../providers/AuthProvider"
-import Loading from "./Loading"
-import ErrorBoundary from "./ErrorBoundary"
+import Loading from "./components/Loading"
+import ErrorBoundary from "./components/ErrorBoundary"
 
 const App = () => {
   const {appState, isBrowser, transitionToState, addSubdomain, subdomain} = useContext(AppContext)

@@ -2,8 +2,8 @@ import React from 'react'
 import { Redirect } from "@reach/router";
 import PropTypes from 'prop-types'
 import Loading from "../components/Loading"
-import useProtectedRoute from "../hooks/useProtectedRoute"
-import { Attendant } from "../config/roles"
+import useProtectedRoute from "../../hooks/useProtectedRoute"
+import { Attendant } from "../../config/roles"
 
 const AttendantLayout = ({children, ...props}) => {
     const { authorized, isFetching } = useProtectedRoute(Attendant);

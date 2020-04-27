@@ -6,8 +6,8 @@ import Logo from "../components/Logo"
 import Button from "../components/Button"
 import LoginModal from "../components/LoginModal";
 import FlexContainer from "../components/FlexContainer"
-import { AdminContext } from '../providers/AdminProvider'
-import { AuthContext } from '../providers/AuthProvider'
+import { AdminContext } from '../../providers/AdminProvider'
+import { AuthContext } from '../../providers/AuthProvider'
 
 const AdminLayout = ({children, ...props}) => {
     const [modalType, setModalType] = useState("login");

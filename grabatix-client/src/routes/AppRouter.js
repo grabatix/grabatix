@@ -1,12 +1,12 @@
 import React, { useContext, Suspense, lazy } from "react";
 import { AppContext } from "../providers/AppProvider"
 import { Router } from "@reach/router";
-import Header from '../components/Header'
-import ProfileBlock from "../components/ProfileBlock"
-import AdminLayout from "../layouts/admin"
-import ConsumerLayout from "../layouts/consumer"
-import AttendantLayout from "../layouts/attendant"
-import UnAuthorized from "../components/UnAuthorized";
+import Header from '../UI/components/Header'
+import ProfileBlock from "../UI/components/ProfileBlock"
+import AdminLayout from "../UI/layouts/admin"
+import ConsumerLayout from "../UI/layouts/consumer"
+import AttendantLayout from "../UI/layouts/attendant"
+import UnAuthorized from "../UI/components/UnAuthorized";
 
 const AppRouter = () => {
     const { subdomain } = useContext(AppContext)
@@ -14,27 +14,47 @@ const AppRouter = () => {
         case "admin":
             return (
                 <Router>
-                    <AdminLayout path="/" />
+                    <Header path="/">
+                        <ProfileBlock />
+                    </Header>
+                    <AdminLayout path="/">
+                        <Register path="register" />
+                        <Account path="account">
+                            <AdminAccount path="/" />
+                            <Reports path="reports">
+                                <ReportsHome path="/" />
+                                <Transactions path="transactions" />
+                            </Reports>
+                            <Users path="users" />
+                        </Account>
+                    </AdminLayout>
                 </Router>
             )
         case "localhost":
-            return (
-                <Router>
-                    <Header>
-                        <ProfileBlock />
-                    </Header>
-                    <AdminLayout path="/admin"></AdminLayout>
-                    <ConsumerLayout path="/consumer"></ConsumerLayout>
-                    <AttendantLayout path="/attendant">
-                    
-                    </AttendantLayout>
-                    <UnAuthorized path="/unauthorized"/>
-                </Router>
-            )
         default:
             return (
                 <Router>
-                    <ConsumerLayout path="/" />
+                    <Header path="/">
+                        <ProfileBlock />
+                    </Header>
+                    <ConsumerLayout path="/">
+                        <Account path="account">
+                            <ConsumerAccount path="/" />
+                            <Codes path="codes" />
+                            <History path="history" />
+                        </Account>
+                        <Purchase path="items">
+                            <PurchaseHome path="/" />
+                            <Cart path="cart" />
+                            <Checkout path="checkout" />
+                        </Purchase>
+                    </ConsumerLayout>
+                    <AttendantLayout path="attendant">
+                        <AttendantHome path="/" />
+                        <Scan path="scan" />
+                        <Account path="account" />
+                    </AttendantLayout>
+                    <UnAuthorized path="unauthorized" />
                 </Router>
             )
     }
