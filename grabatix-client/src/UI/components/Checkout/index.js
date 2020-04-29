@@ -1,6 +1,6 @@
 import React from 'react'
 
-import 'index.css'
+import './index.css'
 
 const Checkout = props => <h2>Checkout</h2>
 

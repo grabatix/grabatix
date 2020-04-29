@@ -1,6 +1,6 @@
 import React from 'react'
 
-import 'index.css'
+import './index.css'
 
 const OnlineTransactions = props => <h2>OnlineTransactions</h2>
 

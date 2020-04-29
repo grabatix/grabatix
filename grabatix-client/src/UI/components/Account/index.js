@@ -1,6 +1,6 @@
 import React from 'react'
 
-import 'index.css'
+import './index.css'
 
 const Account = props => <h2>Account</h2>
 

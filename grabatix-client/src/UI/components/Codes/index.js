@@ -1,6 +1,6 @@
 import React from 'react'
 
-import 'index.css'
+import './index.css'
 
 const Codes = props => <h2>Codes</h2>
 

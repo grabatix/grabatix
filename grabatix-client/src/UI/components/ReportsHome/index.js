@@ -1,6 +1,6 @@
 import React from 'react'
 
-import 'index.css'
+import './index.css'
 
 const ReportsHome = props => <h2>ReportsHome</h2>
 

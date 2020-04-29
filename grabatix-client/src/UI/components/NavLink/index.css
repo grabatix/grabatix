@@ -1,4 +1,4 @@
-.nav-link {
+.navlink {
     color: inherit;
     font-size:20px;
     margin: 4px;
@@ -10,29 +10,31 @@
     border: none;
     background: transparent;
     display: block;
+    text-decoration: none;
     transition: color 250ms ease-in-out, font-weight 250ms ease-in-out;
 }
 
-.nav-link.hidden {
+.navlink.hidden {
     display: none;
 }
 
-.nav-link.active {
+.navlink.active {
+    color: var(--accent);
     font-weight: bold;
     position: relative;
 }
 
-.nav-link.active::after {
-    height: 2px;
-    width: 25px;
+/* .navlink.active::after {
+    height: 4px;
+    width: 100%;
     background-color: var(--accent);
     position: absolute;
     content: "";
     display: block;
-    bottom: 2px;
-}
+    bottom: 0;
+} */
 
-.nav-link:disabled {
+.navlink:disabled {
     color: var(--darkGrey);
     cursor: not-allowed;
 }
