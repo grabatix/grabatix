@@ -19,6 +19,7 @@ import OnlineTransactions from "../UI/components/OnlineTransactions"
 import Cart from "../UI/components/Cart"
 import CartHome from "../UI/components/CartHome"
 import Checkout from "../UI/components/Checkout"
+import AttendantHome from "../UI/components/AttendantHome"
 import AttendantAccount from "../UI/components/AttendantAccount"
 import AttendantTransactions from "../UI/components/AttendantTransactions"
 import History from "../UI/components/History"
@@ -84,16 +85,18 @@ const AppRouter = () => {
                                 <CartHome path="/" />
                                 <Checkout path="checkout" />
                             </Cart>
+                            <NotFound default />
                         </ConsumerLayout>
                         <AttendantLayout path="attendant">
+                            <AttendantHome path="/" />
                             <Account path="account" >
                                 <AttendantAccount path="/" />
                                 <Edit path="edit" />
                             </Account>
                             <Scan path="scan" />
+                            <NotFound default />
                         </AttendantLayout>
                         <UnAuthorized path="unauthorized" />
-                        <NotFound default />
                     </HeaderWrapper>
                 </Router>
             )
