@@ -1,5 +1,5 @@
 import React, { useReducer, useContext } from "react"
-import {} from "./actions/auth-actions";
+import { LOGIN, LOGOUT, SIGNUP, EDIT_PROFILE } from "./actions/auth-actions";
 import reducer from "./reducers/auth-reducer"
 import { AppContext } from "./AppProvider"
 
@@ -10,15 +10,54 @@ const AuthProvider = ({children}) => {
   const {isBrowser} = useContext(AppContext)
 
   const initialState = {
-    isLoggedIn: false
+    isLoggedIn: false,
+    user: {
+      displayName: "",
+      roles: [],
+      imgUrl: "",
+      authToken: ""
+    }
   }
 
-  const checkRoles = role => true;
-  
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  const checkRoles = role => state.user.roles.includes(role);
+
+  const login = async (username, password) => {
+    // call login service
+    //const user = await authenticationService(username, password)
+
+    //validate results
+    // temporary user
+    let user = {
+      displayName: "",
+      roles: [],
+      imgUrl: "",
+      authToken: ""
+    }
+    dispatch({type: LOGIN, payload: user})
+  }
+
+  const loginWithQuickbooks = async () => {
+    // call login service
+    //const user = await QBAuthenticationService()
+
+    //validate results
+    // temporary user
+    let user = {
+      displayName: "",
+      roles: [],
+      imgUrl: "",
+      authToken: ""
+    }
+    dispatch({type: LOGIN, payload: user})
+  }
+
+  const logout = () => dispatch({type: LOGOUT});
+   
+
   return (
-    <AuthContext.Provider value={{...state, checkRoles}}>
+    <AuthContext.Provider value={{...state, checkRoles, login, loginWithQuickbooks, logout}}>
       {children}
     </AuthContext.Provider>
   )

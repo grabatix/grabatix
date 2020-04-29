@@ -1,4 +1,5 @@
 import React, { useContext, useReducer } from "react"
+import { Admin } from "../config/roles"
 import {} from "./actions/admin-actions";
 import reducer from "./reducers/admin-reducer"
 import { AppContext } from "./AppProvider"
@@ -8,10 +9,10 @@ export const AdminContext = React.createContext()
 
 const AdminProvider = ({children}) => {
   const {isBrowser} = useContext(AppContext)
-  const {isLoggedIn, hasAdminPrivileges} = useContext(AuthContext)
+  const {isLoggedIn, checkRoles } = useContext(AuthContext)
 
   const initialState = {
-    isAdminUser: isLoggedIn && hasAdminPrivileges
+    isAdminUser: isLoggedIn && checkRoles(Admin)
   }
   
   const [state, dispatch] = useReducer(reducer, initialState)

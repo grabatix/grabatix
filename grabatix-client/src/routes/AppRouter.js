@@ -29,6 +29,7 @@ const AppRouter = () => {
                             <Users path="users" />
                         </Account>
                     </AdminLayout>
+                    <NotFound default />
                 </Router>
             )
         case "localhost":
@@ -59,6 +60,7 @@ const AppRouter = () => {
                         <Scan path="scan" />
                     </AttendantLayout>
                     <UnAuthorized path="unauthorized" />
+                    <NotFound default />
                 </Router>
             )
     }
