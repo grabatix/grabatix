@@ -1,0 +1,38 @@
+.nav-link {
+    color: inherit;
+    font-size:20px;
+    margin: 4px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    padding: 0;
+    border-color: 0;
+    border: none;
+    background: transparent;
+    display: block;
+    transition: color 250ms ease-in-out, font-weight 250ms ease-in-out;
+}
+
+.nav-link.hidden {
+    display: none;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    position: relative;
+}
+
+.nav-link.active::after {
+    height: 2px;
+    width: 25px;
+    background-color: var(--accent);
+    position: absolute;
+    content: "";
+    display: block;
+    bottom: 2px;
+}
+
+.nav-link:disabled {
+    color: var(--darkGrey);
+    cursor: not-allowed;
+}
