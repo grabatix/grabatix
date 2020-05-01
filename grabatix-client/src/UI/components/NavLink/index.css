@@ -24,16 +24,6 @@
     position: relative;
 }
 
-/* .navlink.active::after {
-    height: 4px;
-    width: 100%;
-    background-color: var(--accent);
-    position: absolute;
-    content: "";
-    display: block;
-    bottom: 0;
-} */
-
 .navlink:disabled {
     color: var(--darkGrey);
     cursor: not-allowed;

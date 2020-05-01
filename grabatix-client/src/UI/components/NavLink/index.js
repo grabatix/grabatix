@@ -8,11 +8,12 @@ const isActive = ({ isCurrent }) => {
     return isCurrent ? { className: "navlink active" } : { className: "navlink" }
 }
 
-const NavLink = ({path, disabled, label, hidden, ...props}) => !hidden ? (
+const NavLink = ({path, disabled, label, hidden, handleClick, ...props}) => !hidden ? (
     <Link
         to={path}
         getProps={isActive}
         disabled={disabled}
+        onClick={handleClick}
         {...props}
     >
         { label }
@@ -21,6 +22,7 @@ const NavLink = ({path, disabled, label, hidden, ...props}) => !hidden ? (
 
 NavLink.propTypes = {
     path: PropTypes.string.isRequired,
+    handleClick: PropTypes.func,
     label: PropTypes.string,
     disabled: PropTypes.bool,
     hidden: PropTypes.bool
