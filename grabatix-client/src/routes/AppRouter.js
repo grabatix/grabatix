@@ -1,8 +1,6 @@
 import React, { useContext, Suspense, lazy } from "react";
 import { AppContext } from "../providers/AppProvider"
 import { Router } from "@reach/router";
-import Header from '../UI/components/Header'
-import ProfileBlock from "../UI/components/ProfileBlock"
 import AdminLayout from "../UI/layouts/admin"
 import ConsumerLayout from "../UI/layouts/consumer"
 import AttendantLayout from "../UI/layouts/attendant"
@@ -25,18 +23,11 @@ import AttendantTransactions from "../UI/components/AttendantTransactions"
 import History from "../UI/components/History"
 import Codes from "../UI/components/Codes"
 import Scan from "../UI/components/Scan"
+import ScanHistory from "../UI/components/ScanHistory"
 import Users from '../UI/components/Users'
+import AppWrapper from "../UI/components/AppWrapper"
 import NotFound from "./NotFound"
 import UnAuthorized from "./UnAuthorized";
-
-const HeaderWrapper = ({children}) => (
-    <>
-        <Header>
-            <ProfileBlock />
-        </Header>
-        { children }
-    </>
-)
 
 const AdminRoutes = () => (
     <AdminLayout path="admin">
@@ -61,18 +52,18 @@ const AppRouter = () => {
         case "admin":
             return (
                 <Router>
-                    <HeaderWrapper path="/">
+                    <AppWrapper path="/">
                         <AdminRoutes />
                         <UnAuthorized path="unauthorized" />
                         <NotFound default />
-                    </HeaderWrapper>
+                    </AppWrapper>
                 </Router>
             )
         case "localhost":
         default:
             return (
                 <Router>
-                    <HeaderWrapper path="/">
+                    <AppWrapper path="/">
                         <ConsumerLayout path="/" >
                             <ConsumerHome path="/" />
                             <Account path="account">
@@ -91,13 +82,14 @@ const AppRouter = () => {
                             <AttendantHome path="/" />
                             <Account path="account" >
                                 <AttendantAccount path="/" />
+                                <ScanHistory path="recent-scans" />
                                 <Edit path="edit" />
                             </Account>
                             <Scan path="scan" />
                             <NotFound default />
                         </AttendantLayout>
                         <UnAuthorized path="unauthorized" />
-                    </HeaderWrapper>
+                    </AppWrapper>
                 </Router>
             )
     }

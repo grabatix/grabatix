@@ -6,11 +6,10 @@ import "./index.css"
 const DarkSwitcher = () => {
     let initTheme = typeof window !== 'undefined' && window.__theme ? window.__theme : "light";
     const [theme, setTheme] = useState(initTheme)
-    const ONCE = []
     useEffect(() => {
         setTheme(window.__theme)
         window.__onThemeChange = () => setTheme(window.__theme)
-    }, ONCE)
+    }, [])
     return (
         <button
             className="dark-switcher"
