@@ -7,8 +7,6 @@ export const AuthContext = React.createContext()
 
 const AuthProvider = ({children}) => {
 
-  const {isBrowser} = useContext(AppContext)
-
   const initialState = {
     isLoggedIn: false,
     user: {
@@ -35,7 +33,22 @@ const AuthProvider = ({children}) => {
       imgUrl: "",
       authToken: ""
     }
-    dispatch({type: LOGIN, payload: user})
+    dispatch({type: LOGIN, payload: { user } })
+  }
+
+  const signup = async (username, password, companyName) => {
+    // call signup service
+    //const user = await newAccountService(username, password, companyName)
+
+    //validate results
+    // temporary user
+    let user = {
+      displayName: "",
+      roles: [],
+      imgUrl: "",
+      authToken: ""
+    }
+    dispatch({type: SIGNUP, payload: { user } })
   }
 
   const loginWithQuickbooks = async () => {
@@ -50,14 +63,14 @@ const AuthProvider = ({children}) => {
       imgUrl: "",
       authToken: ""
     }
-    dispatch({type: LOGIN, payload: user})
+    dispatch({type: LOGIN, payload: { user } })
   }
 
   const logout = () => dispatch({type: LOGOUT});
-   
+  
 
   return (
-    <AuthContext.Provider value={{...state, checkRoles, login, loginWithQuickbooks, logout}}>
+    <AuthContext.Provider value={{...state, checkRoles, login, signup, loginWithQuickbooks, logout}}>
       {children}
     </AuthContext.Provider>
   )
