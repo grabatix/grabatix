@@ -93,6 +93,7 @@ body.light {
   --hoverAccent: #39a7cf;
   --darkGrey: #505050;
   --grey: #969696;
+  --greyText: #969696;
   --lightGrey: #C7C7C7;
   --red: #ef7862;
   --green: #81D86C;
@@ -135,6 +136,7 @@ body.dark {
   --accent: #98b4be;
   --hoverAccent: #6891a0;
   --grey: #747474;
+  --greyText: #c7c7c7;
   --lightGrey: #969696;
   --darkGrey: #d0d0d0;
   --red: #ba9d97;
@@ -150,7 +152,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--grey);
+  color: var(--greyText);
   transition: color 250ms ease-in-out;
 }
 
