@@ -36,11 +36,8 @@ const ProfileBlock = () => {
     }
 
     if ( !!attendantMatch || !!adminMatch ) {
+        const rootPath = !!adminMatch ? "/admin" : "/attendant";
         for (let path in basePaths) {
-            if (path === 'loginPath' && path === 'signupPath' && !!attendantMatch) {
-                continue;
-            }
-            const rootPath = !!adminMatch ? "/admin" : "/attendant";
             basePaths[path] = rootPath + basePaths[path];
         }
     }
