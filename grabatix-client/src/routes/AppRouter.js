@@ -1,29 +1,9 @@
 import React, { useContext, Suspense, lazy } from "react";
 import { Router } from "@reach/router";
 import { AppContext } from "../providers/AppProvider"
-
 import AdminRoutes from "./AdminRoutes"
 import AttendantRoutes from "./AttendantRoutes"
-
-import Login from "../UI/components/Login"
-
-import ConsumerLayout from "../UI/layouts/Consumer"
-
-import Account from "../UI/components/Account"
-
-import Edit from "../UI/components/Edit"
-
-import ConsumerAccount from "../UI/components/ConsumerAccount"
-import ConsumerHome from "../UI/components/ConsumerHome"
-
-import Cart from "../UI/components/Cart"
-import CartHome from "../UI/components/CartHome"
-import Checkout from "../UI/components/Checkout"
-
-
-import History from "../UI/components/History"
-import Codes from "../UI/components/Codes"
-
+import ConsumerRoutes from "./ConsumerRoutes"
 
 import AppWrapper from "../UI/components/AppWrapper"
 import NotFound from "./NotFound"
@@ -48,25 +28,11 @@ const AppRouter = () => {
             return (
                 <Router>
                     <AppWrapper path="/">
+                        <ConsumerRoutes path="/*" />
                         <AdminRoutes path="admin/*" />
-                        <ConsumerLayout path="/" >
-                            <ConsumerHome path="/" />
-                            <Account path="account">
-                                <ConsumerAccount path="/" />
-                                <Codes path="codes" />
-                                <Edit path="edit" />
-                                <History path="history" />
-                            </Account>
-                            <Cart path="cart">
-                                <CartHome path="/" />
-                                <Checkout path="checkout" />
-                            </Cart>
-                            <NotFound default />
-                        </ConsumerLayout>
                         <AttendantRoutes path="attendant/*" />
-                        <Login path="login" />
-                        <Login path="signup" />
                         <UnAuthorized path="unauthorized" />
+                        <NotFound default />
                     </AppWrapper>
                 </Router>
             )
@@ -74,24 +40,10 @@ const AppRouter = () => {
             return (
                 <Router>
                     <AppWrapper path="/">
-                        <ConsumerLayout path="/" >
-                            <ConsumerHome path="/" />
-                            <Account path="account">
-                                <ConsumerAccount path="/" />
-                                <Codes path="codes" />
-                                <Edit path="edit" />
-                                <History path="history" />
-                            </Account>
-                            <Cart path="cart">
-                                <CartHome path="/" />
-                                <Checkout path="checkout" />
-                            </Cart>
-                            <NotFound default />
-                        </ConsumerLayout>
-                        <AttendantRoutes path="/*" />
-                        <Login path="login" />
-                        <Login path="signup" />
+                        <ConsumerRoutes path="/*" />
+                        <AttendantRoutes path="attendant/*" />
                         <UnAuthorized path="unauthorized" />
+                        <NotFound default />
                     </AppWrapper>
                 </Router>
             )
