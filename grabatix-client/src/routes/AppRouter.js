@@ -1,34 +1,35 @@
 import React, { useContext, Suspense, lazy } from "react";
-import { AppContext } from "../providers/AppProvider"
 import { Router } from "@reach/router";
+import { AppContext } from "../providers/AppProvider"
+
+import AdminRoutes from "./AdminRoutes"
+import AttendantRoutes from "./AttendantRoutes"
+
 import Login from "../UI/components/Login"
-import AdminLayout from "../UI/layouts/admin"
-import ConsumerLayout from "../UI/layouts/consumer"
-import AttendantLayout from "../UI/layouts/attendant"
+
+import ConsumerLayout from "../UI/layouts/Consumer"
+
 import Account from "../UI/components/Account"
-import AdminAccount from "../UI/components/AdminAccount"
-import AdminHome from "../UI/components/AdminHome"
-import Register from "../UI/components/Register"
+
 import Edit from "../UI/components/Edit"
-import Reports from "../UI/components/Reports"
-import ReportsHome from "../UI/components/ReportsHome"
+
 import ConsumerAccount from "../UI/components/ConsumerAccount"
 import ConsumerHome from "../UI/components/ConsumerHome"
-import OnlineTransactions from "../UI/components/OnlineTransactions"
+
 import Cart from "../UI/components/Cart"
 import CartHome from "../UI/components/CartHome"
 import Checkout from "../UI/components/Checkout"
-import AttendantHome from "../UI/components/AttendantHome"
-import AttendantAccount from "../UI/components/AttendantAccount"
-import AttendantTransactions from "../UI/components/AttendantTransactions"
+
+
 import History from "../UI/components/History"
 import Codes from "../UI/components/Codes"
-import Scan from "../UI/components/Scan"
-import ScanHistory from "../UI/components/ScanHistory"
-import Users from '../UI/components/Users'
+
+
 import AppWrapper from "../UI/components/AppWrapper"
 import NotFound from "./NotFound"
 import UnAuthorized from "./UnAuthorized";
+
+
 
 const AppRouter = () => {
     const { subdomain } = useContext(AppContext)
@@ -37,22 +38,7 @@ const AppRouter = () => {
             return (
                 <Router>
                     <AppWrapper path="/">
-                        <AdminLayout path="admin">
-                            <AdminHome path="/" />
-                            <Register path="register" />
-                            <Account path="account">
-                                <AdminAccount path="/" />
-                                <Edit path="edit" />
-                                <Reports path="reports">
-                                    <ReportsHome path="/" />
-                                    <OnlineTransactions path="online-transactions" />
-                                    <AttendantTransactions path="attendant-activity" />
-                                </Reports>
-                                <Users path="users" />
-                            </Account>
-                            <Login path="login" />
-                            <Login path="signup" />
-                        </AdminLayout>
+                        <AdminRoutes path="admin/*" />
                         <UnAuthorized path="unauthorized" />
                         <NotFound default />
                     </AppWrapper>
@@ -62,22 +48,7 @@ const AppRouter = () => {
             return (
                 <Router>
                     <AppWrapper path="/">
-                        <AdminLayout path="admin">
-                            <AdminHome path="/" />
-                            <Register path="register" />
-                            <Account path="account">
-                                <AdminAccount path="/" />
-                                <Edit path="edit" />
-                                <Reports path="reports">
-                                    <ReportsHome path="/" />
-                                    <OnlineTransactions path="online-transactions" />
-                                    <AttendantTransactions path="attendant-activity" />
-                                </Reports>
-                                <Users path="users" />
-                            </Account>
-                            <Login path="login" />
-                            <Login path="signup" />
-                        </AdminLayout>
+                        <AdminRoutes path="admin/*" />
                         <ConsumerLayout path="/" >
                             <ConsumerHome path="/" />
                             <Account path="account">
@@ -92,16 +63,7 @@ const AppRouter = () => {
                             </Cart>
                             <NotFound default />
                         </ConsumerLayout>
-                        <AttendantLayout path="attendant">
-                            <AttendantHome path="/" />
-                            <Account path="account" >
-                                <AttendantAccount path="/" />
-                                <ScanHistory path="recent-scans" />
-                                <Edit path="edit" />
-                            </Account>
-                            <Scan path="scan" />
-                            <NotFound default />
-                        </AttendantLayout>
+                        <AttendantRoutes path="attendant/*" />
                         <Login path="login" />
                         <Login path="signup" />
                         <UnAuthorized path="unauthorized" />
@@ -126,16 +88,7 @@ const AppRouter = () => {
                             </Cart>
                             <NotFound default />
                         </ConsumerLayout>
-                        <AttendantLayout path="attendant">
-                            <AttendantHome path="/" />
-                            <Account path="account" >
-                                <AttendantAccount path="/" />
-                                <ScanHistory path="recent-scans" />
-                                <Edit path="edit" />
-                            </Account>
-                            <Scan path="scan" />
-                            <NotFound default />
-                        </AttendantLayout>
+                        <AttendantRoutes path="/*" />
                         <Login path="login" />
                         <Login path="signup" />
                         <UnAuthorized path="unauthorized" />

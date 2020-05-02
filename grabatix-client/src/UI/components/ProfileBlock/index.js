@@ -10,9 +10,6 @@ import { AuthContext } from '../../../providers/AuthProvider'
 
 import "./index.css"
 
-
-// TO DO: CONVERT ALL FUNCTIONS IN PROPS TO IMPORT FROM CONTEXT
-
 const ProfileBlock = () => {
     const [isOpen, setOpenMenu] = useState(false)
     const { user, isLoggedIn, logout } = useContext(AuthContext)
@@ -30,23 +27,28 @@ const ProfileBlock = () => {
         logout();
     }
 
-    let accountPath="/account", 
-        editPath="/account/edit", 
-        homePath="/", 
-        loginPath="/login", 
-        signupPath="/signup";
-    if ( attendantMatch ) {
-        accountPath = "/attendant" + accountPath
-        editPath = "/attendant" + editPath
-        homePath = "/attendant" + homePath
+    const basePaths = {
+        accountPath: "/account", 
+        editPath: "/account/edit", 
+        homePath: "/", 
+        loginPath: "/login", 
+        signupPath: "/signup"
     }
-    if ( adminMatch ) {
-        accountPath = "/admin" + accountPath
-        editPath = "/admin" + editPath
-        homePath = "/admin" + homePath
-        loginPath = "/admin" + loginPath
-        signupPath = "/admin" + signupPath
+
+    if ( !!attendantMatch || !!adminMatch ) {
+        for (let path in basePaths) {
+            if (path === 'loginPath' && path === 'signupPath' && !!attendantMatch) {
+                continue;
+            }
+            const rootPath = !!adminMatch ? "/admin" : "/attendant";
+            basePaths[path] = rootPath + basePaths[path];
+        }
     }
+
+    const {
+        accountPath, editPath, homePath, loginPath, signupPath
+    } = basePaths; 
+    
     return (
         <div className="profile-block-container">
             <ProfileBadge handleClick={handleMenuOpenState}/>

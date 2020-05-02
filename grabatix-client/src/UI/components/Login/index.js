@@ -10,11 +10,11 @@ import { AuthContext } from '../../../providers/AuthProvider'
 
 import "./index.css"
 
-const Login = () => {
+const Login = ({ctx}) => {
     const adminMatch = useMatch("/admin/*")
     const loginMatch = useMatch("/login");
     const { isLoggedIn, login, signup, logout } = useContext(AuthContext)
-    
+   
     const initialState = {
         fields: {
             username: "",
@@ -29,10 +29,26 @@ const Login = () => {
             confirmpassword: ""
         }
     }
-    const [state, dispatch] = useReducer(reducer, initialState)
+    const [{fields, errors}, dispatch] = useReducer(reducer, initialState);
     
     const handleInputChange = ({target: { name, value}}) => {
         dispatch({type: UPDATE_FIELDS, payload: { name, value } });
+    }
+
+    const validateInput = ({target: { name, value}}) => {
+        console.log({name, value})
+        switch (name) {
+            case "username":
+                break;
+            case "companyname":
+                break;
+            case "password":
+                break;
+            case "confirmpassword":
+                break;
+            default:
+                break;
+        }
     }
 
     let formTitle = !!loginMatch ? "Log-In" : "Sign-Up";
@@ -49,14 +65,14 @@ const Login = () => {
         if (isLoggedIn) {
             logout();
         } else if (!isLoggedIn && !!loginMatch) {
-            login(state.fields.username, state.fields.password)
+            login(fields.username, fields.password)
         } else {
-            signup(state.fields.username, state.fields.password, state.fields.companyname)
+            signup(fields.username, fields.password, fields.companyname)
         }
     }
     return (
         <form onSubmit={handleSubmit}>
-            <h2>{ formTitle }</h2>
+            { !isLoggedIn && <h2>{ formTitle }</h2> }
             { 
                 !!loginMatch && !isLoggedIn && (
                     <FormRow>
@@ -68,10 +84,11 @@ const Login = () => {
                             maxLength={120}
                             placeholder="Email Address"
                             disabled={false}
-                            // validation={}
+                            // validation={".*"}
+                            handleBlur={validateInput}
                             handleInputChange={handleInputChange}
-                            value={state.fields.username}
-                            error={state.errors.username}
+                            value={fields.username}
+                            error={errors.username}
                         />
                         <InputGroup
                             id="password"
@@ -81,10 +98,11 @@ const Login = () => {
                             maxLength={120}
                             placeholder="A-z0-9!@#$%^&*()"
                             disabled={false}
-                            // validation={}
+                            // validation={".*"}
+                            handleBlur={validateInput}
                             handleInputChange={handleInputChange}
-                            value={state.fields.password}
-                            error={state.errors.password}
+                            value={fields.password}
+                            error={errors.password}
                         />
                     </FormRow>
                 )
@@ -102,9 +120,10 @@ const Login = () => {
                                 placeholder="Email Address"
                                 disabled={false}
                                 // validation={}
+                                handleBlur={validateInput}
                                 handleInputChange={handleInputChange}
-                                value={state.fields.username}
-                                error={state.errors.username}
+                                value={fields.username}
+                                error={errors.username}
                             />
                             {
                                 adminMatch && (
@@ -116,10 +135,11 @@ const Login = () => {
                                         maxLength={120}
                                         placeholder={"Company Name"}
                                         disabled={false}
-                                        validation={".*"}
+                                        // validation={".*"}
+                                        handleBlur={validateInput}
                                         handleInputChange={handleInputChange}
-                                        value={state.fields.companyname}
-                                        error={state.errors.companyname}
+                                        value={fields.companyname}
+                                        error={errors.companyname}
                                     />
                                 )
                             }
@@ -134,9 +154,10 @@ const Login = () => {
                                 placeholder="A-z0-9!@#$%^&*()"
                                 disabled={false}
                                 // validation={}
+                                handleBlur={validateInput}
                                 handleInputChange={handleInputChange}
-                                value={state.fields.password}
-                                error={state.errors.password}
+                                value={fields.password}
+                                error={errors.password}
                             />
                             <InputGroup
                                 id="confirmpassword"
@@ -147,9 +168,10 @@ const Login = () => {
                                 placeholder="Match Password"
                                 disabled={false}
                                 // validation={}
+                                handleBlur={validateInput}
                                 handleInputChange={handleInputChange}
-                                value={state.fields.confirmpassword}
-                                error={state.errors.confirmpassword}
+                                value={fields.confirmpassword}
+                                error={errors.confirmpassword}
                             />
                         </FormRow>
                     </>
@@ -163,6 +185,7 @@ const Login = () => {
 }
 
 Login.propTypes = {
+    ctx: PropTypes.object,
 }
 
 export default Login;

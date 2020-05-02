@@ -12,13 +12,28 @@ const AdminProvider = ({children}) => {
   const {isLoggedIn, checkRoles } = useContext(AuthContext)
 
   const initialState = {
-    isAdminUser: isLoggedIn && checkRoles(Admin)
+    isAdminUser: isLoggedIn && checkRoles(Admin),
+    companyName: ''
   }
-  
+
   const [state, dispatch] = useReducer(reducer, initialState)
+  
+  const validateCompanyName = async (companyName) => {
+    // const isAvailable = await adminCompanyNameService(companyName);
+
+    const isAvailable = true;
+    return isAvailable;
+  }
+
+  const validateEmailAddress = async (emailAddress) => {
+      // const isAvailable = await adminEmailService(companyName);
+
+      const isAvailable = true;
+      return isAvailable;
+  }
 
   return (
-    <AdminContext.Provider value={{...state}}>
+    <AdminContext.Provider value={{...state, validateCompanyName, validateEmailAddress}}>
       {children}
     </AdminContext.Provider>
   )
