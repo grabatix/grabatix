@@ -1,7 +1,7 @@
 import React from "react";
 import { Router } from "@reach/router";
 import ConsumerProvider from "../../providers/ConsumerProvider"
-import ConsumerLayout from "../../UI/layouts/Consumer"
+import ConsumerLayout from "../../UI/layouts/ConsumerLayout"
 import Account from "../../UI/components/Account"
 import Edit from "../../UI/components/Edit"
 import ConsumerAccount from "../../UI/components/ConsumerAccount"

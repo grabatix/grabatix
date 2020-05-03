@@ -2,7 +2,7 @@ import React from 'react'
 import { Router } from "@reach/router";
 import AdminProvider from "../../providers/AdminProvider"
 import withAdminContext from "../../hoc/withAdminContext"
-import AdminLayout from "../../UI/layouts/Admin"
+import AdminLayout from "../../UI/layouts/AdminLayout"
 import AdminAccount from "../../UI/components/AdminAccount"
 import AdminHome from "../../UI/components/AdminHome"
 import Account from "../../UI/components/Account"

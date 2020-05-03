@@ -1,12 +1,11 @@
 import React, {useState, useContext} from 'react'
 import PropTypes from 'prop-types'
-import Header from '../components/Header'
-import ProfileBlock from "../components/ProfileBlock"
-import Logo from "../components/Logo"
-import Button from "../components/Button"
-import FlexContainer from "../components/FlexContainer"
-import { AdminContext } from '../../providers/AdminProvider'
-import { AuthContext } from '../../providers/AuthProvider'
+import Header from '../../components/Header'
+import ProfileBlock from "../../components/ProfileBlock"
+import Logo from "../../components/Logo"
+import FlexContainer from "../../components/FlexContainer"
+import { AdminContext } from '../../../providers/AdminProvider'
+import { AuthContext } from '../../../providers/AuthProvider'
 
 const AdminLayout = ({children, ...props}) => {
     const [modalType, setModalType] = useState("login");

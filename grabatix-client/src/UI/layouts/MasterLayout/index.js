@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { AppContext } from "../../../providers/AppProvider"
-import Header from '../Header'
-import Footer from "../Footer"
-import ProfileBlock from "../ProfileBlock"
-import FlexContainer from "../FlexContainer"
-import Logo from "../Logo"
+import Header from '../../components/Header'
+import Footer from "../../components/Footer"
+import ProfileBlock from "../../components/ProfileBlock"
+import FlexContainer from "../../components/FlexContainer"
+import Logo from "../../components/Logo"
 
-const AppWrapper = ({children}) => {
+const MasterLayout = ({children}) => {
     const { companyInfo: { name: companyName }} = useContext(AppContext)
     return (
         <>
@@ -28,8 +28,8 @@ const AppWrapper = ({children}) => {
     )
 }
 
-AppWrapper.propTypes = {
+MasterLayout.propTypes = {
     children: PropTypes.node.isRequired
 }
 
-export default AppWrapper
+export default MasterLayout

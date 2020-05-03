@@ -5,7 +5,7 @@ import AdminRoutes from "./AdminRoutes"
 import AttendantRoutes from "./AttendantRoutes"
 import ConsumerRoutes from "./ConsumerRoutes"
 
-import AppWrapper from "../UI/components/AppWrapper"
+import MasterLayout from "../UI/layouts/MasterLayout"
 import NotFound from "./NotFound"
 import UnAuthorized from "./UnAuthorized";
 
@@ -17,34 +17,34 @@ const AppRouter = () => {
         case "admin":
             return (
                 <Router>
-                    <AppWrapper path="/">
+                    <MasterLayout path="/">
                         <AdminRoutes path="admin/*" />
                         <UnAuthorized path="unauthorized" />
                         <NotFound default />
-                    </AppWrapper>
+                    </MasterLayout>
                 </Router>
             )
         case "localhost":
             return (
                 <Router>
-                    <AppWrapper path="/">
+                    <MasterLayout path="/">
                         <ConsumerRoutes path="/*" />
                         <AdminRoutes path="admin/*" />
                         <AttendantRoutes path="attendant/*" />
                         <UnAuthorized path="unauthorized" />
                         <NotFound default />
-                    </AppWrapper>
+                    </MasterLayout>
                 </Router>
             )
         default:
             return (
                 <Router>
-                    <AppWrapper path="/">
+                    <MasterLayout path="/">
                         <ConsumerRoutes path="/*" />
                         <AttendantRoutes path="attendant/*" />
                         <UnAuthorized path="unauthorized" />
                         <NotFound default />
-                    </AppWrapper>
+                    </MasterLayout>
                 </Router>
             )
     }

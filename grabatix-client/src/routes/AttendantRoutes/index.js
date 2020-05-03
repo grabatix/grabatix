@@ -2,7 +2,7 @@ import React from "react";
 import { Router } from "@reach/router";
 import AttendantProvider from "../../providers/AttendantProvider"
 import withAttendantContext from "../../hoc/withAttendantContext"
-import AttendantLayout from "../../UI/layouts/Attendant"
+import AttendantLayout from "../../UI/layouts/AttendantLayout"
 import AttendantAccount from "../../UI/components/AttendantAccount"
 import AttendantHome from "../../UI/components/AttendantHome"
 import Account from "../../UI/components/Account"
