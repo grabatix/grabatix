@@ -64,7 +64,7 @@ const ProfileBlock = () => {
                 <SubNavLink label={"My History"} path={`/account/history`} disabled={!isLoggedIn} hidden={!!adminMatch || !isLoggedIn} />
                 <SubNavLink label={"Edit"} path={editPath} disabled={!isLoggedIn} hidden={!isLoggedIn} />
                 <NavLink label={"Log-Out"} path={loginPath} disabled={false} hidden={!isLoggedIn} handleClick={handleLogout}/>
-                <NavLink label={"Log-In"} path={loginPath} disabled={false} hidden={isLoggedIn}/>
+                <NavLink label={"Log-In"} path={loginPath} disabled={false} hidden={isLoggedIn} />
                 <NavLink label={"Sign-Up"} path={signupPath} disabled={isLoggedIn} hidden={isLoggedIn}/>
                 <DarkSwitcher />
             </ProfileMenu>
