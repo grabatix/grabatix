@@ -12,8 +12,10 @@ const AttendantLayout = ({children, ...props}) => {
     }
     if (authorized) {
         return (
-            <main>
-                {children}
+            <main className="secondary">
+                <div className="container">
+                    {children}
+                </div>
             </main>
         )
     }

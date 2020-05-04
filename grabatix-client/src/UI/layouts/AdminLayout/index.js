@@ -8,34 +8,18 @@ import { AdminContext } from '../../../providers/AdminProvider'
 import { AuthContext } from '../../../providers/AuthProvider'
 
 const AdminLayout = ({children, ...props}) => {
-    const [modalType, setModalType] = useState("login");
-    const [isOpen, setOpenStatus] = useState(false);
-
     const { isLoggedIn, user } = useContext(AuthContext)
-
-    const handleModalOpen = type => {
-        setModalType(type)
-        setOpenStatus(true)
-    }
-    const handleModalOpenStatus = e => {
-        e.preventDefault();
-        setOpenStatus(!isOpen)
-    }
-
-    const setAccountOpen = async () => true
-    const setReportsOpen = async () => true
     return (
         <>
-            <Header>
-                <ProfileBlock isLoggedIn={isLoggedIn} handleModalOpen={handleModalOpen} setAccountOpen={setAccountOpen} setReportsOpen={setReportsOpen} includeReports={true}/>
-            </Header>
-            <main>
-                <FlexContainer flexClasses="row justify-center align-center">
-                    <Logo utilityClasses="mt-2">
-                        <img src="https://res.cloudinary.com/grabatix/image/upload/v1585218366/Admin/Grabatix_mjmk2j.png" alt="Grabatix"/>
-                    </Logo>
-                </FlexContainer>
-                {children}
+            <main className="secondary">
+                <div className="container">
+                    <FlexContainer flexClasses="row justify-center align-center">
+                        <Logo utilityClasses="mt-2">
+                            <img src="https://res.cloudinary.com/grabatix/image/upload/v1585218366/Admin/Grabatix_mjmk2j.png" alt="Grabatix"/>
+                        </Logo>
+                    </FlexContainer>
+                    {children}
+                </div>
             </main>
         </>
     )

@@ -42,16 +42,24 @@ div.site-content {
   height: auto;
   background-color: var(--bg);
   color: var(--color);
-  padding: 0 5px;
+  padding: 0;
 }
 
-div.site-content.secondary {
+div.site-content.secondary, .secondary {
   background-color: var(--bgSecondary);
   color: var(--colorSecondary);
 }
 
 main {
   min-height: calc(100vh - 80px);
+  margin: 0 auto;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: block;
 }
 
 /** THEME VARIABLES **/
@@ -81,7 +89,8 @@ body.light {
   --inputSuccessColor: #81D86C;
   --inputStatusBorderWidth: 5px;
   --inputPlaceholderColor: #969696;
-  --labelColor: #969696;
+  --labelColor: #505050;
+  --secondaryLabelColor: #f0eae4;
   --labelFontWeight: 600;
   --labelOpacity: 1;
   --labelTextTransform: none;
@@ -126,6 +135,7 @@ body.dark {
   --inputErrorBorderWidth: 5px;
   --inputPlaceholderColor: #333;
   --labelColor: #d0d0d0;
+  --secondaryLabelColor: #d0d0d0;
   --labelFontWeight: 600;
   --labelOpacity: 1;
   --labelTextTransform: none;
@@ -152,9 +162,19 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--greyText);
+  color: var(--labelColor);
   transition: color 250ms ease-in-out;
 }
+
+.secondary h1,
+.secondary h2,
+.secondary h3,
+.secondary h4,
+.secondary h5,
+.secondary h6 {
+  color: var(--secondarylabelColor);
+}
+
 
 a {
   color: var(--accent);
@@ -190,6 +210,10 @@ label span {
   position: absolute;
   top: -1px;
   color: var(--labelColor);
+}
+
+.secondary label, .secondary label span {
+  color: var(--secondaryLabelColor);
 }
 
 /**** GRABATIX LOGO SVG STYLES ****/

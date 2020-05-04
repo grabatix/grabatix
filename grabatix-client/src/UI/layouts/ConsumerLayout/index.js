@@ -2,8 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const ConsumerLayout = ({children}) => (
-    <main>
-        {children}
+    <main className="secondary">
+        <div className="container">
+            {children}
+        </div>
     </main>
 )
 
