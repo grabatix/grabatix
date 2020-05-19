@@ -1,56 +1,58 @@
+/** @format */
+
 div.submit-button-group {
-    box-sizing: border-box;
-	position: relative;
-    width: 100%;
-    flex: 1 1 auto;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  flex: 1 1 auto;
 }
-input[type="submit"] {
-    appearance: none;
-    background: var(--btnBgColor);
-    color: var(--btnColor);
-    cursor: pointer;
-    display: block;
-    font-weight: 600;
-    height: 40px !important;
-    font-size: 32px !important;
-    line-height: 40px;
-    width: calc(100% - 8px);
-    text-align: center;
-    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
-    margin: 4px;
-    box-sizing: border-box;
-    padding: 0 10px;
+input[type='submit'] {
+  appearance: none;
+  background: var(--btnBgColor);
+  color: var(--btnColor);
+  cursor: pointer;
+  display: block;
+  font-weight: 600;
+  height: 40px !important;
+  font-size: 32px !important;
+  line-height: 40px;
+  width: calc(100% - 8px);
+  text-align: center;
+  transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+  margin: 4px;
+  box-sizing: border-box;
+  padding: 0 10px;
 }
 
-input[type="submit"].large {
-    height: 160px !important;
-    font-size: 50px !important;
-    line-height: 160px;
+input[type='submit'].large {
+  height: 160px !important;
+  font-size: 50px !important;
+  line-height: 160px;
 }
-input[type="submit"]:hover,
-input[type="submit"]:active,
-input[type="submit"]:focus {
-    background: var(--btnHoverBgColor);
-    color: var(--btnHoverColor);
-    cursor: pointer;
+input[type='submit']:hover,
+input[type='submit']:active,
+input[type='submit']:focus {
+  background: var(--btnHoverBgColor);
+  color: var(--btnHoverColor);
+  cursor: pointer;
 }
-input[type="submit"]:disabled {
-    cursor: wait;
-    background: var(--grey);
-    color: var(--lightGrey);
+input[type='submit']:disabled {
+  cursor: wait;
+  background: var(--grey);
+  color: var(--lightGrey);
 }
 .form-error {
-    box-sizing: border-box;
-	position: absolute;
-	color: var(--red);
-	width: auto;
-	font-weight: 600;
-	font-size: 16px;
-	opacity: 1;
-	overflow: hidden;
-	max-width: 100%;
-	white-space: nowrap;
-	left: 50%;
-	transform: translateX(-50%);
-	bottom: calc(0% - 25px);
+  box-sizing: border-box;
+  position: absolute;
+  color: var(--red);
+  width: auto;
+  font-weight: 600;
+  font-size: 16px;
+  opacity: 1;
+  overflow: hidden;
+  max-width: 100%;
+  white-space: nowrap;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(0% - 25px);
 }

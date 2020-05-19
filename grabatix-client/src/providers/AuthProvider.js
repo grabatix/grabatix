@@ -1,25 +1,26 @@
-import React, { useReducer, useContext } from "react"
-import { LOGIN, LOGOUT, SIGNUP, EDIT_PROFILE } from "./actions/auth-actions";
-import reducer from "./reducers/auth-reducer"
-import { AppContext } from "./AppProvider"
+/** @format */
+
+import React, { useReducer, useContext } from 'react'
+import { LOGIN, LOGOUT, SIGNUP, EDIT_PROFILE } from './actions/auth-actions'
+import reducer from './reducers/auth-reducer'
+import { AppContext } from './AppProvider'
 
 export const AuthContext = React.createContext()
 
-const AuthProvider = ({children}) => {
-
+const AuthProvider = ({ children }) => {
   const initialState = {
     isLoggedIn: false,
     user: {
-      displayName: "",
+      displayName: '',
       roles: [],
-      imgUrl: "",
-      authToken: ""
-    }
+      imgUrl: '',
+      authToken: '',
+    },
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const checkRoles = role => state.user.roles.includes(role);
+  const checkRoles = role => state.user.roles.includes(role)
 
   const login = async (username, password) => {
     // call login service
@@ -28,12 +29,12 @@ const AuthProvider = ({children}) => {
     //validate results
     // temporary user
     let user = {
-      displayName: "",
+      displayName: '',
       roles: [],
-      imgUrl: "",
-      authToken: ""
+      imgUrl: '',
+      authToken: '',
     }
-    dispatch({type: LOGIN, payload: { user } })
+    dispatch({ type: LOGIN, payload: { user } })
   }
 
   const signup = async (username, password, companyName) => {
@@ -43,12 +44,12 @@ const AuthProvider = ({children}) => {
     //validate results
     // temporary user
     let user = {
-      displayName: "",
+      displayName: '',
       roles: [],
-      imgUrl: "",
-      authToken: ""
+      imgUrl: '',
+      authToken: '',
     }
-    dispatch({type: SIGNUP, payload: { user } })
+    dispatch({ type: SIGNUP, payload: { user } })
   }
 
   const loginWithQuickbooks = async () => {
@@ -58,19 +59,27 @@ const AuthProvider = ({children}) => {
     //validate results
     // temporary user
     let user = {
-      displayName: "",
+      displayName: '',
       roles: [],
-      imgUrl: "",
-      authToken: ""
+      imgUrl: '',
+      authToken: '',
     }
-    dispatch({type: LOGIN, payload: { user } })
+    dispatch({ type: LOGIN, payload: { user } })
   }
 
-  const logout = () => dispatch({type: LOGOUT});
-  
+  const logout = () => dispatch({ type: LOGOUT })
 
   return (
-    <AuthContext.Provider value={{...state, checkRoles, login, signup, loginWithQuickbooks, logout}}>
+    <AuthContext.Provider
+      value={{
+        ...state,
+        checkRoles,
+        login,
+        signup,
+        loginWithQuickbooks,
+        logout,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

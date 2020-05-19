@@ -1,16 +1,13 @@
+/** @format */
+
 import React from 'react'
 import PropTypes from 'prop-types'
-import NavLink from "../NavLink"
+import NavLink from '../NavLink'
 
 import './index.css'
 
-const ConsumerHome = (props) => (
-    <h2>
-        ConsumerHome
-    </h2>
-)
+const ConsumerHome = props => <h2>ConsumerHome</h2>
 
-ConsumerHome.propTypes = {
-}
+ConsumerHome.propTypes = {}
 
-export default ConsumerHome;
+export default ConsumerHome

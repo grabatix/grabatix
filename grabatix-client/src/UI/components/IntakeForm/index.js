@@ -1,16 +1,18 @@
-import React from "react"
+/** @format */
+
+import React from 'react'
 import PropTypes from 'prop-types'
 
-import "./index.css"
+import './index.css'
 
-const IntakeForm = ({utilityClasses, ...props}) => (
-    <form {...props} className={utilityClasses}>
-        {/* connect to Quickbooks */}
-    </form>
+const IntakeForm = ({ utilityClasses, ...props }) => (
+  <form {...props} className={utilityClasses}>
+    {/* connect to Quickbooks */}
+  </form>
 )
 
 IntakeForm.propTypes = {
-    utilityClasses: PropTypes.string
+  utilityClasses: PropTypes.string,
 }
 
-export default IntakeForm;
+export default IntakeForm

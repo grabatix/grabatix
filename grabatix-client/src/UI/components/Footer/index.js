@@ -1,17 +1,25 @@
-import React from "react"
+/** @format */
+
+import React from 'react'
 import PropTypes from 'prop-types'
+import { useMatch } from '@reach/router'
 
-import "./index.css"
+import './index.css'
 
-const Footer = ({children, utilityClasses, ...props}) => (
-    <footer {...props} className={utilityClasses}>
+const Footer = ({ children, utilityClasses, ...props }) => {
+  const adminMatch = useMatch('/admin/*')
+  return (
+    !adminMatch && (
+      <footer {...props} className={utilityClasses}>
         {children}
-    </footer>
-)
-
-Footer.propTypes = {
-    children: PropTypes.node,
-    utilityClasses: PropTypes.string
+      </footer>
+    )
+  )
 }
 
-export default Footer;
+Footer.propTypes = {
+  children: PropTypes.node,
+  utilityClasses: PropTypes.string,
+}
+
+export default Footer

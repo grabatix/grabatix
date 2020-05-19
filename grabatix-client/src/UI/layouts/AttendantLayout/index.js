@@ -1,31 +1,31 @@
-import React from 'react'
-import { Redirect } from "@reach/router";
-import PropTypes from 'prop-types'
-import Loading from "../../components/Loading"
-import useProtectedRoute from "../../../hooks/useProtectedRoute"
-import { Attendant } from "../../../config/roles"
+/** @format */
 
-const AttendantLayout = ({children, ...props}) => {
-    const { authorized, isFetching } = useProtectedRoute(Attendant);
-    if (isFetching) {
-        return <Loading />
-    }
-    if (authorized) {
-        return (
-            <main className="secondary">
-                <div className="container">
-                    {children}
-                </div>
-            </main>
-        )
-    }
-    if (!isFetching && !authorized) {
-        return <Redirect from="" to="/unauthorized" noThrow />
-    }
+import React from 'react'
+import { Redirect } from '@reach/router'
+import PropTypes from 'prop-types'
+import Loading from '../../components/Loading'
+import useProtectedRoute from '../../../hooks/useProtectedRoute'
+import { Attendant } from '../../../config/roles'
+
+const AttendantLayout = ({ children, ...props }) => {
+  const { authorized, isFetching } = useProtectedRoute(Attendant)
+  if (isFetching) {
+    return <Loading />
+  }
+  if (authorized) {
+    return (
+      <main className="secondary">
+        <div className="container">{children}</div>
+      </main>
+    )
+  }
+  if (!isFetching && !authorized) {
+    return <Redirect from="" to="/unauthorized" noThrow />
+  }
 }
 
 AttendantLayout.propTypes = {
-    children: PropTypes.node
+  children: PropTypes.node,
 }
 
-export default AttendantLayout;
+export default AttendantLayout

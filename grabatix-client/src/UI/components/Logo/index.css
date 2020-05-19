@@ -1,9 +1,11 @@
+/** @format */
+
 .logo-container {
-    max-width: 280px;
+  max-width: 280px;
 }
 
 .logo-container > img {
-    display: block;
-    max-width: 100%;
-    margin: 0 auto;
+  display: block;
+  max-width: 100%;
+  margin: 0 auto;
 }

@@ -1,3 +1,5 @@
+/** @format */
+
 @import-normalize; /* bring in normalize.css styles */
 /* rest of app styles */
 * {
@@ -38,20 +40,19 @@ a {
 }
 
 div.site-content {
-  width: 100%;
-  height: auto;
+  width: 100vw;
   background-color: var(--bg);
   color: var(--color);
   padding: 0;
 }
 
-div.site-content.secondary, .secondary {
+div.site-content.secondary,
+.secondary {
   background-color: var(--bgSecondary);
   color: var(--colorSecondary);
 }
 
 main {
-  min-height: calc(100vh - 80px);
   margin: 0 auto;
 }
 
@@ -67,7 +68,7 @@ main {
 body.light {
   --bg: #f0eae4;
   --bgDark: #505050;
-  --bgSecondary: #71706E;
+  --bgSecondary: #71706e;
   --bgAccent: #78c3de;
   --bgDarkHover: black;
   --btnColor: #fff;
@@ -82,11 +83,10 @@ body.light {
   --inputColor: #505050;
   --inputHoverBorderColor: #fff;
   --inputHoverBorderWidth: 5px;
-  --inputHoverBoxShadow: inset 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px #747474;
+  --inputHoverBoxShadow: inset 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #747474;
   --inputHoverBackgroundColor: #fff;
   --inputErrorColor: #ef7862;
-  --inputSuccessColor: #81D86C;
+  --inputSuccessColor: #81d86c;
   --inputStatusBorderWidth: 5px;
   --inputPlaceholderColor: #969696;
   --labelColor: #505050;
@@ -97,23 +97,22 @@ body.light {
   --rgb: 0;
   --a: 2;
   --color: #505050;
-  --colorSecondary: #CDCDCC;
+  --colorSecondary: #cdcdcc;
   --accent: #78c3de;
   --hoverAccent: #39a7cf;
   --darkGrey: #505050;
   --grey: #969696;
   --greyText: #969696;
-  --lightGrey: #C7C7C7;
+  --lightGrey: #c7c7c7;
   --red: #ef7862;
-  --green: #81D86C;
+  --green: #81d86c;
   --white: #f0eae4;
 }
 
 body.dark {
-
   --bg: #241c14;
   --bgDark: #171717;
-  --bgSecondary: #82765d;
+  --bgSecondary: #353432;
   --bgAccent: #98b4be;
   --bgDarkHover: grey;
   --btnColor: #eee;
@@ -175,7 +174,6 @@ h6 {
   color: var(--secondarylabelColor);
 }
 
-
 a {
   color: var(--accent);
   transition: color 250ms ease-in-out;
@@ -184,7 +182,7 @@ a:hover {
   color: var(--hoverAccent);
 }
 
-[role="button"] {
+[role='button'] {
   cursor: pointer;
 }
 
@@ -212,24 +210,25 @@ label span {
   color: var(--labelColor);
 }
 
-.secondary label, .secondary label span {
+.secondary label,
+.secondary label span {
   color: var(--secondaryLabelColor);
 }
 
 /**** GRABATIX LOGO SVG STYLES ****/
 .logo-1 {
-  font-size : 60px;
+  font-size: 60px;
   fill: #231f20;
   font-family: HandelGotD-Bol, Handel Gothic D;
 }
 .logo-2 {
-  letter-spacing:-0.013em;
+  letter-spacing: -0.013em;
 }
 .logo-3 {
   letter-spacing: -0.011em;
 }
 .logo-4 {
-  letter-spacing:-0.005em;
+  letter-spacing: -0.005em;
 }
 /*********************************/
 
@@ -287,8 +286,8 @@ label span {
 }
 
 .mx-1 {
-  margin-left: 1rem;;
-  margin-right: 1rem;;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .mx-2 {
   margin-left: 2rem;
@@ -363,6 +362,18 @@ label span {
   margin-left: 3rem;
 }
 
+.ml-6 {
+  margin-left: 6rem;
+}
+
+.ml-8 {
+  margin-left: 8rem;
+}
+
+.ml-9 {
+  margin-left: 9rem;
+}
+
 .my-auto {
   margin-top: auto;
   margin-bottom: auto;
@@ -415,8 +426,8 @@ label span {
 }
 
 .px-1 {
-  padding-left: 1rem;;
-  padding-right: 1rem;;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 .px-2 {
   padding-left: 2rem;

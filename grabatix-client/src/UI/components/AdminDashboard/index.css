@@ -1,0 +1,22 @@
+/** @format */
+
+.dashboard-left {
+  color: var(--white);
+  width: 100%;
+  max-width: 275px;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  min-height: calc(100vh - 80px);
+  background: var(--bgSecondary);
+  border-right: 5px solid var(--darkGrey);
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+}
+
+.dashboard-right {
+  margin-left: 275px;
+  margin-top: 80px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: calc(100vh - 80px);
+}

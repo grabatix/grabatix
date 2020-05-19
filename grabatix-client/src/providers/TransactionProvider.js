@@ -1,14 +1,16 @@
-import React, { Component } from "react"
-import { UPDATE_CART } from "./actions/transaction-actions";
-import reducer from "./reducers/transaction-reducer"
-import { tickets } from "../__mocks__/tickets"
-import { callApi } from "../utils/fetch-helpers"
+/** @format */
 
-const isBrowser = () => typeof window !== "undefined"
+import React, { Component } from 'react'
+import { UPDATE_CART } from './actions/transaction-actions'
+import reducer from './reducers/transaction-reducer'
+import { tickets } from '../__mocks__/tickets'
+import { callApi } from '../utils/fetch-helpers'
+
+const isBrowser = () => typeof window !== 'undefined'
 
 export const TransactionContext = React.createContext()
 
-const apiUrl = "http://localhost:8282/api/v1/qb/auth"
+const apiUrl = 'http://localhost:8282/api/v1/qb/auth'
 
 // Getting dark mode information from OS!
 // You need macOS Mojave + Safari Technology Preview Release 68 to test this currently.
@@ -27,7 +29,11 @@ class TransactionProvider extends Component {
       props: { children },
       state,
     } = this
-    return <TransactionContext.Provider value={state}>{children}</TransactionContext.Provider>
+    return (
+      <TransactionContext.Provider value={state}>
+        {children}
+      </TransactionContext.Provider>
+    )
   }
 }
 

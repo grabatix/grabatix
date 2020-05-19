@@ -10,7 +10,7 @@ const JWTStrategy = passportJWT.Strategy
 const strategy = () => {
   const strategyOptions = {
     jwtFromRequest: req => req.cookies.jwt,
-    secretOrKey: process.env.JWT_SECRET,
+    secretOrKey: process.env.ACCESS_TOKEN_SECRET,
     passReqToCallback: true
   }
 

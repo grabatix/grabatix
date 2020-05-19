@@ -1,10 +1,12 @@
+/** @format */
+
 .sub-nav-link {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .sub-nav-link.hidden {
-    display: none;
+  display: none;
 }

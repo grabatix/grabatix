@@ -1,6 +1,8 @@
+/** @format */
+
 import('react')
 import('react-dom')
 import('@sentry/browser')
-import("react-aria-live")
-import("whatwg-fetch")
-import("prop-types")
+import('react-aria-live')
+import('whatwg-fetch')
+import('prop-types')

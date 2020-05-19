@@ -1,8 +1,9 @@
-export const EDIT_PROFILE = "EDIT_PROFILE";
+/** @format */
 
-export const LOGIN = "LOGIN";
+export const EDIT_PROFILE = 'EDIT_PROFILE'
 
-export const LOGOUT = "LOGOUT";
+export const LOGIN = 'LOGIN'
 
-export const SIGNUP = "SIGNUP";
+export const LOGOUT = 'LOGOUT'
 
+export const SIGNUP = 'SIGNUP'

@@ -1,1 +1,3 @@
-export const UPDATE_CART = "UPDATE_CART"
+/** @format */
+
+export const UPDATE_CART = 'UPDATE_CART'

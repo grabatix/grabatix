@@ -17,7 +17,7 @@ const setup = () => {
 }
 
 const signToken = user => {
-    return jwt.sign({data:user}, process.env.JWT_SECRET, { expiresIn: "8h" })
+    return jwt.sign({data:user}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "8h" })
 }
 
 const hashPassword = async password => {

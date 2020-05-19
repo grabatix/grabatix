@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
+/** @format */
 
-const Seo = (props) => (
-    <Helmet></Helmet>
-)
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Helmet } from 'react-helmet'
+
+const Seo = props => <Helmet></Helmet>
 
 Seo.propTypes = {}
 
-export default Seo;
+export default Seo

@@ -1,5 +1,7 @@
-export const ADD_SUBDOMAIN = "ADD_SUBDOMAIN"
+/** @format */
 
-export const ADD_COMPANY_INFO = "ADD_COMPANY_INFO"
+export const ADD_SUBDOMAIN = 'ADD_SUBDOMAIN'
 
-export const TRANSITION_STATE = "TRANSITION_STATE"
+export const ADD_COMPANY_INFO = 'ADD_COMPANY_INFO'
+
+export const TRANSITION_STATE = 'TRANSITION_STATE'

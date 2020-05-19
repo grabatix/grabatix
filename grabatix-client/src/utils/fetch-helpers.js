@@ -1,15 +1,17 @@
-import { readValue, cryptValue, removeKey } from "../utils/ls"
-const isBrowser = () => typeof window !== "undefined"
+/** @format */
+
+import { readValue, cryptValue, removeKey } from '../utils/ls'
+const isBrowser = () => typeof window !== 'undefined'
 
 if (isBrowser()) {
-  require("whatwg-fetch")
+  require('whatwg-fetch')
 
   const fetchIntercept = () => {
     const originalFetch = fetch
-    window.__fetch = function() {
+    window.__fetch = function () {
       return originalFetch.apply(this, arguments).then(req => {
-        let csrfToken = req.headers.get("x-csrf-jwt");
-        cryptValue("_dangerous_token", csrfToken)
+        let csrfToken = req.headers.get('x-csrf-jwt')
+        cryptValue('_dangerous_token', csrfToken)
         return req
       })
     }
@@ -27,14 +29,14 @@ if (isBrowser()) {
  */
 export async function callApi(uri, options = {}, useIntercept = true) {
   let data
-  const csrfToken = readValue("_dangerous_token")
+  const csrfToken = readValue('_dangerous_token')
   // need to add logic to set x-auth-token on user-authed calls
   if (csrfToken) {
     if (options.headers) {
-      options.headers["x-csrf-jwt"] = csrfToken
+      options.headers['x-csrf-jwt'] = csrfToken
     } else {
       options.headers = {
-        "x-csrf-jwt": csrfToken,
+        'x-csrf-jwt': csrfToken,
       }
     }
   }
@@ -43,7 +45,7 @@ export async function callApi(uri, options = {}, useIntercept = true) {
     return data
   } catch (err) {
     console.error(err)
-    if (typeof err == "string") {
+    if (typeof err == 'string') {
       throw new Error(err)
     } else {
       throw new Error(err.message)
@@ -58,15 +60,15 @@ export async function callApi(uri, options = {}, useIntercept = true) {
  * @returns {Object|string} - will return JSON if contentType is json or String if not, and an Error Object if call failes
  */
 async function loadData(uri, options = {}, useIntercept) {
-  let response;
+  let response
   if (useIntercept) {
     response = await window.__fetch(uri, options)
   } else {
     response = await fetch(uri, options)
   }
-  const contentType = response.headers.get("content-type")
+  const contentType = response.headers.get('content-type')
   if (response.status >= 200 && response.status < 300) {
-    if (contentType && contentType.includes("application/json")) {
+    if (contentType && contentType.includes('application/json')) {
       return response.json()
     } else {
       return response.text()
@@ -78,9 +80,9 @@ async function loadData(uri, options = {}, useIntercept) {
   }
 }
 
-async function getErrorBody(response, contentType = "text") {
+async function getErrorBody(response, contentType = 'text') {
   let body
-  if (contentType.includes("application/json")) {
+  if (contentType.includes('application/json')) {
     body = await response.json()
   } else {
     body = await response.text()

@@ -1,66 +1,78 @@
-/*** BUTTONS ***/
+/**
+ * BUTTONS **
+ *
+ * @format
+ */
 
 button.btn {
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background: var(--btnBgColor);
-    color: var(--btnColor);
-    transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
-    text-align: center;
-    margin: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--btnBgColor);
+  color: var(--btnColor);
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+  text-align: center;
+  margin: 4px;
 }
 
-button.btn.secondary, button.btn.disabled {
-    background: var(--grey);
-    color: var(--lightGrey);
+button.btn.secondary,
+button.btn.disabled {
+  background: var(--grey);
+  color: var(--lightGrey);
 }
 
 button.btn.xs {
-    height: 40px;
-    font-size: 18px !important;
-    line-height: 1.25;
+  height: 40px;
+  font-size: 18px !important;
+  line-height: 1.25;
 }
 
 button.btn.small {
-    height: 80px !important;
-    font-size: 20px !important;
-    line-height: 1.25;
+  height: 80px !important;
+  font-size: 20px !important;
+  line-height: 1.25;
 }
 
 button.btn.large {
-    height: 160px !important;
-    font-size: 50px !important;
-    line-height: 1.15;
+  height: 160px !important;
+  font-size: 50px !important;
+  line-height: 1.15;
 }
 
 button.btn.primary {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 button.btn.box {
-    font-size: 20px;
-    line-height: 1.25;
+  font-size: 20px;
+  line-height: 1.25;
 }
 
 button.btn.box.dark {
-    background: var(--bgDark);
-    color: var(--inputBackgroundColor);
-    width: 260px;
-    height: 260px;
+  background: var(--bgDark);
+  color: var(--inputBackgroundColor);
+  width: 260px;
+  height: 260px;
 }
 
 button.btn.box.light {
-    background: var(--bg);
-    color: var(--color);
-    width: 170px;
-    height: 170px;
+  background: var(--bg);
+  color: var(--color);
+  width: 170px;
+  height: 170px;
 }
 
-button.btn.box.light.selected, button.btn.box.dark.selected, button.btn:hover, button.btn:active, button.btn.box.light:hover, button.btn.box.light:active, button.btn.box.dark:hover, button.btn.box.dark:active {
-    background: var(--btnBgColor);
-    color: var(--btnColor);
+button.btn.box.light.selected,
+button.btn.box.dark.selected,
+button.btn:hover,
+button.btn:active,
+button.btn.box.light:hover,
+button.btn.box.light:active,
+button.btn.box.dark:hover,
+button.btn.box.dark:active {
+  background: var(--btnBgColor);
+  color: var(--btnColor);
 }
 /*** END BUTTONS ***/

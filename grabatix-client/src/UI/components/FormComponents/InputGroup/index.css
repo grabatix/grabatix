@@ -1,4 +1,9 @@
-/*** FORM GROUP ***/
+/**
+ * FORM GROUP **
+ *
+ * @format
+ */
+
 .form-group {
   position: relative;
   margin-bottom: 20px;
@@ -55,12 +60,12 @@ select {
   height: 40px;
   display: block;
   width: calc(100% - 4px);
-  margin:2px;
+  margin: 2px;
   padding: 10px;
   line-height: 40px !important;
   background: none;
   background-color: var(--inputBackgroundColor);
-  border:none;
+  border: none;
   border-radius: var(--inputBorderRadius);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
@@ -87,11 +92,13 @@ select:disabled {
   color: var(--lightGrey);
   cursor: not-allowed;
 }
-input:disabled::placeholder,select:disabled::placeholder {
+input:disabled::placeholder,
+select:disabled::placeholder {
   color: var(--lightGrey);
 }
-input:after, select:after {
-  content: "";
+input:after,
+select:after {
+  content: '';
   display: block;
   position: absolute;
   bottom: 0;
@@ -100,11 +107,14 @@ input:after, select:after {
   background: transparent;
   transition: background-color 250ms ease-in-out;
 }
-input.error:after, input:invalid:after,
-select.error:after, select:invalid:after {
+input.error:after,
+input:invalid:after,
+select.error:after,
+select:invalid:after {
   background-color: var(--inputErrorColor);
 }
-input.validated, select.validated {
+input.validated,
+select.validated {
   background-color: var(--green);
 }
 @media screen and (max-width: 613px) {

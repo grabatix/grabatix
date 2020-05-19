@@ -1,33 +1,37 @@
+/** @format */
+
 .profile-menu-container {
-    position: absolute;
-    z-index: -1;
-    background: var(--bgSecondary);
-    color: var(--white);
-    transition: color 250ms ease-in-out, background-color 250ms ease-in-out, border-color 250ms ease-in-out, max-height 250ms ease-in-out, opacity 250ms ease-in-out;
-    width: 320px;
-    top: 0px;
-    right: 0;
-    padding: 10px;
-    padding-top: 90px;
-    border: 2px solid var(--darkGrey);
-    height: 100vh;
+  position: absolute;
+  z-index: -1;
+  background: var(--bgSecondary);
+  color: var(--white);
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out,
+    border-color 250ms ease-in-out, max-height 250ms ease-in-out,
+    opacity 250ms ease-in-out;
+  width: 320px;
+  top: 0px;
+  right: 0;
+  padding: 10px;
+  padding-top: 90px;
+  border: 2px solid var(--darkGrey);
+  height: 100vh;
 }
 
 .profile-menu-container.menuopen {
-    display: block;
-    max-height: 100vh;
-    opacity: 1;
+  display: block;
+  max-height: 100vh;
+  opacity: 1;
 }
 
 .profile-menu-container.menuclosed {
-    display: none;
-    max-height: 0;
-    opacity: 0;
+  display: none;
+  max-height: 0;
+  opacity: 0;
 }
 
-.profile-menu-container>.close-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    cursor: pointer;
+.profile-menu-container > .close-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
 }

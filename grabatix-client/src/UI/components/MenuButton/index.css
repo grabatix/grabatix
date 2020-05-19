@@ -1,18 +1,20 @@
+/** @format */
+
 .menu-link {
-    color: inherit;
-    font-size:20px;
-    margin: 4px;
-    cursor: pointer;
-    -webkit-appearance: none;
-    appearance: none;
-    padding: 0;
-    border-color: 0;
-    border: none;
-    background: transparent;
-    display: block;
+  color: inherit;
+  font-size: 20px;
+  margin: 4px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  border-color: 0;
+  border: none;
+  background: transparent;
+  display: block;
 }
 
 .menu-link:disabled {
-    color: var(--darkGrey);
-    cursor: not-allowed;
+  color: var(--darkGrey);
+  cursor: not-allowed;
 }
