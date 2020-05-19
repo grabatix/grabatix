@@ -7,8 +7,8 @@ import './index.css'
 
 const FlexContainer = ({
   children,
-  flexClasses = '',
-  utilityClasses = '',
+  flexClasses = ``,
+  utilityClasses = ``,
   style,
   ...props
 }) => (

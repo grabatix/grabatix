@@ -12,14 +12,14 @@ import * as Sentry from '@sentry/browser'
 import * as serviceWorker from './serviceWorker'
 
 Sentry.init({
-  dsn: 'https://e9e7b9abd31045b58f533369363bfcde@sentry.io/1874311',
+  dsn: `https://e9e7b9abd31045b58f533369363bfcde@sentry.io/1874311`,
 })
 
 ReactDOM.render(
   <AppProvider>
     <App />
   </AppProvider>,
-  document.getElementById('root')
+  document.getElementById(`root`)
 )
 
 // If you want your app to work offline and load faster, you can change

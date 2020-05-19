@@ -20,7 +20,7 @@
   <Button classNames="box light" innerText="$5" handleClick={() => {}} />
   <a href="#">Link</a>
   <DarkSwitcher />
-  <div style={{ display: 'flex', flexDirection: 'row' }}>
+  <div style={{ display: `flex`, flexDirection: `row` }}>
     <InputGroup
       id="input-test"
       label="Test Input"
@@ -32,10 +32,10 @@
       validation={`.*`}
       handleInputChange={handleInputChange}
       value={inputValue}
-      error={''}
+      error={``}
     />
   </div>
-  <div style={{ display: 'flex', flexDirection: 'row' }}>
+  <div style={{ display: `flex`, flexDirection: `row` }}>
     <TextAreaGroup
       id="textarea-test"
       label="Test Textarea"
@@ -45,7 +45,7 @@
       disabled={false}
       handleInputChange={handleInputChange}
       value={textareaValue}
-      error={''}
+      error={``}
     />
   </div>
   <RadioGroup
@@ -65,7 +65,7 @@
     disabled={false}
   />
   <CheckBoxGroup
-    id={'checkbox-test'}
+    id={`checkbox-test`}
     checked={checked}
     handleInputChange={handleInputChange}
     label="Test Checkbox"
@@ -75,7 +75,7 @@
     classNames="large"
     handleClick={e => {
       e.preventDefault()
-      console.log('Submit Clicked')
+      console.log(`Submit Clicked`)
     }}
   />
 </AttendantLayout>

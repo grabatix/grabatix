@@ -6,7 +6,7 @@ import './index.css'
 
 const InputGroup = ({
   id,
-  specialStyle = '',
+  specialStyle = ``,
   label,
   required = false,
   error,
@@ -18,19 +18,19 @@ const InputGroup = ({
   validation,
   handleInputChange,
   handleBlur = () => {},
-  inputMode = 'text',
+  inputMode = `text`,
 }) => {
   return (
     <div
       id={`form-field-${id}`}
-      className={`form-group ${specialStyle ? specialStyle : ''}`}
+      className={`form-group ${specialStyle ? specialStyle : ``}`}
     >
       <label htmlFor={id}>
         {label}
-        <span>{required ? '*' : ''}</span>
+        <span>{required ? `*` : ``}</span>
       </label>
       <input
-        className={error ? 'error' : ''}
+        className={error ? `error` : ``}
         type={type}
         id={id}
         maxLength={maxLength}
@@ -42,7 +42,7 @@ const InputGroup = ({
         onBlur={handleBlur}
         aria-invalid={error ? true : false}
         disabled={disabled}
-        pattern={validation ? validation : '.*'}
+        pattern={validation ? validation : `.*`}
         inputMode={inputMode}
       />
       <div className="input-error">{error}</div>

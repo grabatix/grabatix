@@ -7,7 +7,7 @@ import { Link } from '@reach/router'
 import './index.css'
 
 const isActive = ({ isCurrent }) => {
-  return isCurrent ? { className: 'navlink active' } : { className: 'navlink' }
+  return isCurrent ? { className: `navlink active` } : { className: `navlink` }
 }
 
 const NavLink = ({ path, disabled, label, hidden, handleClick, ...props }) =>

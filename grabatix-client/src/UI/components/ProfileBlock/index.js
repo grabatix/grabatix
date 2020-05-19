@@ -16,9 +16,9 @@ import './index.css'
 const ProfileBlock = () => {
   const [isOpen, setOpenMenu] = useState(false)
   const { user, isLoggedIn, logout } = useContext(AuthContext)
-  const attendantMatch = useMatch('/attendant/*')
-  const adminMatch = useMatch('/admin/*')
-  const reportsMatch = useMatch('/admin/reports/*')
+  const attendantMatch = useMatch(`/attendant/*`)
+  const adminMatch = useMatch(`/admin/*`)
+  const reportsMatch = useMatch(`/admin/reports/*`)
 
   const handleMenuOpenState = e => {
     e && e.preventDefault()
@@ -31,15 +31,15 @@ const ProfileBlock = () => {
   }
 
   const basePaths = {
-    accountPath: '/account',
-    editPath: '/account/edit',
-    homePath: '/',
-    loginPath: '/login',
-    signupPath: '/signup',
+    accountPath: `/account`,
+    editPath: `/account/edit`,
+    homePath: `/`,
+    loginPath: `/login`,
+    signupPath: `/signup`,
   }
 
   if (!!attendantMatch || !!adminMatch) {
-    const rootPath = !!adminMatch ? '/admin' : '/attendant'
+    const rootPath = !!adminMatch ? `/admin` : `/attendant`
     for (let path in basePaths) {
       basePaths[path] = rootPath + basePaths[path]
     }
@@ -64,92 +64,92 @@ const ProfileBlock = () => {
       <ProfileMenu isOpen={isOpen} handleClick={handleMenuOpenState}>
         {isLoggedIn && <div>Welcome, {user.displayName}</div>}
         <NavLink
-          label={'Home'}
+          label={`Home`}
           path={homePath}
           disabled={false}
           hidden={false}
         />
         <NavLink
-          label={'My Cart'}
+          label={`My Cart`}
           path={cartPath}
           disabled={!isLoggedIn}
           hidden={!!adminMatch}
         />
         <NavLink
-          label={'My Account'}
+          label={`My Account`}
           path={accountPath}
           disabled={!isLoggedIn}
           hidden={!isLoggedIn}
         />
         <SubNavLink
-          label={'Reports'}
+          label={`Reports`}
           path={reportsPath}
           disabled={!isLoggedIn}
           hidden={!adminMatch || !isLoggedIn}
         />
         <SubNavLink
-          label={'Scan Codes'}
+          label={`Scan Codes`}
           path={scanPath}
           disabled={!isLoggedIn}
           hidden={!attendantMatch || !isLoggedIn}
         />
         <SubNavLink
-          label={'Recent Scans'}
+          label={`Recent Scans`}
           path={recentScansPath}
           disabled={!isLoggedIn}
           hidden={!attendantMatch || !isLoggedIn}
         />
         <SubNavLink
-          label={'Online Transactions'}
+          label={`Online Transactions`}
           path={onlineTransactionsPath}
           disabled={!isLoggedIn}
           hidden={!reportsMatch || !isLoggedIn}
         />
         <SubNavLink
-          label={'Attendant Transactions'}
+          label={`Attendant Transactions`}
           path={attendantTransactionPath}
           disabled={!isLoggedIn}
           hidden={!reportsMatch || !isLoggedIn}
         />
         <SubNavLink
-          label={'Users'}
+          label={`Users`}
           path={usersPath}
           disabled={!isLoggedIn}
           hidden={!adminMatch || !isLoggedIn}
         />
         <SubNavLink
-          label={'My Codes'}
+          label={`My Codes`}
           path={codesPath}
           disabled={!isLoggedIn}
           hidden={!!adminMatch || !isLoggedIn}
         />
         <SubNavLink
-          label={'My History'}
+          label={`My History`}
           path={historyPath}
           disabled={!isLoggedIn}
           hidden={!!adminMatch || !isLoggedIn}
         />
         <SubNavLink
-          label={'Edit'}
+          label={`Edit`}
           path={editPath}
           disabled={!isLoggedIn}
           hidden={!isLoggedIn}
         />
         <NavLink
-          label={'Log-Out'}
+          label={`Log-Out`}
           path={loginPath}
           disabled={false}
           hidden={!isLoggedIn}
           handleClick={handleLogout}
         />
         <NavLink
-          label={'Log-In'}
+          label={`Log-In`}
           path={loginPath}
           disabled={false}
           hidden={isLoggedIn}
         />
         <NavLink
-          label={'Sign-Up'}
+          label={`Sign-Up`}
           path={signupPath}
           disabled={isLoggedIn}
           hidden={isLoggedIn}

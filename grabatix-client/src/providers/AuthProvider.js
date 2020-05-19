@@ -11,10 +11,10 @@ const AuthProvider = ({ children }) => {
   const initialState = {
     isLoggedIn: false,
     user: {
-      displayName: '',
+      displayName: ``,
       roles: [],
-      imgUrl: '',
-      authToken: '',
+      imgUrl: ``,
+      authToken: ``,
     },
   }
 
@@ -29,10 +29,10 @@ const AuthProvider = ({ children }) => {
     //validate results
     // temporary user
     let user = {
-      displayName: '',
+      displayName: ``,
       roles: [],
-      imgUrl: '',
-      authToken: '',
+      imgUrl: ``,
+      authToken: ``,
     }
     dispatch({ type: LOGIN, payload: { user } })
   }
@@ -44,10 +44,10 @@ const AuthProvider = ({ children }) => {
     //validate results
     // temporary user
     let user = {
-      displayName: '',
+      displayName: ``,
       roles: [],
-      imgUrl: '',
-      authToken: '',
+      imgUrl: ``,
+      authToken: ``,
     }
     dispatch({ type: SIGNUP, payload: { user } })
   }
@@ -59,10 +59,10 @@ const AuthProvider = ({ children }) => {
     //validate results
     // temporary user
     let user = {
-      displayName: '',
+      displayName: ``,
       roles: [],
-      imgUrl: '',
-      authToken: '',
+      imgUrl: ``,
+      authToken: ``,
     }
     dispatch({ type: LOGIN, payload: { user } })
   }

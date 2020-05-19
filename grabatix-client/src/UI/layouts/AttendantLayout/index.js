@@ -22,6 +22,8 @@ const AttendantLayout = ({ children, ...props }) => {
   if (!isFetching && !authorized) {
     return <Redirect from="" to="/unauthorized" noThrow />
   }
+
+  return null
 }
 
 AttendantLayout.propTypes = {

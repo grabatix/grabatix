@@ -44,68 +44,68 @@ const AdminDashboard = ({ children }) => {
           </div>
         )}
         <NavLink
-          label={'Home'}
+          label={`Home`}
           path={homePath}
           disabled={false}
           hidden={false}
         />
         <NavLink
-          label={'Register'}
+          label={`Register`}
           path={registerPath}
           disabled={false}
           hidden={!isRegistered && !isLoggedIn}
         />
         <NavLink
-          label={'My Account'}
+          label={`My Account`}
           path={accountPath}
           disabled={!isLoggedIn}
           hidden={!isRegistered || !isLoggedIn}
         />
         <SubNavLink
-          label={'Reports'}
+          label={`Reports`}
           path={reportsPath}
           disabled={!isLoggedIn}
           hidden={!isRegistered || !isLoggedIn}
         />
         <SubNavLink
-          label={'Online Transactions'}
+          label={`Online Transactions`}
           path={onlineTransactionsPath}
           disabled={!isLoggedIn}
           hidden={!isRegistered || !isLoggedIn}
         />
         <SubNavLink
-          label={'Attendant Transactions'}
+          label={`Attendant Transactions`}
           path={attendantTransactionPath}
           disabled={!isLoggedIn}
           hidden={!isRegistered || !isLoggedIn}
         />
         <SubNavLink
-          label={'Users'}
+          label={`Users`}
           path={usersPath}
           disabled={!isLoggedIn}
           hidden={!isRegistered || !isLoggedIn}
         />
         <SubNavLink
-          label={'Edit'}
+          label={`Edit`}
           path={editPath}
           disabled={!isLoggedIn}
           hidden={!isLoggedIn}
         />
         <NavLink
-          label={'Log-Out'}
+          label={`Log-Out`}
           path={loginPath}
           disabled={false}
           hidden={!isLoggedIn}
           handleClick={handleLogout}
         />
         <NavLink
-          label={'Log-In'}
+          label={`Log-In`}
           path={loginPath}
           disabled={false}
           hidden={isLoggedIn}
         />
         <NavLink
-          label={'Sign-Up'}
+          label={`Sign-Up`}
           path={signupPath}
           disabled={isLoggedIn}
           hidden={isLoggedIn}

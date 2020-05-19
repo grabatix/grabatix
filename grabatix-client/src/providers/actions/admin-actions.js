@@ -1,3 +1,3 @@
 /** @format */
 
-export const ADD_REGISTRATION = 'ADD_SUBDOMAIN'
+export const ADD_REGISTRATION = `ADD_SUBDOMAIN`

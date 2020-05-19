@@ -6,11 +6,11 @@ import reducer from './reducers/transaction-reducer'
 import { tickets } from '../__mocks__/tickets'
 import { callApi } from '../utils/fetch-helpers'
 
-const isBrowser = () => typeof window !== 'undefined'
+const isBrowser = () => typeof window !== `undefined`
 
 export const TransactionContext = React.createContext()
 
-const apiUrl = 'http://localhost:8282/api/v1/qb/auth'
+const apiUrl = `http://localhost:8282/api/v1/qb/auth`
 
 // Getting dark mode information from OS!
 // You need macOS Mojave + Safari Technology Preview Release 68 to test this currently.

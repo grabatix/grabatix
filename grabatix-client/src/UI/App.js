@@ -20,10 +20,10 @@ const App = () => {
   } = useContext(AppContext)
 
   useEffect(() => {
-    if (typeof subdomain === 'undefined') {
+    if (typeof subdomain === `undefined`) {
       addSubdomain()
-    } else if (appState.loading && typeof subdomain !== 'undefined') {
-      transitionToState('LOADED_STATE')
+    } else if (appState.loading && typeof subdomain !== `undefined`) {
+      transitionToState(`LOADED_STATE`)
     }
   }, [subdomain])
 

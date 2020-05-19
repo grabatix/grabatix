@@ -5,25 +5,25 @@ import PropTypes from 'prop-types'
 import './index.css'
 
 const SubmitButton = ({
-  classNames = '',
+  classNames = ``,
   handleClick,
   disabled = false,
-  value = 'Submit',
+  value = `Submit`,
   hasErrors = false,
-  error = '',
+  error = ``,
 }) => (
   <div className="submit-button-group">
     <input
       type="submit"
-      className={'submit-btn ' + classNames}
+      className={`submit-btn ` + classNames}
       id="submit"
       onClick={handleClick}
       disabled={disabled}
-      value={disabled ? 'Please Wait...' : value}
+      value={disabled ? `Please Wait...` : value}
     />
     {hasErrors && (
       <div className="form-error">
-        {error ? error : 'Please scroll up to correct errors.'}
+        {error ? error : `Please scroll up to correct errors.`}
       </div>
     )}
   </div>

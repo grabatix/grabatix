@@ -11,7 +11,7 @@ const ProfileBadge = ({ handleClick, ...props }) => {
   const { isLoggedIn } = useContext(AuthContext)
   return (
     <button
-      className={`profile-container ${isLoggedIn ? 'loggedin' : 'loggedout'}`}
+      className={`profile-container ${isLoggedIn ? `loggedin` : `loggedout`}`}
       onClick={handleClick}
       tabIndex={0}
       aria-label="Profile Image Container, Click to Open Menu"

@@ -7,7 +7,7 @@ import { useMatch } from '@reach/router'
 import './index.css'
 
 const Footer = ({ children, utilityClasses, ...props }) => {
-  const adminMatch = useMatch('/admin/*')
+  const adminMatch = useMatch(`/admin/*`)
   return (
     !adminMatch && (
       <footer {...props} className={utilityClasses}>

@@ -14,7 +14,7 @@ import UnAuthorized from './UnAuthorized'
 const AppRouter = () => {
   const { subdomain } = useContext(AppContext)
   switch (subdomain) {
-    case 'admin':
+    case `admin`:
       return (
         <Router>
           <MasterLayout path="/">
@@ -24,7 +24,7 @@ const AppRouter = () => {
           </MasterLayout>
         </Router>
       )
-    case 'localhost':
+    case `localhost`:
       return (
         <Router>
           <MasterLayout path="/">

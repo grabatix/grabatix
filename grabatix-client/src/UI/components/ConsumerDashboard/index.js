@@ -27,7 +27,7 @@ const ConsumerDashboard = ({ children }) => {
     historyPath,
   } = consumerPaths
 
-  return (
+  return isLoggedIn ? (
     <FlexContainer flexClasses="row justify-content-center align-start">
       <FlexContainer
         flexClasses="column justify-content-start align-start flex-grow-1 flex-shrink-0"
@@ -35,50 +35,50 @@ const ConsumerDashboard = ({ children }) => {
       >
         {isLoggedIn && <div>Welcome, {user.displayName}</div>}
         <NavLink
-          label={'Home'}
+          label={`Home`}
           path={homePath}
           disabled={false}
           hidden={false}
         />
         <NavLink
-          label={'My Account'}
+          label={`My Account`}
           path={accountPath}
           disabled={!isLoggedIn}
-          hidden={!isRegistered || !isLoggedIn}
+          hidden={!isLoggedIn}
         />
         <SubNavLink
-          label={'My Codes'}
+          label={`My Codes`}
           path={codesPath}
           disabled={!isLoggedIn}
-          hidden={!!adminMatch || !isLoggedIn}
+          hidden={!isLoggedIn}
         />
         <SubNavLink
-          label={'My History'}
+          label={`My History`}
           path={historyPath}
           disabled={!isLoggedIn}
-          hidden={!!adminMatch || !isLoggedIn}
+          hidden={!isLoggedIn}
         />
         <SubNavLink
-          label={'Edit'}
+          label={`Edit`}
           path={editPath}
           disabled={!isLoggedIn}
           hidden={!isLoggedIn}
         />
         <NavLink
-          label={'Log-Out'}
+          label={`Log-Out`}
           path={loginPath}
           disabled={false}
           hidden={!isLoggedIn}
           handleClick={handleLogout}
         />
         <NavLink
-          label={'Log-In'}
+          label={`Log-In`}
           path={loginPath}
           disabled={false}
           hidden={isLoggedIn}
         />
         <NavLink
-          label={'Sign-Up'}
+          label={`Sign-Up`}
           path={signupPath}
           disabled={isLoggedIn}
           hidden={isLoggedIn}
@@ -92,6 +92,8 @@ const ConsumerDashboard = ({ children }) => {
         {children}
       </FlexContainer>
     </FlexContainer>
+  ) : (
+    <FlexContainer utilityClasses={`dashboard-full`}>{children}</FlexContainer>
   )
 }
 

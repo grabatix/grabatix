@@ -1,5 +1,5 @@
 /** @format */
-
+/* eslint-disable */
 import('react')
 import('react-dom')
 import('@sentry/browser')

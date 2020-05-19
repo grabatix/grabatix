@@ -8,7 +8,7 @@ import './index.css'
 
 const ProfileMenu = ({ isOpen, children, handleClick, ...props }) => (
   <div
-    className={`profile-menu-container ${isOpen ? 'menuopen' : 'menuclosed'}`}
+    className={`profile-menu-container ${isOpen ? `menuopen` : `menuclosed`}`}
   >
     {children}
     <CloseBtn handleClick={handleClick} />

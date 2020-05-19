@@ -15,8 +15,8 @@ const AdminHome = ({ children }) => {
       <h1 className="center-text">Are you an existing customer?</h1>
       <Button>
         <NavLink
-          label={'Log In'}
-          path={'login'}
+          label={`Log In`}
+          path={`login`}
           disabled={false}
           hidden={isLoggedIn}
         />
@@ -24,8 +24,8 @@ const AdminHome = ({ children }) => {
       <h2 className="center-text">Need to create an account?</h2>
       <Button>
         <NavLink
-          label={'Sign Up Now!'}
-          path={'signup'}
+          label={`Sign Up Now!`}
+          path={`signup`}
           disabled={isLoggedIn}
           hidden={isLoggedIn}
         />

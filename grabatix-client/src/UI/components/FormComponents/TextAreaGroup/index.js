@@ -11,7 +11,7 @@ const TextAreaGroup = ({
   required = false,
   maxLength,
   minHeight = 150,
-  error = '',
+  error = ``,
   placeholder,
   handleBlur = () => {},
   handleInputChange,
@@ -22,15 +22,15 @@ const TextAreaGroup = ({
   return (
     <div
       id={`form-field-${id}`}
-      className={`textarea-group ${specialStyle ? specialStyle : ''}`}
+      className={`textarea-group ${specialStyle ? specialStyle : ``}`}
       style={style}
     >
       <label htmlFor={id}>
         {label}
-        <span>{required ? '*' : ''}</span>
+        <span>{required ? `*` : ``}</span>
       </label>
       <textarea
-        className={error ? 'error' : ''}
+        className={error ? `error` : ``}
         id={id}
         maxLength={maxLength}
         name={id}

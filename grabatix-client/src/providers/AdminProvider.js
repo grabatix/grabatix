@@ -16,7 +16,7 @@ const AdminProvider = ({ children }) => {
   const initialState = {
     isAdminUser: isLoggedIn && checkRoles(Admin),
     isRegistered: false,
-    companyName: '',
+    companyName: ``,
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)

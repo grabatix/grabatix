@@ -12,16 +12,16 @@ import * as appStates from './states/app-states'
 export const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
-  const isBrowser = () => typeof window !== 'undefined'
+  const isBrowser = () => typeof window !== `undefined`
 
   const initialState = {
     appState: appStates.LOADING_STATE,
     subdomain: undefined,
     companyInfo: {
-      name: 'Grabatix',
-      contactEmail: '',
-      businessPhone: '',
-      imgUrl: '',
+      name: `Grabatix`,
+      contactEmail: ``,
+      businessPhone: ``,
+      imgUrl: ``,
       items: [],
     },
   }
@@ -38,7 +38,7 @@ const AppProvider = ({ children }) => {
   }
 
   const addSubdomain = () => {
-    const [subdomain] = isBrowser() ? window.location.hostname.split('.') : ['']
+    const [subdomain] = isBrowser() ? window.location.hostname.split(`.`) : [``]
     dispatch({ type: ADD_SUBDOMAIN, payload: { subdomain } })
   }
 
@@ -49,10 +49,10 @@ const AppProvider = ({ children }) => {
     //validate results
     // temporary company
     let companyInfo = {
-      name: '',
-      contactEmail: '',
-      businessPhone: '',
-      imgUrl: '',
+      name: ``,
+      contactEmail: ``,
+      businessPhone: ``,
+      imgUrl: ``,
       items: [],
     }
     dispatch({ type: ADD_COMPANY_INFO, payload: companyInfo })

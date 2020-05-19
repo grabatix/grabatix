@@ -2,10 +2,13 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import ConsumerDashboard from '../../components/ConsumerDashboard'
 
 const ConsumerLayout = ({ children }) => (
   <main className="secondary">
-    <div className="container">{children}</div>
+    <ConsumerDashboard>
+      <div className="container">{children}</div>
+    </ConsumerDashboard>
   </main>
 )
 

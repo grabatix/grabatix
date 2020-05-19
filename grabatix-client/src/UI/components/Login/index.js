@@ -13,23 +13,23 @@ import { AuthContext } from '../../../providers/AuthProvider'
 import './index.css'
 
 const Login = ({ ctx }) => {
-  const adminMatch = useMatch('/admin/*')
-  const attendantMatch = useMatch('/attendant/*')
-  const loginMatch = useMatch('/login')
+  const adminMatch = useMatch(`/admin/*`)
+  const attendantMatch = useMatch(`/attendant/*`)
+  const loginMatch = useMatch(`/login`)
   const { isLoggedIn, login, signup, logout } = useContext(AuthContext)
 
   const initialState = {
     fields: {
-      username: '',
-      companyname: '',
-      password: '',
-      confirmpassword: '',
+      username: ``,
+      companyname: ``,
+      password: ``,
+      confirmpassword: ``,
     },
     errors: {
-      username: '',
-      companyname: '',
-      password: '',
-      confirmpassword: '',
+      username: ``,
+      companyname: ``,
+      password: ``,
+      confirmpassword: ``,
     },
   }
   const [{ fields, errors }, dispatch] = useReducer(reducer, initialState)
@@ -41,30 +41,30 @@ const Login = ({ ctx }) => {
   const validateInput = ({ target: { name, value } }) => {
     console.log({ name, value })
     switch (name) {
-      case 'username':
+      case `username`:
         break
-      case 'companyname':
+      case `companyname`:
         break
-      case 'password':
+      case `password`:
         break
-      case 'confirmpassword':
+      case `confirmpassword`:
         break
       default:
         break
     }
   }
 
-  let formTitle = !!loginMatch ? 'Log-In' : 'Sign-Up'
+  let formTitle = !!loginMatch ? `Log-In` : `Sign-Up`
   if (!!adminMatch) {
-    formTitle = adminMatch['*'].includes('login') ? 'Log-In' : 'Sign-Up'
+    formTitle = adminMatch[`*`].includes(`login`) ? `Log-In` : `Sign-Up`
   }
   if (isLoggedIn) {
-    formTitle = 'Log-Out'
+    formTitle = `Log-Out`
   }
 
   const handleSubmit = e => {
     e.preventDefault()
-    console.log('Submit Clicked')
+    console.log(`Submit Clicked`)
     if (isLoggedIn) {
       logout()
     } else if (!isLoggedIn && !!loginMatch) {
@@ -74,15 +74,15 @@ const Login = ({ ctx }) => {
     }
   }
 
-  let to = '/'
-  let from = loginMatch ? '/login' : '/signup'
+  let to = `/`
+  let from = loginMatch ? `/login` : `/signup`
   if (adminMatch) {
-    to = '/admin'
-    from = loginMatch ? '/admin/login' : '/admin/signup'
+    to = `/admin`
+    from = loginMatch ? `/admin/login` : `/admin/signup`
   }
   if (attendantMatch) {
-    to = '/attendant'
-    from = loginMatch ? '/attendant/login' : '/attendant/signup'
+    to = `/attendant`
+    from = loginMatch ? `/attendant/login` : `/attendant/signup`
   }
 
   useEffect(() => {
@@ -151,7 +151,7 @@ const Login = ({ ctx }) => {
                 required={true}
                 type="text"
                 maxLength={120}
-                placeholder={'Company Name'}
+                placeholder={`Company Name`}
                 disabled={false}
                 // validation={".*"}
                 handleBlur={validateInput}

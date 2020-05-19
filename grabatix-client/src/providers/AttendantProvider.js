@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import {} from './actions/attendant-actions'
 import reducer from './reducers/attendant-reducer'
 
-const isBrowser = () => typeof window !== 'undefined'
+const isBrowser = () => typeof window !== `undefined`
 
 export const AttendantContext = React.createContext()
 
