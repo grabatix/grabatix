@@ -2,7 +2,7 @@
 
 import React, { useContext, useReducer, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useMatch, redirectTo } from '@reach/router'
+import { useMatch, navigate, Link } from '@reach/router'
 import { UPDATE_ERRORS, UPDATE_FIELDS } from './actions'
 import reducer from './reducer'
 import FormRow from '../FormComponents/FormRow'
@@ -12,7 +12,7 @@ import { AuthContext } from '../../../providers/AuthProvider'
 
 import './index.css'
 
-const Login = ({ ctx }) => {
+const Login = props => {
   const adminMatch = useMatch(`/admin/*`)
   const attendantMatch = useMatch(`/attendant/*`)
   const loginMatch = useMatch(`/login`)
@@ -39,7 +39,6 @@ const Login = ({ ctx }) => {
   }
 
   const validateInput = ({ target: { name, value } }) => {
-    console.log({ name, value })
     switch (name) {
       case `username`:
         break
@@ -87,7 +86,7 @@ const Login = ({ ctx }) => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      redirectTo(to)
+      setTimeout(() => navigate(-1, { replace: true }), 16)
     }
     return () => {}
   }, [isLoggedIn])
@@ -193,13 +192,18 @@ const Login = ({ ctx }) => {
           </FormRow>
         </>
       )}
-      <FormRow>
+      <FormRow style={{ marginTop: isLoggedIn ? 60 : 0 }}>
         <SubmitButton
           handleClick={handleSubmit}
           value={formTitle}
           disabled={false}
         />
       </FormRow>
+      {isLoggedIn && (
+        <Link to={to}>
+          Click here if you are not redirected to your account in 5 seconds.
+        </Link>
+      )}
     </form>
   )
 }

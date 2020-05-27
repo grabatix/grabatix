@@ -16,7 +16,8 @@
         "statusBar.foreground": "#15202b",
         "statusBar.border": "#39a7cf",
         "titleBar.border": "#39a7cf",
-        "editor.formatOnSave": true,
+        "editor.formatOnSave": true
     },
-    "peacock.color": "#39a7cf"
+    "peacock.color": "#39a7cf",
+    "prettier.packageManager": "yarn"
 }
