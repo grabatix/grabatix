@@ -9,5 +9,5 @@
   "arrowParens": "avoid",
   "insertPragma": true,
   "requirePragma": true,
-  "printWidth": 80
+  "printWidth": 100
 }

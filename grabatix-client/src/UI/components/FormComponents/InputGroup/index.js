@@ -13,6 +13,9 @@ const InputGroup = ({
   value,
   type,
   maxLength,
+  max,
+  min,
+  step,
   placeholder,
   disabled = false,
   validation,
@@ -21,10 +24,7 @@ const InputGroup = ({
   inputMode = `text`,
 }) => {
   return (
-    <div
-      id={`form-field-${id}`}
-      className={`form-group ${specialStyle ? specialStyle : ``}`}
-    >
+    <div id={`form-field-${id}`} className={`form-group ${specialStyle ? specialStyle : ``}`}>
       <label htmlFor={id}>
         {label}
         <span>{required ? `*` : ``}</span>
@@ -44,6 +44,9 @@ const InputGroup = ({
         disabled={disabled}
         pattern={validation ? validation : `.*`}
         inputMode={inputMode}
+        max={max}
+        min={min}
+        step={step}
       />
       <div className="input-error">{error}</div>
     </div>
@@ -65,6 +68,9 @@ InputGroup.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   handleBlur: PropTypes.func,
   inputMode: PropTypes.string,
+  step: PropTypes.number,
+  max: PropTypes.number,
+  min: PropTypes.number,
 }
 
 export default InputGroup

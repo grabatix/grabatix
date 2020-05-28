@@ -1,10 +1,16 @@
 /** @format */
 
-import React, { Component } from 'react'
-import { UPDATE_CART } from './actions/transaction-actions'
+import React, { useReducer, useEffect } from 'react'
+import {
+  TRANSITION_STATE,
+  LOAD_ITEMS,
+  UPDATE_ITEM_QUANTITY,
+  ADD_USER_TO_CART,
+} from './actions/transaction-actions'
 import reducer from './reducers/transaction-reducer'
-import { tickets } from '../__mocks__/tickets'
 import { callApi } from '../utils/fetch-helpers'
+import { tickets } from '../config/tickets'
+import * as transactionStates from './states/transaction-states'
 
 const isBrowser = () => typeof window !== `undefined`
 
@@ -12,29 +18,55 @@ export const TransactionContext = React.createContext()
 
 const apiUrl = `http://localhost:8282/api/v1/qb/auth`
 
-// Getting dark mode information from OS!
-// You need macOS Mojave + Safari Technology Preview Release 68 to test this currently.
-
-class TransactionProvider extends Component {
-  state = {
-    tickets,
-    submitted: false,
-    submitting: false,
-    updateCart: tickets =>
-      this.setState(state => reducer(state, { type: UPDATE_CART, tickets })),
+const TransactionProvider = ({ children }) => {
+  const initialState = {
+    transactionState: transactionStates.LOADING_STATE,
+    cart: {
+      userId: ``,
+      items: [],
+    },
   }
 
-  render() {
-    const {
-      props: { children },
-      state,
-    } = this
-    return (
-      <TransactionContext.Provider value={state}>
-        {children}
-      </TransactionContext.Provider>
-    )
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  const addUserToCart = userId => dispatch({ type: ADD_USER_TO_CART, payload: { userId } })
+  const updateItemQuantity = (itemId, quantity) =>
+    dispatch({ type: UPDATE_ITEM_QUANTITY, payload: { itemId, quantity } })
+  const checkout = () => {}
+
+  const transitionToState = state => {
+    if (Object.keys(transactionStates).includes(state)) {
+      dispatch({
+        type: TRANSITION_STATE,
+        payload: { transactionState: transactionStates[state] },
+      })
+    }
   }
+
+  useEffect(() => {
+    if (!state.transactionState.loaded) {
+      async function fetchItems() {
+        try {
+          // const items = await getItemsFromDB()
+          const items = tickets
+          dispatch({ type: LOAD_ITEMS, payload: { items } })
+
+          transitionToState(transactionStates.LOADED_STATE)
+        } catch (err) {
+          // do some error handling
+        }
+      }
+      fetchItems()
+    }
+  }, [state.transactionState.loaded])
+
+  return (
+    <TransactionContext.Provider
+      value={{ ...state, addUserToCart, updateItemQuantity, transitionToState, checkout }}
+    >
+      {children}
+    </TransactionContext.Provider>
+  )
 }
 
 export default TransactionProvider

@@ -15,13 +15,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 let history = createHistory(window)
 
 const App = () => {
-  const {
-    appState,
-    isBrowser,
-    transitionToState,
-    addSubdomain,
-    subdomain,
-  } = useContext(AppContext)
+  const { appState, transitionToState, addSubdomain, subdomain } = useContext(AppContext)
 
   useEffect(() => {
     if (typeof subdomain === `undefined`) {
@@ -37,9 +31,7 @@ const App = () => {
         <div className="App">
           <div className="site-content">
             <ErrorBoundary>
-              <AuthProvider>
-                {appState.loading ? <Loading /> : <AppRouter />}
-              </AuthProvider>
+              <AuthProvider>{appState.loading ? <Loading /> : <AppRouter />}</AuthProvider>
             </ErrorBoundary>
           </div>
         </div>

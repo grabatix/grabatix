@@ -3,6 +3,7 @@
 import React from 'react'
 import { Router } from '@reach/router'
 import ConsumerProvider from '../../providers/ConsumerProvider'
+import TransactionProvider from '../../providers/TransactionProvider'
 import ConsumerLayout from '../../UI/layouts/ConsumerLayout'
 import Account from '../../UI/components/Account'
 import Edit from '../../UI/components/Edit'
@@ -17,26 +18,28 @@ import Codes from '../../UI/components/Codes'
 import NotFound from '../NotFound'
 
 const ConsumerRoutes = () => (
-  <ConsumerProvider>
-    <Router>
-      <ConsumerLayout path="/">
-        <ConsumerHome path="/" />
-        <Account path="account">
-          <ConsumerAccount path="/" />
-          <Codes path="codes" />
-          <Edit path="edit" />
-          <History path="history" />
-        </Account>
-        <Cart path="cart">
-          <CartHome path="/" />
-          <Checkout path="checkout" />
-        </Cart>
-        <Login path="login" />
-        <Login path="signup" />
-        <NotFound default />
-      </ConsumerLayout>
-    </Router>
-  </ConsumerProvider>
+  <TransactionProvider>
+    <ConsumerProvider>
+      <Router>
+        <ConsumerLayout path="/">
+          <ConsumerHome path="/" />
+          <Account path="account">
+            <ConsumerAccount path="/" />
+            <Codes path="codes" />
+            <Edit path="edit" />
+            <History path="history" />
+          </Account>
+          <Cart path="cart">
+            <CartHome path="/" />
+            <Checkout path="checkout" />
+          </Cart>
+          <Login path="login" />
+          <Login path="signup" />
+          <NotFound default />
+        </ConsumerLayout>
+      </Router>
+    </ConsumerProvider>
+  </TransactionProvider>
 )
 
 export default ConsumerRoutes

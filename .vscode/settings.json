@@ -19,5 +19,4 @@
         "editor.formatOnSave": true
     },
     "peacock.color": "#39a7cf",
-    "prettier.packageManager": "yarn"
 }
