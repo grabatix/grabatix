@@ -1,17 +1,8 @@
 /** @format */
-.dashboard-full {
-    margin: 0;
-    min-height: calc(100vh - 80px);
-    width: 100%;
-}
-
 .dashboard-left {
     color: var(--white);
     width: 100%;
     max-width: 275px;
-    position: fixed;
-    top: 80px;
-    left: 0;
     min-height: calc(100vh - 80px);
     background: var(--bgSecondary);
     border-right: 5px solid var(--darkGrey);
@@ -19,7 +10,7 @@
 }
   
 .dashboard-right {
-    margin-left: 275px;
+    width: 100%;
     margin-top: 80px;
     overflow-x: hidden;
     overflow-y: auto;

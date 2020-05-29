@@ -1,26 +1,40 @@
 /** @format */
 
 import React, { useContext } from 'react'
+import { Link } from '@reach/router'
 import { TransactionContext } from '../../../providers/TransactionProvider'
+import { AuthContext } from '../../../providers/AuthProvider'
 import InputGroup from '../FormComponents/InputGroup'
 import FlexContainer from '../FlexContainer'
-import Button from '../Button'
+import SubmitButton from '../FormComponents/SubmitButton'
+import paths from '../../../config/paths'
 
 import './index.css'
 
 const Cart = props => {
   const { cart, updateItemQuantity, checkout } = useContext(TransactionContext)
+  const { isLoggedIn } = useContext(AuthContext)
   const handleQuantityChange = e => {
     updateItemQuantity(e.target.id, e.target.value)
   }
   const validateInput = e => {}
   const handleQuantitySubmit = e => e.preventDefault()
-  const totalCost = cart.items.reduce((amt, { subTotal }) => (amt += subTotal), 0)
+  const formatCurrency = num =>
+    num.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+      style: `currency`,
+      currency: `USD`,
+    })
+  const totalCost = formatCurrency(cart.items.reduce((amt, { subTotal }) => (amt += subTotal), 0))
+  const {
+    consumerPaths: { loginPath, signupPath },
+  } = paths
   return (
     <>
-      <h2>My Cart</h2>
-      <FlexContainer>
-        <table>
+      <h2 class="my-3">My Cart</h2>
+      <FlexContainer flexClasses="row justify-between align-start">
+        <table class="cart-table">
           <thead>
             <tr>
               <th>Name</th>
@@ -30,12 +44,7 @@ const Cart = props => {
           </thead>
           <tbody>
             {cart.items.map(({ label, itemId, quantity, subTotal = 0.0 }) => {
-              subTotal = subTotal.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-                style: `currency`,
-                currency: `USD`,
-              })
+              subTotal = formatCurrency(subTotal)
               return quantity > 0 ? (
                 <tr key={`tr-${itemId}`}>
                   <td>{label}</td>
@@ -64,9 +73,25 @@ const Cart = props => {
             })}
           </tbody>
         </table>
-        <FlexContainer>
-          <h3>Total Amount Due: {totalCost}</h3>
-        </FlexContainer>
+        <div className="cart-purchase-block p-3">
+          <FlexContainer flexClasses="column justify-center align-content-start">
+            <FlexContainer
+              utilityClasses="bold mb-3"
+              flexClasses="row justify-between align-center"
+            >
+              <div>Total Amount Due:</div>
+              <div>{totalCost}</div>
+            </FlexContainer>
+            {totalCost === `$0.00` && <SubmitButton handleClick={checkout} value="Checkout" />}
+            {!isLoggedIn && (
+              <div className="mt-3">
+                Please <Link to={loginPath}>Log-In</Link> or <Link to={signupPath}>Sign-Up</Link>
+                {` `}
+                for the best experience in storing and retrieving your transactions.
+              </div>
+            )}
+          </FlexContainer>
+        </div>
       </FlexContainer>
     </>
   )

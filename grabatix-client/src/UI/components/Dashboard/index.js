@@ -3,8 +3,10 @@
 import React from 'react'
 import Proptypes from 'prop-types'
 import FlexContainer from '../FlexContainer'
-import ProfileBlock from '../ProfileBlock'
+import ProfileLinks from '../ProfileLinks'
 import Media from 'react-media'
+
+import './index.css'
 
 const Dashboard = ({ children }) => (
   <FlexContainer flexClasses="row justify-content-center align-start">
@@ -22,7 +24,7 @@ const Dashboard = ({ children }) => (
                 flexClasses="column justify-content-start align-start flex-grow-1 flex-shrink-0"
                 utilityClasses="dashboard-left p-1"
               >
-                <ProfileBlock />
+                <ProfileLinks />
               </FlexContainer>
               <FlexContainer
                 flexClasses="flex-grow-5 flex-shrink-1"
@@ -33,10 +35,7 @@ const Dashboard = ({ children }) => (
             </>
           )}
           {matches.mobile && (
-            <FlexContainer
-              flexClasses="flex-grow-5 flex-shrink-1"
-              utilityClasses="dashboard-full"
-            >
+            <FlexContainer flexClasses="flex-grow-5 flex-shrink-1" utilityClasses="dashboard-full">
               {children}
             </FlexContainer>
           )}

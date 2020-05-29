@@ -164,6 +164,8 @@ h5,
 h6 {
   color: var(--labelColor);
   transition: color 250ms ease-in-out;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .secondary h1,
@@ -216,6 +218,12 @@ label span {
   color: var(--secondaryLabelColor);
 }
 
+.dashboard-full {
+  margin: 0;
+  min-height: calc(100vh - 80px);
+  width: 100%;
+}
+
 /**** GRABATIX LOGO SVG STYLES ****/
 .logo-1 {
   font-size: 60px;
@@ -234,6 +242,18 @@ label span {
 /*********************************/
 
 /******** UTILITY CLASSES ********/
+
+.bold {
+  font-weight: bold;
+}
+
+.semibold {
+  font-weight: 600;
+}
+
+.italic {
+  font-style: italic;
+}
 
 .m-auto {
   margin: auto;
