@@ -3,15 +3,19 @@ const { Schema } = mongoose;
 mongoose.Promise = Promise;
 
 const UserSchema = new Schema({
-    email: String,
-    password: String,
-    businessName: String,
-    firstName: String,
-    lastName: String,
-    displayName: String,
-    providerId: String,
-    provider: String,
-    role: String
+  email: String,
+  password: String,
+  businessName: String,
+  firstName: String,
+  lastName: String,
+  displayName: String,
+  providerId: String,
+  provider: String,
+  role: String,
+  addedDate: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 module.exports = UserSchema;

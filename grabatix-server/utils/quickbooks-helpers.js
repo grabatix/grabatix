@@ -102,9 +102,8 @@ class QBOAuth {
 
   handleQBError = (res, error) => {
     console.error(error);
-    res.statusCode = 400;
-    const message = error && error.error_description ? error.error_description : "Bad Request"
-    res.json({error: { message, statusCode: 400 } });
+    const message = error && error.error_description ? error.error_description : "Unable to Process Request"
+    res.status(500).json({error: { message, statusCode: 500 } });
   }
 }
 

@@ -1,0 +1,19 @@
+GET http://localhost:4000/api/v1/
+
+###
+
+GET http://localhost:4000/api/v1/company/1/info
+
+###
+
+POST http://localhost:4000/api/v1/company/create
+content-type: application/json
+
+{
+    "identifier": "Creativ",
+    "email": "wesley@wearecreativ.media"
+}
+
+###
+
+GET http://localhost:4000/api/v1/company/db/5eea705e856ad331a8ac90f6

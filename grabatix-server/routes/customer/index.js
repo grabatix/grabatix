@@ -1,9 +1,9 @@
-const router = require("express").Router();
-const asyncMiddleware = require("../../middleware/async-middleware");
-const passport = require("passport");
-const { ROLES } = require('../../config')
-const { utils } = require('../../auth')
-const customerController = require("../../controllers/customer")
+const router = require('express').Router();
+const asyncMiddleware = require('../../middleware/async-middleware');
+const passport = require('passport');
+const { ROLES } = require('../../config');
+const { utils } = require('../../auth');
+const customerController = require('../../controllers/customer');
 
 /**
  * Function to add routes as middleware on app via app.Router in express
@@ -14,9 +14,11 @@ const customerController = require("../../controllers/customer")
  * @param {Object} app.urlParsers.unextendedUrlParser - unexteneded url encoding
  * @param {string} app.version - representing version of this api
  */
-module.exports = async ({app, urlParsers, version = "v1"}) => {
+module.exports = async ({ app, urlParsers, version = 'v1' }) => {
+  router.use(
+    passport.authenticate('jwt', { failureRedirect: '/login' }),
+    utils.checkIsInRole(ROLES.Customer)
+  );
 
-    router.use(passport.authenticate('jwt', { failureRedirect: '/login' }), utils.checkIsInRole(ROLES.Customer))
-
-    app.use(`${process.env.BASE_API_URL}/${version}/customer`, router);
-}
+  app.use(`${process.env.BASE_API_URL}/${version}/customer`, router);
+};

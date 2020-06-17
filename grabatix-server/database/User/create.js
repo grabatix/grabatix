@@ -1,4 +1,4 @@
-const User = require("../models/User/index")
+const User = require('../models/User/index');
 
 const createUser = async ({
   firstName,
@@ -6,13 +6,13 @@ const createUser = async ({
   email,
   password,
   providerId,
-  provider
+  provider,
 }) => {
   return new Promise(async (resolve, reject) => {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email });
 
     if (user) {
-      return reject('Email is already in use')
+      return reject('Email is already in use');
     }
 
     return resolve(
@@ -22,10 +22,10 @@ const createUser = async ({
         firstName,
         lastName,
         email,
-        password
+        password,
       })
-    )
-  })
-}
+    );
+  });
+};
 
-module.exports = { createUser }
+module.exports = { createUser };

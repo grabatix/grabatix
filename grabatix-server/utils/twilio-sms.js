@@ -3,13 +3,13 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 const sendSMS = (items = [], phone) => {
-    client.messages
+  client.messages
     .create({
-        body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
-        from: process.env.TWILIO_NUMBER,
-        to: `+1${phone}`
+      body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+      from: process.env.TWILIO_NUMBER,
+      to: `+1${phone}`,
     })
-    .then(message => console.log(message.sid));
-}
+    .then((message) => console.log(message.sid));
+};
 
-module.exports = sendSMS
+module.exports = sendSMS;

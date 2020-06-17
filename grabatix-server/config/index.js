@@ -1,4 +1,4 @@
-const { VERSIONS } = require('./versions')
-const { ROLES } = require('./roles')
+const { VERSIONS } = require('./versions');
+const { ROLES } = require('./roles');
 
-module.exports = { ROLES, VERSIONS }
+module.exports = { ROLES, VERSIONS };

@@ -1,6 +1,6 @@
-const router = require("express").Router();
-const asyncMiddleware = require("../../middleware/async-middleware");
-const userController = require("../../controllers/user")
+const router = require('express').Router();
+const asyncMiddleware = require('../../middleware/async-middleware');
+const userController = require('../../controllers/user');
 
 /**
  * Function to add routes as middleware on app via app.Router in express
@@ -11,10 +11,13 @@ const userController = require("../../controllers/user")
  * @param {Object} app.urlParsers.unextendedUrlParser - unexteneded url encoding
  * @param {string} app.version - representing version of this api
  */
-module.exports = async ({app, urlParsers: { unextendedUrlParser, extendedUrlParser }, version = "v1"}) => {
+module.exports = async ({
+  app,
+  urlParsers: { unextendedUrlParser, extendedUrlParser },
+  version = 'v1',
+}) => {
+  router.post('/login', asyncMiddleware, userController.loginUser);
+  router.post('/signup', asyncMiddleware, userController.signupUser);
 
-    router.post("/login", asyncMiddleware, userController.user_login_post);
-    router.post("/signup", asyncMiddleware, userController.user_signup_post);
-
-    app.use(`${process.env.BASE_API_URL}/${version}/user`, router);
-}
+  app.use(`${process.env.BASE_API_URL}/${version}/user`, router);
+};

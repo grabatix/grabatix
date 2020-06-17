@@ -1,12 +1,13 @@
-const utils = require('./utils')
-const strategies = require('./strategies')
+const utils = require('./utils');
+const strategies = require('./strategies');
 
-const pipe = (...functions) => args => functions.reduce((arg, fn) => fn(arg), args)
+const pipe = (...functions) => (args) =>
+  functions.reduce((arg, fn) => fn(arg), args);
 
-const initialiseAuthentication = app => {
-  utils.setup()
+const initialiseAuthentication = (app) => {
+  utils.setup();
 
-  pipe(strategies.JWTStrategy)(app)
-}
+  pipe(strategies.JWTStrategy)(app);
+};
 
-module.exports =  { utils, initialiseAuthentication, strategies }
+module.exports = { utils, initialiseAuthentication, strategies };

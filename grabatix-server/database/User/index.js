@@ -1,4 +1,4 @@
-const { getUserById, getUserByEmail } = require('./get')
-const { createUser } = require('./create')
+const { getUserById, getUserByEmail } = require('./get');
+const { createUser } = require('./create');
 
-module.exports = { getUserById, getUserByEmail, createUser }
+module.exports = { getUserById, getUserByEmail, createUser };

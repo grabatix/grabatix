@@ -1,11 +1,10 @@
-const router = require("express").Router();
-const asyncMiddleware = require("../../middleware/async-middleware");
-const passport = require("passport");
-const { ROLES } = require('../../config')
-const { utils } = require('../../auth')
-const { multerUploads }= require('../../middleware/multer-uploads')
-const { cloudinaryConfig } = require('../../middleware/cloudinary-config.js')
-const companyController = require("../../controllers/company")
+const router = require(`express`).Router()
+const passport = require(`passport`)
+const { ROLES } = require(`../../config`)
+const { utils } = require(`../../auth`)
+const { multerUploads } = require(`../../middleware/multer-uploads`)
+const { cloudinaryConfig } = require(`../../middleware/cloudinary-config.js`)
+const companyController = require(`../../controllers/company`)
 
 /**
  * Function to add routes as middleware on app via app.Router in express
@@ -16,43 +15,143 @@ const companyController = require("../../controllers/company")
  * @param {Object} app.urlParsers.unextendedUrlParser - unexteneded url encoding
  * @param {string} app.version - representing version of this api
  */
-module.exports = async ({app, urlParsers: { unextendedUrlParser, extendedUrlParser }, version = "v1"}) => {
+module.exports = async ({
+  app,
+  urlParsers: { unextendedUrlParser, extendedUrlParser },
+  version = `v1`,
+}) => {
+  // router.use(
+  //   passport.authenticate(`jwt`, { failureRedirect: `/login` }),
+  //   utils.checkIsInRole(ROLES.Admin)
+  // );
 
-    router.use(passport.authenticate('jwt', { failureRedirect: '/login' }), utils.checkIsInRole(ROLES.Admin))
+  // GET, POST, PATCH company details
+  router.get(
+    `/db/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    (req, res) => {
+      res.json(res.company)
+    }
+  )
+  router.get(
+    `/qb/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.getCompanyDetail
+  )
+  router.post(`/create`, extendedUrlParser, companyController.addCompany)
+  router.patch(
+    `/update/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_detail_patch
+  )
 
-    // GET, POST, PATCH company details
-    router.get("/:companyid/info", companyController.company_detail_get);
-    router.post("/create", extendedUrlParser, companyController.company_detail_post);
-    router.patch("/:companyid/update", extendedUrlParser, companyController.company_detail_patch);
+  // UPLOAD CLOUDINARY IMAGE FOR COMPANY
+  router.post(
+    `/upload/:companyId`,
+    cloudinaryConfig,
+    multerUploads,
+    companyController.getCompany,
+    companyController.company_createupload_post
+  )
 
-    // UPLOAD CLOUDINARY IMAGE FOR COMPANY
-    router.post("/:companyid/upload", cloudinaryConfig, multerUploads, asyncMiddleware, companyController.company_createupload_post);
+  // Quickbooks OAUTH
+  router.get(
+    `/auth/authUri/:companyId`,
+    unextendedUrlParser,
+    companyController.authorizeQuickbooks
+  )
+  router.get(
+    `/auth/callback`,
+    extendedUrlParser,
+    companyController.getCompanyFromState,
+    companyController.storeAuthToken
+  )
+  router.get(
+    `/auth/refresh/:companyId`,
+    companyController.getCompany,
+    companyController.getRefreshToken
+  )
 
-    // Quickbooks OAUTH
-    router.get("/:companyid/auth/authUri", unextendedUrlParser, companyController.company_auth_get);
-    router.get("/auth/callback", extendedUrlParser, companyController.company_authcallback_get);
-    router.get("/:companyid/auth/refresh", asyncMiddleware, companyController.company_refreshtoken_get);
+  // Quickbooks Items
+  router.get(`/items/:companyId`, companyController.company_listitems_get)
+  router.get(
+    `/item/:itemid/:companyId`,
+    companyController.company_itemdetail_get
+  )
+  router.post(
+    `/item/create/:companyId`,
+    extendedUrlParser,
+    companyController.company_createitem_post
+  )
+  router.put(
+    `/item/update/:itemid/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_updateitem_put
+  )
 
-    // Quickbooks Items
-    router.get("/:companyid/items", companyController.company_listitems_get);
-    router.get("/:companyid/item/:itemid", companyController.company_itemdetail_get);
-    router.post("/:companyid/item/create", extendedUrlParser, companyController.company_createitem_post);
-    router.put("/:companyid/item/update/:itemid", extendedUrlParser, companyController.company_updateitem_put);
+  // Quickbooks Categories
+  router.get(
+    `/categories/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_listcategories_get
+  )
+  router.get(
+    `/category/:categoryid/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_categorydetail_get
+  )
+  router.post(
+    `/category/create/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_createcategory_post
+  )
+  router.put(
+    `/category/update/:categoryid/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_updatecategory_put
+  )
 
-    // Quickbooks Categories
-    router.get("/:companyid/categories", companyController.company_listcategories_get);
-    router.get("/:companyid/category/:categoryid", companyController.company_categorydetail_get);
-    router.post("/:companyid/category/create", extendedUrlParser, companyController.company_createcategory_post);
-    router.put("/:companyid/category/update/:categoryid", extendedUrlParser, companyController.company_updatecategory_put);
+  // Company Employees via Quickbooks
+  router.get(
+    `/employees/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_listemployees_get
+  )
+  router.get(
+    `/employee/:employeeid/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_employeedetail_get
+  )
+  router.post(
+    `/employee/create/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_createemployee_post
+  )
+  router.put(
+    `/employee/update/:employeeid/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_updateemployee_put
+  )
 
-    // Company Employees via Quickbooks
-    router.get("/:companyid/employees", companyController.company_listemployees_get);
-    router.get("/:companyid/employee/:employeeid", companyController.company_employeedetail_get);
-    router.post("/:companyid/employee/create", extendedUrlParser, companyController.company_createemployee_post);
-    router.put("/:companyid/employee/update/:employeeid", extendedUrlParser, companyController.company_updateemployee_put);
+  // Quickbooks Process Payment
+  router.post(
+    `/payment/:companyId`,
+    extendedUrlParser,
+    companyController.getCompany,
+    companyController.company_processpayment_post
+  )
 
-    // Quickbooks Process Payment
-    router.post("/:companyid/payment", extendedUrlParser, asyncMiddleware, companyController.company_processpayment_post);
-
-    app.use(`${process.env.BASE_API_URL}/${version}/company`, router);
+  app.use(`${process.env.BASE_API_URL}/${version}/company`, router)
 }

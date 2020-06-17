@@ -1,26 +1,26 @@
-"use strict";
+'use strict';
 
-const jsonwebtoken = require("jsonwebtoken");
-const onHeaders = require("on-headers");
-const uuidv4 = require("uuid/v4");
-const encrypt = require("../utils/crypto").encrypt;
-const decrypt = require("../utils/crypto").decrypt;
-const util = require("util");
-const crypto = require("crypto");
+const jsonwebtoken = require('jsonwebtoken');
+const onHeaders = require('on-headers');
+const uuidv4 = require('uuid/v4');
+const encrypt = require('../utils/crypto').encrypt;
+const decrypt = require('../utils/crypto').decrypt;
+const util = require('util');
+const crypto = require('crypto');
 
 const DEFAULT_EXPIRATION_IN_MINUTES = 60;
-const DEFAULT_HEADER_NAME = "x-csrf-jwt";
-const DEFAULT_CSRF_DRIVER = "DOUBLE_SUBMIT";
+const DEFAULT_HEADER_NAME = 'x-csrf-jwt';
+const DEFAULT_CSRF_DRIVER = 'DOUBLE_SUBMIT';
 
 // Some quick type testing methods
 const toString = Object.prototype.toString;
-const isRegExp = obj => {
+const isRegExp = (obj) => {
   return !!/object RegExp/.exec(toString.apply(obj));
 };
-const isString = obj => {
+const isString = (obj) => {
   return !!/object String/.exec(toString.apply(obj));
 };
-const isArray = obj => {
+const isArray = (obj) => {
   return !!/object Array/.exec(toString.apply(obj));
 };
 
@@ -31,7 +31,7 @@ const isArray = obj => {
     Everything else is considered an unhandled error.
  */
 function CSRFError(message) {
-  this.message = this.code = "EINVALIDCSRF_" + message;
+  this.message = this.code = 'EINVALIDCSRF_' + message;
 }
 
 util.inherits(CSRFError, Error);
@@ -42,10 +42,7 @@ util.inherits(CSRFError, Error);
     Hash a string using sha256
  */
 const hash = (secret, text) => {
-  return crypto
-    .createHmac("sha256", secret)
-    .update(text)
-    .digest("hex");
+  return crypto.createHmac('sha256', secret).update(text).digest('hex');
 };
 
 /*
@@ -55,12 +52,12 @@ const hash = (secret, text) => {
     Determine the current domain
  */
 
-const resolveDomain = req => {
-  var host = req.get("host"); // Ex: "mysite.com:8000"
-  var truncateAt = host.indexOf(":");
-  var domain = host.substr(0, truncateAt > -1 ? truncateAt : host.length); // Ex: "mysite.com"
+const resolveDomain = (req) => {
+  const host = req.get('host'); // Ex: "mysite.com:8000"
+  const truncateAt = host.indexOf(':');
+  const domain = host.substr(0, truncateAt > -1 ? truncateAt : host.length); // Ex: "mysite.com"
 
-  return "." + domain;
+  return '.' + domain;
 };
 
 /*
@@ -83,7 +80,7 @@ const JWT = {
         JSON.stringify(token),
         options.algorithm,
         options.iv
-      )
+      ),
     };
     // Then sign it using jsonwebtoken
     return jsonwebtoken.sign(encryptedToken, options.secret, {
@@ -91,7 +88,7 @@ const JWT = {
         options.expiresInMinutes
           ? options.expiresInMinutes
           : DEFAULT_EXPIRATION_IN_MINUTES
-      } minutes`
+      } minutes`,
     });
   },
 
@@ -109,10 +106,7 @@ const JWT = {
 
       // Normalize 'some error message' to 'SOME_ERROR_MESSAGE'
       throw new CSRFError(
-        err.message
-          .substring(0, 25)
-          .replace(/ /, "_")
-          .toUpperCase()
+        err.message.substring(0, 25).replace(/ /, '_').toUpperCase()
       );
     }
 
@@ -125,7 +119,7 @@ const JWT = {
         options.iv
       )
     );
-  }
+  },
 };
 
 /*
@@ -136,13 +130,13 @@ const JWT = {
     * retrieve: a user defined method which reads the encrypted jwt token from the persistence layer of choice
  */
 
-var PERSISTENCE_DRIVERS = {
+const PERSISTENCE_DRIVERS = {
   header: {
     drop: (req, res, options, jwtToken) => {
-      var headerName = options.headerName || DEFAULT_HEADER_NAME;
+      const headerName = options.headerName || DEFAULT_HEADER_NAME;
 
       res.setHeader(headerName, jwtToken);
-      res.setHeader(headerName + "-hash", hash(options.secret, jwtToken));
+      res.setHeader(headerName + '-hash', hash(options.secret, jwtToken));
     },
 
     retrieve: (req, res, options) => {
@@ -153,27 +147,27 @@ var PERSISTENCE_DRIVERS = {
         req.body && req.body.meta && req.body.meta[headerName];
 
       if (!jwtToken && jwtTokenBody) {
-        const jwtTokenHash = req.headers[headerName + "-hash"];
+        const jwtTokenHash = req.headers[headerName + '-hash'];
 
         if (!jwtTokenHash) {
-          throw new CSRFError("BODY_CSRF_HASH_HEADER_MISSING");
+          throw new CSRFError('BODY_CSRF_HASH_HEADER_MISSING');
         }
 
         if (jwtTokenHash !== hash(options.secret, jwtTokenBody)) {
-          throw new CSRFError("BODY_CSRF_HASH_MISMATCH");
+          throw new CSRFError('BODY_CSRF_HASH_MISMATCH');
         }
 
         jwtToken = jwtTokenBody;
       }
 
       return jwtToken;
-    }
+    },
   },
 
   cookie: {
     drop: (req, res, options, jwtToken) => {
       const secure = Boolean(
-        process.env.DEPLOY_ENV || req.protocol === "https"
+        process.env.DEPLOY_ENV || req.protocol === 'https'
       );
       const expires = Date.now() + 1000 * 60 * 60 * 24 * 7; // 1 week
 
@@ -185,14 +179,14 @@ var PERSISTENCE_DRIVERS = {
           : resolveDomain(req),
         expires: new Date(expires),
         encryptName: true,
-        encryptValue: false
+        encryptValue: false,
       });
     },
 
     retrieve: (req, res, options) => {
       return req.cookies[options.headerName || DEFAULT_HEADER_NAME];
-    }
-  }
+    },
+  },
 };
 
 /*
@@ -211,99 +205,99 @@ const CSRF_DRIVERS = {
   AUTHED_TOKEN: {
     persist: {
       cookie: false,
-      header: true
+      header: true,
     },
 
     generate: (req, res, options) => {
       return {
-        uid: options.getUserToken(req)
+        uid: options.getUserToken(req),
       };
     },
 
     verify: (req, res, options, tokens) => {
       // tokens.header will always be an object
       if (Object.keys(tokens.header).length === 0) {
-        throw new CSRFError("TOKEN_NOT_IN_HEADER");
+        throw new CSRFError('TOKEN_NOT_IN_HEADER');
       }
 
       if (options.getUserToken(req)) {
         if (!tokens.header.uid) {
-          throw new CSRFError("TOKEN_PAYERID_MISSING");
+          throw new CSRFError('TOKEN_PAYERID_MISSING');
         }
 
         if (tokens.header.uid !== options.getUserToken(req)) {
-          throw new CSRFError("TOKEN_PAYERID_MISMATCH");
+          throw new CSRFError('TOKEN_PAYERID_MISMATCH');
         }
       }
-    }
+    },
   },
 
   DOUBLE_SUBMIT: {
     persist: {
       cookie: true,
-      header: true
+      header: true,
     },
 
     generate: (req, res, options) => {
       return {
-        id: uuidv4()
+        id: uuidv4(),
       };
     },
 
     verify: (req, res, options, tokens) => {
       if (!Object.keys(tokens.header).length) {
-        throw new CSRFError("TOKEN_NOT_IN_HEADER");
+        throw new CSRFError('TOKEN_NOT_IN_HEADER');
       }
 
       if (!tokens.header.id) {
-        throw new CSRFError("ID_NOT_IN_HEADER");
+        throw new CSRFError('ID_NOT_IN_HEADER');
       }
 
       if (!tokens.cookie.id) {
-        throw new CSRFError("ID_NOT_IN_COOKIE");
+        throw new CSRFError('ID_NOT_IN_COOKIE');
       }
 
       if (tokens.header.id !== tokens.cookie.id) {
-        throw new CSRFError("HEADER_COOKIE_ID_MISMATCH");
+        throw new CSRFError('HEADER_COOKIE_ID_MISMATCH');
       }
-    }
+    },
   },
 
   AUTHED_DOUBLE_SUBMIT: {
     persist: {
       cookie: true,
-      header: true
+      header: true,
     },
 
     generate: (req, res, options) => {
       return {
         uid: options.getUserToken(req),
-        id: uuidv4()
+        id: uuidv4(),
       };
     },
 
     verify: (req, res, options, tokens) => {
       if (!Object.keys(tokens.header).length) {
-        throw new CSRFError("TOKEN_NOT_IN_HEADER");
+        throw new CSRFError('TOKEN_NOT_IN_HEADER');
       }
 
       try {
         // First do the cookie check
 
         if (!Object.keys(tokens.cookie).length) {
-          throw new CSRFError("TOKEN_NOT_IN_COOKIE");
+          throw new CSRFError('TOKEN_NOT_IN_COOKIE');
         }
 
         if (!tokens.header.id) {
-          throw new CSRFError("ID_NOT_IN_HEADER");
+          throw new CSRFError('ID_NOT_IN_HEADER');
         }
 
         if (!tokens.cookie.id) {
-          throw new CSRFError("ID_NOT_IN_COOKIE");
+          throw new CSRFError('ID_NOT_IN_COOKIE');
         }
 
         if (tokens.header.id !== tokens.cookie.id) {
-          throw new CSRFError("HEADER_COOKIE_MISMATCH");
+          throw new CSRFError('HEADER_COOKIE_MISMATCH');
         }
       } catch (err) {
         // Then if this fails, fall back to payerid
@@ -311,19 +305,19 @@ const CSRF_DRIVERS = {
         if (err instanceof CSRFError) {
           if (options.getUserToken(req)) {
             if (!tokens.header.uid) {
-              throw new CSRFError("TOKEN_PAYERID_MISSING");
+              throw new CSRFError('TOKEN_PAYERID_MISSING');
             }
 
             if (tokens.header.uid !== options.getUserToken(req)) {
-              throw new CSRFError("TOKEN_PAYERID_MISMATCH");
+              throw new CSRFError('TOKEN_PAYERID_MISMATCH');
             }
           }
         } else {
           throw err;
         }
       }
-    }
-  }
+    },
+  },
 };
 
 /*
@@ -348,15 +342,15 @@ const generate = (req, res, options) => {
   const jwtTokens = {};
 
   // Loop through each persistance type for the current csrfDriver
-  Object.keys(driver.persist).forEach(persistenceDriver => {
+  Object.keys(driver.persist).forEach((persistenceDriver) => {
     // Check if this persistence type is enabled for the current csrfDriver
     if (driver.persist[persistenceDriver]) {
       // Add the csrfDriver and persistenceDriver into the token so we can verify them on inbound requests
       const payload = {
-          csrfDriver: csrfDriver,
-          persistenceDriver: persistenceDriver,
-          ...token
-        }
+        csrfDriver: csrfDriver,
+        persistenceDriver: persistenceDriver,
+        ...token,
+      };
       // console.log({ payload, persistenceDriver });
       // Pack and save our token
       jwtTokens[persistenceDriver] = JWT.pack(payload, options);
@@ -381,7 +375,7 @@ const drop = (req, res, options) => {
   res.locals.csrfJwtTokens = jwtTokens;
 
   // Loop through each persistence type for the current csrf driver
-  Object.keys(jwtTokens).forEach(persistenceDriver => {
+  Object.keys(jwtTokens).forEach((persistenceDriver) => {
     // Get the individual token
     const jwtToken = jwtTokens[persistenceDriver];
 
@@ -421,9 +415,9 @@ const read = (req, res, options, persistenceDriver) => {
   // Validate that it has the correct persistenceDriver
   if (token.persistenceDriver !== persistenceDriver) {
     throw new CSRFError(
-      "GOT_" +
+      'GOT_' +
         token.persistenceDriver.toUpperCase() +
-        "_EXPECTED_" +
+        '_EXPECTED_' +
         persistenceDriver.toUpperCase()
     );
   }
@@ -453,7 +447,7 @@ const retrieve = (req, res, options, csrfDriver) => {
   const tokens = {};
 
   // Loop over each persistence mechanism and build an object of decrypted tokens
-  Object.keys(driver.persist).forEach(persistenceDriver => {
+  Object.keys(driver.persist).forEach((persistenceDriver) => {
     // We only want tokens which are valid for the current csrf driver
     // console.log({ retrievePersistDriver: persistenceDriver });
     if (driver.persist[persistenceDriver]) {
@@ -473,7 +467,7 @@ const retrieve = (req, res, options, csrfDriver) => {
 
 const verify = (req, res, options) => {
   // First we need to get the header first to figure out which csrfDriver we need to verify
-  const headerToken = read(req, res, options, "header");
+  const headerToken = read(req, res, options, 'header');
   // console.log({ csrfDriver: headerToken.csrfDriver });
 
   const csrfDriver =
@@ -496,21 +490,21 @@ module.exports = {
     const token = CSRF_DRIVERS[csrfDriver].generate(req, res, options);
 
     const payload = {
-        csrfDriver: csrfDriver,
-        persistenceDriver: "header",
-        ...token
-      }
+      csrfDriver: csrfDriver,
+      persistenceDriver: 'header',
+      ...token,
+    };
 
     return JWT.pack(payload, options);
   },
 
-  middleware: options => {
+  middleware: (options) => {
     const csrfDriver = options.csrfDriver || DEFAULT_CSRF_DRIVER;
 
     if (/AUTHED_TOKEN|AUTHED_DOUBLE_SUBMIT/.test(csrfDriver)) {
       if (!options.getUserToken) {
         throw new Error(
-          "csrf-jwt - getUserToken option required for AUTHED_TOKEN and AUTHED_DOUBLE_SUBMIT drivers"
+          'csrf-jwt - getUserToken option required for AUTHED_TOKEN and AUTHED_DOUBLE_SUBMIT drivers'
         );
       }
     }
@@ -518,7 +512,7 @@ module.exports = {
     const excludeUrls = options.excludeUrls || [];
 
     if (options.baseUrl) {
-      excludeUrls = excludeUrls.map(route => {
+      excludeUrls = excludeUrls.map((route) => {
         return options.baseUrl + route;
       });
     }
@@ -546,10 +540,10 @@ module.exports = {
         // We only want to verify certain requests
         urlToTest = req.originalUrl;
         // console.log({ urlToTest, excludeUrls });
-        excludeTheseUrls = excludeUrls.filter(excludeUrl => {
+        excludeTheseUrls = excludeUrls.filter((excludeUrl) => {
           if (isArray(excludeUrl)) {
             const expression = excludeUrl[0];
-            const options = excludeUrl[1] || "";
+            const options = excludeUrl[1] || '';
 
             return new RegExp(expression, options).test(urlToTest);
           } else if (isRegExp(excludeUrl)) {
@@ -559,7 +553,7 @@ module.exports = {
             // Setup some variables: regExp for regExp testing and
             // some bits to use in the indexOf comparison
             const regExp = new RegExp(excludeUrl);
-            const bits = (urlToTest || "").split(/[?#]/, 1)[0];
+            const bits = (urlToTest || '').split(/[?#]/, 1)[0];
 
             // Test regular expression strings first
             if (regExp.exec(urlToTest)) {
@@ -594,5 +588,5 @@ module.exports = {
 
       return next();
     };
-  }
+  },
 };

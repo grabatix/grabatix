@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-const crypto = require("crypto");
+const crypto = require('crypto');
 
 // https://nodejs.org/api/crypto.html#crypto_crypto_createcipher_algorithm_password_options
-const defaultAlgorithm = "aes-256-ctr";
+const defaultAlgorithm = 'aes-256-ctr';
 const defaultIV = crypto.randomBytes(16);
 
 const encrypt = (key, text, algorithm, iv) => {
@@ -17,8 +17,8 @@ const encrypt = (key, text, algorithm, iv) => {
   } else {
     crypto = crypto.createCipher(defaultAlgorithm, key);
   }
-  let crypted = cipher.update(text, "utf8", "hex");
-  crypted += cipher.final("hex");
+  let crypted = cipher.update(text, 'utf8', 'hex');
+  crypted += cipher.final('hex');
   return crypted;
 };
 
@@ -33,12 +33,12 @@ const decrypt = (key, text, algorithm, iv) => {
   } else {
     crypto.createDecipher(defaultAlgorithm, key);
   }
-  let dec = decipher.update(text, "hex", "utf8");
-  dec += decipher.final("utf8");
+  let dec = decipher.update(text, 'hex', 'utf8');
+  dec += decipher.final('utf8');
   return dec;
 };
 
 module.exports = {
   encrypt,
-  decrypt
+  decrypt,
 };

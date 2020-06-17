@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+const fetch = require('node-fetch');
 
 async function callApi(uri, options = {}) {
   let data;
@@ -16,29 +16,29 @@ async function callApi(uri, options = {}) {
 }
 
 async function loadData(uri, options = {}) {
-  let response = await fetch(uri, options);
-  const contentType = response.headers.get("content-type");
+  const response = await fetch(uri, options);
+  const contentType = response.headers.get('content-type');
   const { status } = response;
   console.log({ status, contentType });
   if (status >= 200 && status < 300) {
-    if (contentType && contentType.includes("application/json")) {
+    if (contentType && contentType.includes('application/json')) {
       return response.json();
     } else {
       return response.text();
     }
   } else {
-    return getErrorBody(response, contentType).then(body => {
+    return getErrorBody(response, contentType).then((body) => {
       return Promise.reject({
         body,
-        status
+        status,
       });
     });
   }
 }
 
-async function getErrorBody(response, contentType = "text") {
+async function getErrorBody(response, contentType = 'text') {
   let body;
-  if (contentType.includes("application/json")) {
+  if (contentType.includes('application/json')) {
     body = await response.json();
   } else {
     body = await response.text();
