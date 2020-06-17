@@ -68,14 +68,21 @@ exports.addCompany = async function (req, res, next) {
   res.status(201).json({ company })
 }
 
+const validUpdateTypes = [ `grabatix_identity`, `products`, `employees`, `url`]
 // update fields of existing company
-exports.company_detail_patch = async function (req, res, next) {
+exports.updateCompanyDetails = async function (req, res, next) {
+  const companyId = req.company.id;
+  const type = req.query.type
+  if ( !validUpdateTypes.includes[type] ) {
+    return res.status(400).json({ message: `Invalid Update Type` })
+  }
+  const updates = req.body.updates;
   res.send(`NOT IMPLEMENTED: companydetail: ` + req.params.companyid + ` PATCH`)
 }
 
 // Upload companycreate form on POST.
-exports.company_createupload_post = async (req, res) => {
-  const companyId = req.params.companyId
+exports.uploadLogoToCloudinary = async (req, res) => {
+  const companyId = req.company.id
   if (req.file) {
     const file = dataUri(req).content
     try {

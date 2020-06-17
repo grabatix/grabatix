@@ -107,24 +107,6 @@ const expressApp = (workerId) => {
   // for parsing multipart/form-data
   app.use(upload.array())
 
-  // middleware to display session data in console during development and staging only
-  if (process.env.NODE_ENV !== 'production') {
-    app.use((req, res, next) => {
-      console.log('')
-      console.log('*************REQUEST MIDDLEWARE***************')
-      console.log('Worker', workerId)
-      console.log({ subdomains: req.subdomains })
-      console.log({ 'x-auth-token': req.get('x-auth-token') })
-      console.log({ 'x-csrf-jwt': req.get('x-csrf-jwt') })
-      console.log({ company: req.company })
-      console.log({ user: req.user })
-      console.log({ role: req.user ? req.user.role : `` })
-      console.log('**********************************************')
-      console.log('')
-      next()
-    })
-  }
-
   app.set('port', port)
 
   debug('Configuring Rate-Limiting Middleware')
@@ -153,6 +135,24 @@ const expressApp = (workerId) => {
 
   const { router } = require('./routes/router')
   router(app, urlParsers)
+
+  // middleware to display session data in console during development and staging only
+  if (process.env.NODE_ENV !== 'production') {
+    app.use((req, res, next) => {
+      console.log('')
+      console.log('*************REQUEST MIDDLEWARE***************')
+      console.log('Worker', workerId)
+      console.log({ subdomains: req.subdomains })
+      console.log({ 'x-auth-token': req.get('x-auth-token') })
+      console.log({ 'x-csrf-jwt': req.get('x-csrf-jwt') })
+      console.log({ company: req.company })
+      console.log({ user: req.user })
+      console.log({ role: req.user ? req.user.role : `` })
+      console.log('**********************************************')
+      console.log('')
+      next()
+    })
+  }
 
   // set up last to handle 404 errors
   app.use('*', (req, res, next) => {

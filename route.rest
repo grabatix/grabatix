@@ -2,6 +2,16 @@ GET http://localhost:4000/api/v1/
 
 ###
 
+POST http://localhost:4000/api/v1/user/signup
+content-type: application/json
+
+{
+    "username": "wesley@wearecreativ.media",
+    "password": "s0m3un!quePW"
+}
+
+###
+
 GET http://localhost:4000/api/v1/company/1/info
 
 ###

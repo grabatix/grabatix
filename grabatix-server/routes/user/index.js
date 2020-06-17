@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const asyncMiddleware = require('../../middleware/async-middleware');
 const userController = require('../../controllers/user');
 
 /**
@@ -16,8 +15,10 @@ module.exports = async ({
   urlParsers: { unextendedUrlParser, extendedUrlParser },
   version = 'v1',
 }) => {
-  router.post('/login', asyncMiddleware, userController.loginUser);
-  router.post('/signup', asyncMiddleware, userController.signupUser);
+  router.use(extendedUrlParser)
+
+  router.post('/login', userController.loginUser);
+  router.post('/signup', userController.createUser);
 
   app.use(`${process.env.BASE_API_URL}/${version}/user`, router);
 };

@@ -1,31 +1,20 @@
-const User = require('../models/User/index');
+const User = require(`../models/User/index`)
 
-const createUser = async ({
-  firstName,
-  lastName,
-  email,
-  password,
-  providerId,
-  provider,
-}) => {
+const createUser = async ({ username, password }) => {
   return new Promise(async (resolve, reject) => {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username })
 
     if (user) {
-      return reject('Email is already in use');
+      return reject(`Email is already in use`)
     }
 
     return resolve(
       await User.create({
-        providerId,
-        provider,
-        firstName,
-        lastName,
-        email,
+        username,
         password,
       })
-    );
-  });
-};
+    )
+  })
+}
 
-module.exports = { createUser };
+module.exports = { createUser }

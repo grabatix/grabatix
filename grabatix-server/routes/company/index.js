@@ -45,7 +45,7 @@ module.exports = async ({
     `/update/:companyId`,
     extendedUrlParser,
     companyController.getCompany,
-    companyController.company_detail_patch
+    companyController.updateCompanyDetails
   )
 
   // UPLOAD CLOUDINARY IMAGE FOR COMPANY
@@ -54,7 +54,7 @@ module.exports = async ({
     cloudinaryConfig,
     multerUploads,
     companyController.getCompany,
-    companyController.company_createupload_post
+    companyController.uploadLogoToCloudinary
   )
 
   // Quickbooks OAUTH

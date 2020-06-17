@@ -26,7 +26,7 @@ const hashPassword = async (password) => {
   if (!password) {
     throw new Error('Password was not provided');
   }
-  const salt = await bcrypt.getSalt(10);
+  const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
 };
 
