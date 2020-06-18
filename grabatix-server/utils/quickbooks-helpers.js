@@ -8,7 +8,7 @@ const oAuthConfig = {
   redirectUri: process.env.QB_REDIRECT_URI
 }
 
-const MINOR_VERSION = '47'
+const MINOR_VERSION = '51'
 
 const paymentsAPIEndpoints = {
   tokens: "/quickbooks/v4/payments/tokens",

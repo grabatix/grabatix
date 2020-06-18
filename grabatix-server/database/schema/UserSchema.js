@@ -1,11 +1,7 @@
 const mongoose = require(`mongoose`)
+const RolesSchema = require('./RolesSchema')
 const { Schema } = mongoose
 mongoose.Promise = Promise
-
-const RolesSchema = new Schema({
-  identifier: { type: Schema.Types.ObjectId, ref: `Company` },
-  roles: [String],
-})
 
 const UserSchema = new Schema({
   username: {

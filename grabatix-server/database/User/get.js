@@ -4,12 +4,8 @@ const getUserById = async (id) => {
   return await User.findById(id)
 };
 
-const getUserByEmail = async (email) => {
-  return await User.findOne({ email })
+const getUserByUsername = async (username) => {
+  return await User.findOne({ username })
 };
 
-const getUserByProviderId = async (providerId) => {
-  return await User.findOne({ providerId })
-};
-
-module.exports = { getUserById, getUserByEmail, getUserByProviderId };
+module.exports = { getUserById, getUserByUsername };

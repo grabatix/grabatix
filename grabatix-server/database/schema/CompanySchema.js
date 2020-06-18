@@ -30,6 +30,9 @@ const GrabatixSchema = new Schema({
     type: String,
     required: true,
   },
+  adminUsers: {
+    type: [{ type: Schema.Types.ObjectId, ref: `User` }],
+  }
 })
 
 const CompanySchema = new Schema({

@@ -7,7 +7,8 @@ content-type: application/json
 
 {
     "username": "wesley@wearecreativ.media",
-    "password": "s0m3un!quePW"
+    "password": "s0m3un!quePW",
+    "confirmPassword": "s0m3un!quePW"
 }
 
 ###
@@ -21,7 +22,9 @@ content-type: application/json
 
 {
     "identifier": "Creativ",
-    "email": "wesley@wearecreativ.media"
+    "username": "wesley@wearecreativ.media",
+    "password": "s0m3un!quePW",
+    "confirmPassword": "s0m3un!quePW"
 }
 
 ###

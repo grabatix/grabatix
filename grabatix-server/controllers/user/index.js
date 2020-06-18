@@ -1,10 +1,34 @@
 const { to } = require(`await-to-js`)
-const { createUser, getUserByEmail } = require(`../../database/User`)
-const { hashPassword } = require(`../../auth/utils`)
+const { createUser, getUserByUsername } = require(`../../database/User`)
+const { hashPassword, verifyPassword } = require(`../../auth/utils`)
+const { REGX } = require(`../../config`)
+
+const validUsername = (username) => REGX.username.test(username)
+const validPassword = (password) => REGX.password.test(password)
+
+exports.validateUsernameAndPassword = async (req, res, next) => {
+  const { username, password, confirmPassword } = req.body
+  const errors = {}
+  if (!validUsername(username)) {
+    errors.username = `Username must be a valid email address.`
+  }
+  if (!validPassword(password)) {
+    errors.password = `Password must be at least 8 characters in length include at least 1 lowercase letter, 1 capital letter, 1 number and 1 special character (ie. #?!@$%^&*-_).`
+  }
+  if (password !== confirmPassword) {
+    errors.confirmPassword = `Password and confirmPassword must match.`
+  }
+  if (Object.keys(errors).length) {
+    res
+      .status(400)
+      .json({ success: false, message: `Errors on Form`, data: errors })
+  }
+  next()
+}
 
 exports.loginUser = async (req, res, next) => {
-  const { email, password } = req.body
-  const [err, user] = await to(getUserByEmail(email))
+  const { username, password } = req.body
+  const [err, user] = await to(getUserByUsername(username))
 
   const authenticationError = () => {
     return res
@@ -12,28 +36,11 @@ exports.loginUser = async (req, res, next) => {
       .json({ success: false, data: `Authentication error!` })
   }
 
-  res.json({ messsage: `login user not implemented` })
+  res.json({ message: `login user not implemented` })
 }
 
 exports.createUser = async (req, res, next) => {
   const { username, password } = req.body
-
-  const pwReg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_])[A-z0-9#?!@$%^&*-_]{8,}$/
-  const unReg = /\b\w+\@\w+\.\w+(?:\.\w+)?\b/
-
-  if (!unReg.test(username)) {
-    return res.status(400).json({
-      success: false,
-      message: `Username must be a unique and valid email address.`,
-    })
-  }
-
-  if (!pwReg.test(password)) {
-    return res.status(400).json({
-      success: false,
-      message: `Password must be at least 8 characters in length include at least 1 lowercase letter, 1 capital letter, 1 number and 1 special character (ie. #?!@$%^&*-_).`,
-    })
-  }
 
   const [hashError, hash] = await to(hashPassword(password))
 
@@ -43,17 +50,16 @@ exports.createUser = async (req, res, next) => {
       .json({ success: false, message: `Server bcrypt Error`, data: hashError })
   }
 
-  const [createdError, user] = await to(
-    createUser({
+  let user
+  try {
+    user = await createUser({
       username,
       password: hash,
     })
-  )
-
-  if (createdError) {
+  } catch (err) {
     return res
-      .status(500)
-      .json({ success: false, message: `DB Error`, data: createdError })
+      .status(err.message === "Email is already in use" ? 400 : 500)
+      .json({ success: false, message: err.message })
   }
 
   res.user = user

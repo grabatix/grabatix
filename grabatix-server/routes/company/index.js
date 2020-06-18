@@ -5,6 +5,7 @@ const { utils } = require(`../../auth`)
 const { multerUploads } = require(`../../middleware/multer-uploads`)
 const { cloudinaryConfig } = require(`../../middleware/cloudinary-config.js`)
 const companyController = require(`../../controllers/company`)
+const { validateUsernameAndPassword } = require(`../../controllers/user`)
 
 /**
  * Function to add routes as middleware on app via app.Router in express
@@ -40,7 +41,12 @@ module.exports = async ({
     companyController.getCompany,
     companyController.getCompanyDetail
   )
-  router.post(`/create`, extendedUrlParser, companyController.addCompany)
+  router.post(
+    `/create`,
+    extendedUrlParser,
+    validateUsernameAndPassword,
+    companyController.addCompany
+  )
   router.patch(
     `/update/:companyId`,
     extendedUrlParser,
@@ -86,7 +92,7 @@ module.exports = async ({
     extendedUrlParser,
     companyController.company_createitem_post
   )
-  router.put(
+  router.patch(
     `/item/update/:itemid/:companyId`,
     extendedUrlParser,
     companyController.getCompany,
@@ -112,7 +118,7 @@ module.exports = async ({
     companyController.getCompany,
     companyController.company_createcategory_post
   )
-  router.put(
+  router.patch(
     `/category/update/:categoryid/:companyId`,
     extendedUrlParser,
     companyController.getCompany,
@@ -124,25 +130,25 @@ module.exports = async ({
     `/employees/:companyId`,
     extendedUrlParser,
     companyController.getCompany,
-    companyController.company_listemployees_get
+    companyController.getEmployees
   )
   router.get(
     `/employee/:employeeid/:companyId`,
     extendedUrlParser,
     companyController.getCompany,
-    companyController.company_employeedetail_get
+    companyController.getEmployeeDetail
   )
   router.post(
     `/employee/create/:companyId`,
     extendedUrlParser,
     companyController.getCompany,
-    companyController.company_createemployee_post
+    companyController.createEmployee
   )
-  router.put(
+  router.patch(
     `/employee/update/:employeeid/:companyId`,
     extendedUrlParser,
     companyController.getCompany,
-    companyController.company_updateemployee_put
+    companyController.updateEmployee
   )
 
   // Quickbooks Process Payment

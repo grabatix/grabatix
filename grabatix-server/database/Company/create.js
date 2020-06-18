@@ -7,7 +7,7 @@ const createCompany = async ({ CompanyIdentifier, Email }) => {
     })
 
     if (company) {
-      return reject(`Company Identifier is already in use`)
+      return reject(new Error(`Company Identifier is already in use`))
     }
 
     return resolve(

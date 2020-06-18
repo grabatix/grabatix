@@ -5,11 +5,14 @@ const {
   getCompanyById,
   updateTokens,
   addCompanyInfoFromQBO,
+  addAdminUser,
 } = require(`../../database/Company`)
+const { createUserWithRoles } = require(`../../database/User`)
+const { hashPassword } = require(`../../auth/utils`)
 const { dataUri } = require(`../../middleware/multer-uploads`)
 const { uploader } = require(`../../middleware/cloudinary-config.js`)
 const { qboAuth } = require(`../../utils/quickbooks-helpers`)
-const callApi = require(`../../utils/fetch`)
+const { ROLES } = require(`../../config`)
 
 // TODO: ADD TIMEOUT TO REQUESTS TO EITHER QBO or MongoDB
 
@@ -53,30 +56,70 @@ exports.getCompany = async function (req, res, next) {
 
 // Create New Company.
 exports.addCompany = async function (req, res, next) {
-  const { email, identifier } = req.body
-  const [createdError, company] = await to(
-    createCompany({ CompanyIdentifier: identifier, Email: email })
-  )
+  const { username, password, confirmPassword, identifier } = req.body
+  let company
+  try {
+    company = await createCompany({
+      CompanyIdentifier: identifier,
+      Email: username,
+    })
+  } catch (err) {
+    return res
+      .status(
+        err.message === `Company Identifier is already in use` ? 400 : 500
+      )
+      .json({ error: { message: err.message } })
+  }
 
-  if (createdError) {
+  const [hashError, hash] = await to(hashPassword(password))
+
+  if (hashError) {
     return res
       .status(500)
-      .json({ error: { message: `DB Error`, data: createdError } })
+      .json({ success: false, message: `Server bcrypt Error`, data: hashError })
   }
 
-  res.company = company
-  res.status(201).json({ company })
+  let user
+  try {
+    user = await createUserWithRoles({
+      role: ROLES.Admin,
+      username,
+      password: hash,
+      companyId: company.id,
+    })
+  } catch (err) {
+    let status
+    switch (err.message) {
+      case `Passwords do not match on pre-existing account`:
+      case `Unable to compare passwords`:
+        status = 400
+        break
+      default:
+        status = 500
+        break
+    }
+    return res.status(status).json({ error: { message: err.message } })
+  }
+
+  try {
+    await addAdminUser({ companyId: company.id, userId: user.id })
+  } catch (err) {
+    console.error(err)
+    return res.status(500).json({ error: { message: `DB Error`, data: err } })
+  }
+
+  res.status(201).json({ company: company.id, user: user.id })
 }
 
-const validUpdateTypes = [ `grabatix_identity`, `products`, `employees`, `url`]
+const validUpdateTypes = [`grabatix_identity`, `products`, `employees`, `url`]
 // update fields of existing company
 exports.updateCompanyDetails = async function (req, res, next) {
-  const companyId = req.company.id;
+  const companyId = req.company.id
   const type = req.query.type
-  if ( !validUpdateTypes.includes[type] ) {
+  if (!validUpdateTypes.includes[type]) {
     return res.status(400).json({ message: `Invalid Update Type` })
   }
-  const updates = req.body.updates;
+  const updates = req.body.updates
   res.send(`NOT IMPLEMENTED: companydetail: ` + req.params.companyid + ` PATCH`)
 }
 
@@ -92,18 +135,15 @@ exports.uploadLogoToCloudinary = async (req, res) => {
 
       // TODO: add image identifier to DB
 
-      res.statusCode = 201
-      res.json({
+      res.status(201).json({
         messge: `Your image has been uploded successfully to cloudinary`,
         data: { image },
       })
     } catch (error) {
-      res.statusCode = 400
-      res.json({ error: { message: `Invalid File`, data: error } })
+      res.status(400).json({ error: { message: `Invalid File`, data: error } })
     }
   } else {
-    res.statusCode = 400
-    res.json({ error: { message: `Invalid File` } })
+    res.status(400).json({ error: { message: `Missing File` } })
   }
 }
 
@@ -299,7 +339,7 @@ exports.company_updatecategory_put = async (req, res) => {
   )
 }
 
-exports.company_listemployees_get = async (req, res) => {
+exports.getEmployees = async (req, res) => {
   const { companyid } = req.params
   try {
     const query = `Select * from Employee`
@@ -313,7 +353,7 @@ exports.company_listemployees_get = async (req, res) => {
   }
 }
 
-exports.company_employeedetail_get = async (req, res) => {
+exports.getEmployeeDetail = async (req, res) => {
   const { companyid, employeeid } = req.params
 
   // TODO: Validate employeeid
@@ -327,11 +367,11 @@ exports.company_employeedetail_get = async (req, res) => {
   }
 }
 
-exports.company_createemployee_post = async (req, res) => {
+exports.createEmployee = async (req, res) => {
   res.send(`NOT IMPLEMENTED: createemployee: ` + req.params.companyid + ` POST`)
 }
 
-exports.company_updateemployee_put = async (req, res) => {
+exports.updateEmployee = async (req, res) => {
   res.send(
     `NOT IMPLEMENTED: updateemployee: ` +
       req.params.companyid +
