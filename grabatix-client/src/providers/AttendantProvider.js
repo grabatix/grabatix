@@ -16,11 +16,7 @@ class AttendantProvider extends Component {
       props: { children },
       state,
     } = this
-    return (
-      <AttendantContext.Provider value={state}>
-        {children}
-      </AttendantContext.Provider>
-    )
+    return <AttendantContext.Provider value={state}>{children}</AttendantContext.Provider>
   }
 }
 

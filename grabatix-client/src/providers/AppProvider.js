@@ -1,11 +1,7 @@
 /** @format */
 
 import React, { useReducer } from 'react'
-import {
-  ADD_SUBDOMAIN,
-  TRANSITION_STATE,
-  ADD_COMPANY_INFO,
-} from './actions/app-actions'
+import { ADD_SUBDOMAIN, TRANSITION_STATE, ADD_COMPANY_INFO } from './actions/app-actions'
 import reducer from './reducers/app-reducer'
 import * as appStates from './states/app-states'
 

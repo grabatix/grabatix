@@ -1,21 +1,26 @@
 /** @format */
 
 .cart-table {
-    width: 100%;
-    max-width: 640px;
-    border-spacing: 0;
+  width: 100%;
+  max-width: 640px;
+  border-spacing: 0;
 }
 
 .cart-table thead {
-    border: 2px solid var(--colorSecondary);
+  border: 2px solid var(--colorSecondary);
 }
 
-.cart-table, .cart-table tr, .cart-table th, .cart-table td, .cart-table tbody, .cart-purchase-block {
-    border: 1px solid var(--colorSecondary);
+.cart-table,
+.cart-table tr,
+.cart-table th,
+.cart-table td,
+.cart-table tbody,
+.cart-purchase-block {
+  border: 1px solid var(--colorSecondary);
 }
 
 .cart-purchase-block {
-    margin-left: 1rem;
-    width: 100%;
-    max-width: 640px;
+  margin-left: 1rem;
+  width: 100%;
+  max-width: 640px;
 }

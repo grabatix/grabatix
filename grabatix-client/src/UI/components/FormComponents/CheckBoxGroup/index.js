@@ -4,13 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './index.css'
 
-const CheckBoxGroup = ({
-  id,
-  checked = false,
-  handleInputChange,
-  label,
-  disabled = false,
-}) => {
+const CheckBoxGroup = ({ id, checked = false, handleInputChange, label, disabled = false }) => {
   return (
     <div className="checkbox-group">
       <input

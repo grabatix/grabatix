@@ -1,10 +1,6 @@
 /** @format */
 
-import {
-  TRANSITION_STATE,
-  ADD_COMPANY_INFO,
-  ADD_SUBDOMAIN,
-} from '../actions/app-actions'
+import { TRANSITION_STATE, ADD_COMPANY_INFO, ADD_SUBDOMAIN } from '../actions/app-actions'
 
 const reducer = (state, action) => {
   const { type, payload } = action

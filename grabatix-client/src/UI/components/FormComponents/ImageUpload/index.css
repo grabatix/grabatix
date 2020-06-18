@@ -1,0 +1,80 @@
+.drag-container-outer {
+    display: block;
+    position: relative;
+    margin: 30px auto;
+    width: calc(100% - 4px);
+    height: 200px;
+    overflow: hidden;
+}
+
+.drag-container-inner {
+    border: solid var(--colorSecondary) 4px;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0; 
+    right: 0;
+    z-index: 9999;
+    transition: background-color 200ms ease-in-out, border 200ms ease-in-out;
+    overflow: auto;
+    pointer-events: auto;
+}
+
+.drag-container-inner.dragging {
+  border: dashed var(--colorSecondary) 4px;
+  background-color: var(--dragBgColor);
+}
+
+.drag-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    left: 0;
+    text-align: center;
+    color: var(--colorSecondary);
+    font-size: 36px;
+}
+
+.drag-img {
+  display: block;
+  max-width: 100%;
+  margin: auto;
+}
+
+.upload-btn {
+    appearance: none;
+    background: var(--btnBgColor);
+    color: var(--btnColor);
+    cursor: pointer;
+    display: block;
+    font-weight: 600;
+    height: 40px !important;
+    font-size: 32px !important;
+    line-height: 40px;
+    width: calc(100% - 8px);
+    text-align: center;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+    margin: 4px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    border: none;
+}
+
+[type=file] {
+  height: auto;
+}
+
+.upload-btn:hover,
+.upload-btn:active,
+.upload-btn:focus {
+  background: var(--btnHoverBgColor);
+  color: var(--btnHoverColor);
+  cursor: pointer;
+}
+.upload-btn:disabled {
+  cursor: wait;
+  background: var(--grey);
+  color: var(--lightGrey);
+}

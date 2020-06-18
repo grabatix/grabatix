@@ -193,16 +193,10 @@ const Login = props => {
         </>
       )}
       <FormRow style={{ marginTop: isLoggedIn ? 60 : 0 }}>
-        <SubmitButton
-          handleClick={handleSubmit}
-          value={formTitle}
-          disabled={false}
-        />
+        <SubmitButton handleClick={handleSubmit} value={formTitle} disabled={false} />
       </FormRow>
       {isLoggedIn && (
-        <Link to={to}>
-          Click here if you are not redirected to your account in 5 seconds.
-        </Link>
+        <Link to={to}>Click here if you are not redirected to your account in 5 seconds.</Link>
       )}
     </form>
   )

@@ -1,32 +1,27 @@
 {
-    "extends": [
-      "react-app",
-      "plugin:jsx-a11y/recommended",
-      "prettier",
-      "prettier/react"
+  "extends": ["react-app", "plugin:jsx-a11y/recommended", "prettier", "prettier/react"],
+  "plugins": ["prettier", "jsx-a11y"],
+  "rules": {
+    "no-unused-expressions": [
+      1,
+      {
+        "allowTaggedTemplates": true
+      }
     ],
-    "plugins": ["prettier", "jsx-a11y"],
-    "rules": {
-      "no-unused-expressions": [
-        1,
-        {
-          "allowTaggedTemplates": true
-        }
-      ],
-      "consistent-return": 1,
-      "no-console": 1,
-      "no-undefined": 1,
-      "no-inner-declarations": 0,
-      "prettier/prettier": 2,
-      "quotes": [2, "backtick"],
-      "react/display-name": 0,
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-      "react/jsx-key": 1,
-      "react/no-unescaped-entities": 0,
-      "react/prop-types": 1,
-      "require-jsdoc": 0,
-      "valid-jsdoc": 2,
-      "no-invalid-this": 0,
-      "no-unused-vars": 1
-    }
+    "consistent-return": 1,
+    "no-console": 1,
+    "no-undefined": 1,
+    "no-inner-declarations": 0,
+    "prettier/prettier": 2,
+    "quotes": [2, "backtick"],
+    "react/display-name": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-key": 1,
+    "react/no-unescaped-entities": 0,
+    "react/prop-types": 1,
+    "require-jsdoc": 0,
+    "valid-jsdoc": 2,
+    "no-invalid-this": 0,
+    "no-unused-vars": 1
   }
+}

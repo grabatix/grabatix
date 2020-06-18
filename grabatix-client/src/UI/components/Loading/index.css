@@ -27,25 +27,22 @@
   color: var(--darkGrey);
   opacity: 1;
   border-radius: 50%;
-  box-shadow: 86px 50px var(--blue), 86px -50px var(--indigo),
-    0 100px var(--green), -1px -100px var(--red), -86px 50px var(--yellow),
-    -88px -50px var(--orange);
+  box-shadow: 86px 50px var(--blue), 86px -50px var(--indigo), 0 100px var(--green),
+    -1px -100px var(--red), -86px 50px var(--yellow), -88px -50px var(--orange);
   animation: pulse 2000ms ease-in-out infinite alternate;
 }
 
 @keyframes pulse {
   from {
-    box-shadow: 86px 50px var(--blue), 86px -50px var(--indigo),
-      0 100px var(--green), -1px -100px var(--red), -86px 50px var(--yellow),
-      -88px -50px var(--orange);
+    box-shadow: 86px 50px var(--blue), 86px -50px var(--indigo), 0 100px var(--green),
+      -1px -100px var(--red), -86px 50px var(--yellow), -88px -50px var(--orange);
     background-color: var(--white);
     color: var(--darkGrey);
     opacity: 1;
   }
   to {
-    box-shadow: -86px -50px var(--blue), -86px 50px var(--indigo),
-      0 -100px var(--green), 1px 100px var(--red), 86px -50px var(--yellow),
-      88px 50px var(--orange);
+    box-shadow: -86px -50px var(--blue), -86px 50px var(--indigo), 0 -100px var(--green),
+      1px 100px var(--red), 86px -50px var(--yellow), 88px 50px var(--orange);
     background-color: var(--darkGrey);
     color: var(--white);
     opacity: 0.5;

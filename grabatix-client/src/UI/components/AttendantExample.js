@@ -1,22 +1,9 @@
 /** @format */
 
-;<AttendantLayout
-  isLoggedIn={isLoggedIn}
-  setLoginStatus={setLogin}
-  setAccountOpen={setAccountOpen}
->
-  <LoginModal
-    type="login"
-    isLoggedIn={isLoggedIn}
-    isOpen={isOpen}
-    setOpen={handleOpenStatus}
-  />
+;<AttendantLayout isLoggedIn={isLoggedIn} setLoginStatus={setLogin} setAccountOpen={setAccountOpen}>
+  <LoginModal type="login" isLoggedIn={isLoggedIn} isOpen={isOpen} setOpen={handleOpenStatus} />
   <h1>GRABATIX</h1>
-  <Button
-    classNames="box dark"
-    innerText="Click Me"
-    handleClick={handleOpenStatus}
-  />
+  <Button classNames="box dark" innerText="Click Me" handleClick={handleOpenStatus} />
   <Button classNames="box light" innerText="$5" handleClick={() => {}} />
   <a href="#">Link</a>
   <DarkSwitcher />

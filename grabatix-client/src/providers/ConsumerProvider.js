@@ -16,11 +16,7 @@ class ConsumerProvider extends Component {
       props: { children },
       state,
     } = this
-    return (
-      <ConsumerContext.Provider value={state}>
-        {children}
-      </ConsumerContext.Provider>
-    )
+    return <ConsumerContext.Provider value={state}>{children}</ConsumerContext.Provider>
   }
 }
 

@@ -12,13 +12,7 @@ const isActive = ({ isCurrent }) => {
 
 const NavLink = ({ path, disabled, label, hidden, handleClick, ...props }) =>
   !hidden ? (
-    <Link
-      to={path}
-      getProps={isActive}
-      disabled={disabled}
-      onClick={handleClick}
-      {...props}
-    >
+    <Link to={path} getProps={isActive} disabled={disabled} onClick={handleClick} {...props}>
       {label}
     </Link>
   ) : null

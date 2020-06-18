@@ -5,18 +5,8 @@ import PropTypes from 'prop-types'
 
 import './index.css'
 
-const FlexContainer = ({
-  children,
-  flexClasses = ``,
-  utilityClasses = ``,
-  style,
-  ...props
-}) => (
-  <div
-    className={`flex-container ${flexClasses} ${utilityClasses}`}
-    style={style}
-    {...props}
-  >
+const FlexContainer = ({ children, flexClasses = ``, utilityClasses = ``, style, ...props }) => (
+  <div className={`flex-container ${flexClasses} ${utilityClasses}`} style={style} {...props}>
     {children}
   </div>
 )

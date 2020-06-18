@@ -22,9 +22,7 @@ const SubmitButton = ({
       value={disabled ? `Please Wait...` : value}
     />
     {hasErrors && (
-      <div className="form-error">
-        {error ? error : `Please scroll up to correct errors.`}
-      </div>
+      <div className="form-error">{error ? error : `Please scroll up to correct errors.`}</div>
     )}
   </div>
 )

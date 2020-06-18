@@ -6,8 +6,7 @@
   background: var(--bgSecondary);
   color: var(--white);
   transition: color 250ms ease-in-out, background-color 250ms ease-in-out,
-    border-color 250ms ease-in-out, max-height 250ms ease-in-out,
-    opacity 250ms ease-in-out;
+    border-color 250ms ease-in-out, max-height 250ms ease-in-out, opacity 250ms ease-in-out;
   width: 320px;
   top: 0px;
   right: 0;

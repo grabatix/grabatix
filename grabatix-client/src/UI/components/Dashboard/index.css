@@ -1,19 +1,18 @@
 /** @format */
 .dashboard-left {
-    color: var(--white);
-    width: 100%;
-    max-width: 275px;
-    min-height: calc(100vh - 80px);
-    background: var(--bgSecondary);
-    border-right: 5px solid var(--darkGrey);
-    transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+  color: var(--white);
+  width: 100%;
+  max-width: 275px;
+  min-height: calc(100vh - 80px);
+  background: var(--bgSecondary);
+  border-right: 5px solid var(--darkGrey);
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
 }
-  
+
 .dashboard-right {
-    width: 100%;
-    margin-top: 80px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    min-height: calc(100vh - 80px);
+  width: 100%;
+  margin-top: 80px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: calc(100vh - 80px);
 }
-  

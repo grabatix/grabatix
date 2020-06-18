@@ -14,21 +14,11 @@ const AdminHome = ({ children }) => {
     <FlexContainer flexClasses="column justify-center align-center align-content-center flex-grow-1">
       <h1 className="center-text">Are you an existing customer?</h1>
       <Button>
-        <NavLink
-          label={`Log In`}
-          path={`login`}
-          disabled={false}
-          hidden={isLoggedIn}
-        />
+        <NavLink label={`Log In`} path={`login`} disabled={false} hidden={isLoggedIn} />
       </Button>
       <h2 className="center-text">Need to create an account?</h2>
       <Button>
-        <NavLink
-          label={`Sign Up Now!`}
-          path={`signup`}
-          disabled={isLoggedIn}
-          hidden={isLoggedIn}
-        />
+        <NavLink label={`Sign Up Now!`} path={`signup`} disabled={isLoggedIn} hidden={isLoggedIn} />
       </Button>
     </FlexContainer>
   ) : (
