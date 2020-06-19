@@ -6,15 +6,12 @@ const {
   updateTokens,
   addCompanyInfoFromQBO,
   addAdminUser,
+  updateLogo,
 } = require(`../../database/Company`)
 const { createUserWithRoles } = require(`../../database/User`)
 const { hashPassword } = require(`../../auth/utils`)
-const { dataUri } = require(`../../middleware/multer-uploads`)
-const { uploader } = require(`../../middleware/cloudinary-config.js`)
 const { qboAuth } = require(`../../utils/quickbooks-helpers`)
 const { ROLES } = require(`../../config`)
-
-// TODO: ADD TIMEOUT TO REQUESTS TO EITHER QBO or MongoDB
 
 // GET details of existing company.
 exports.getCompanyDetail = async (req, res, next) => {
@@ -124,27 +121,23 @@ exports.updateCompanyDetails = async function (req, res, next) {
 }
 
 // Upload companycreate form on POST.
-exports.uploadLogoToCloudinary = async (req, res) => {
-  const companyId = req.company.id
-  if (req.file) {
-    const file = dataUri(req).content
-    try {
-      const result = uploader.upload(file)
-      const image = result.url
-      console.log({ image })
-
-      // TODO: add image identifier to DB
-
-      res.status(201).json({
-        messge: `Your image has been uploded successfully to cloudinary`,
-        data: { image },
-      })
-    } catch (error) {
-      res.status(400).json({ error: { message: `Invalid File`, data: error } })
-    }
-  } else {
-    res.status(400).json({ error: { message: `Missing File` } })
+exports.uploadToCloudinary = async (req, res) => {
+  if (!req.image) {
+    return res
+      .status(400)
+      .json({ message: `Image is Missing from the Request ` })
   }
+  let company
+  try {
+    company = await updateLogo({ companyId: req.params.id, image: req.image })
+    if (company == null) {
+      return res.status(404).json({ message: `Cannot Find Company` })
+    }
+  } catch (err) {
+    console.error(err)
+    return res.status(500).json({ error: { message: `DB Error`, data: err } })
+  }
+  res.status(201).json({ company: company.id, image: req.image.secure_url })
 }
 
 // Handle companyprocesspayment form on POST.

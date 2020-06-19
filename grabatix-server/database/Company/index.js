@@ -4,7 +4,12 @@ const {
   getCompanyById,
 } = require(`./get`)
 const { createCompany } = require(`./create`)
-const { addAdminUser, updateTokens, addCompanyInfoFromQBO } = require(`./patch`)
+const {
+  addAdminUser,
+  updateTokens,
+  addCompanyInfoFromQBO,
+  updateLogo,
+} = require(`./patch`)
 
 module.exports = {
   createCompany,
@@ -14,4 +19,5 @@ module.exports = {
   updateTokens,
   addCompanyInfoFromQBO,
   addAdminUser,
+  updateLogo,
 }

@@ -3,165 +3,231 @@
 import React, { useState, useEffect, useReducer } from 'react'
 import { callApi } from '../utils/fetch-helpers'
 
-const useFileUpload = (dragElRef, fileInputRef, uploadBtnRef, endpoint) => {
-  const INITIAL = `INITIAL`,
-    DRAGGING = `DRAGGING`,
-    DRAGGED = `DRAGGED`,
-    DROPPED = `DROPPED`,
-    UPLOADING = `UPLOADING`,
-    UPLOADED = `UPLOADED`
+const useFileUpload = ({ fileInputRef, formRef, endpoint }) => {
+  const MAX_UPLOAD_SIZE = 1020 * 1024,
+    UPLOAD_TIMEOUT = 30000
+
+  const ACTIONS = {
+    INITIAL: `INITIAL`,
+    DRAGGING: `DRAGGING`,
+    DRAGGED: `DRAGGED`,
+    DROPPED: `DROPPED`,
+    UPLOADING: `UPLOADING`,
+    UPLOADED: `UPLOADED`,
+    ERROR: `ERROR`,
+    ADD_FILE: `ADD_FILE`,
+    SET_SUPPORT: `SET_SUPPORT`,
+    ADD_SRC: `ADD_SRC`,
+  }
+
   const STATES = {
     INITIAL: {
+      dragSupported: true,
+      file: null,
+      imgSrc: ``,
       disabled: true,
       dragging: false,
       dropped: false,
       uploading: false,
+      loaded: false,
+      error: ``,
     },
     DRAGGING: {
       disabled: true,
       dragging: true,
       dropped: false,
       uploading: false,
+      loaded: false,
+      error: ``,
     },
     DRAGGED: {
       disabled: false,
       dragging: false,
       dropped: false,
       uploading: false,
+      loaded: false,
     },
     DROPPED: {
       disabled: false,
       dragging: false,
       dropped: true,
       uploading: false,
+      loaded: false,
+      error: ``,
     },
     UPLOADING: {
       disabled: true,
       dragging: false,
       dropped: true,
       uploading: true,
+      loaded: false,
+      error: ``,
     },
     UPLOADED: {
-      disabled: false,
+      disabled: true,
       dragging: false,
       dropped: false,
       uploading: false,
+      loaded: true,
+      error: ``,
+    },
+    ERROR: {
+      disabled: true,
+      dragging: false,
+      dropped: false,
+      uploading: false,
+      loaded: false,
     },
   }
 
   const reducer = (state, action) => {
-    const { type } = action
-    return { ...STATES[type] }
-  }
-
-  const [dragSupported, setDragSupport] = useState(true)
-  const [file, selectFile] = useState(null)
-  const [fileSrc, setSrc] = useState()
-  const [dragCounter, setDragCounter] = useState(0)
-  const [hookState, dispatch] = useReducer(reducer, STATES.INITIAL)
-
-  const handleFileSelection = e => {
-    selectFile(e.target.files[0])
-    dispatch({ type: DROPPED })
-  }
-  const handleFileUpload = async () => {
-    dispatch({ type: UPLOADING })
-    const fd = new FormData()
-    fd.append(`image`, file, file.name)
-    try {
-      const res = await callApi(endpoint, { body: fd, method: `POST` })
-      console.log(res)
-    } catch (err) {
-      console.error(err)
+    const { type = ACTIONS.INITIAL, payload } = action
+    switch (type) {
+      case ACTIONS.SET_SUPPORT:
+        return { ...state, dragSupported: payload.dragSupported }
+      case ACTIONS.ADD_FILE:
+        return { ...state, file: payload.file, ...STATES.DROPPED }
+      case ACTIONS.ADD_SRC:
+        return { ...state, imgSrc: payload.imgSrc }
+      case ACTIONS.INITIAL:
+      case ACTIONS.DRAGGING:
+      case ACTIONS.DRAGGED:
+      case ACTIONS.DROPPED:
+      case ACTIONS.UPLOADING:
+      case ACTIONS.UPLOADED:
+        return { ...state, ...STATES[type] }
+      case ACTIONS.ERROR:
+        return { ...state, error: payload.error, ...STATES[type] }
+      default:
+        return { ...state }
     }
-    dispatch({ type: UPLOADED })
   }
-
+  const [hookState, dispatch] = useReducer(reducer, STATES.INITIAL)
+  const handleFileSelection = e => {
+    if (e.target.files[0].size > MAX_UPLOAD_SIZE) {
+      return dispatch({ type: ACTIONS.ERROR, payload: { error: `Max File Size Exceeded` } })
+    }
+    dispatch({ type: ACTIONS.ADD_FILE, payload: { file: e.target.files[0] } })
+  }
+  let fetchTimeout
+  const handleFileUpload = async e => {
+    e.preventDefault()
+    dispatch({ type: ACTIONS.UPLOADING })
+    const controller = new AbortController()
+    const { signal } = controller
+    fetchTimeout = setTimeout(() => {
+      controller.abort()
+    }, UPLOAD_TIMEOUT)
+    const fd = new FormData()
+    fd.append(`image`, hookState.file, hookState.file.name)
+    try {
+      const res = await callApi(endpoint, { body: fd, method: `POST`, signal })
+      console.log(res)
+      clearTimeout(fetchTimeout)
+      dispatch({ type: ACTIONS.UPLOADED })
+    } catch (err) {
+      clearTimeout(fetchTimeout)
+      console.error(err)
+      dispatch({ type: ACTIONS.ERROR, payload: { error: err.message } })
+    }
+  }
   const handleFileDrop = file => {
-    selectFile(file)
+    if (file.size > MAX_UPLOAD_SIZE) {
+      return dispatch({ type: ACTIONS.ERROR, payload: { error: `Max File Size Exceeded` } })
+    }
+    dispatch({ type: ACTIONS.ADD_FILE, payload: { file } })
   }
-
   const handleDrag = e => {
     e.preventDefault()
     e.stopPropagation()
   }
-
   const handleDragIn = e => {
     e.preventDefault()
     e.stopPropagation()
-    setDragCounter(dragCounter + 1)
     if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
-      dispatch({ type: DRAGGING })
+      dispatch({ type: ACTIONS.DRAGGING })
     }
   }
   const handleDragOut = e => {
     e.preventDefault()
     e.stopPropagation()
-    setDragCounter(dragCounter - 1)
-    if (dragCounter === 0) {
-      dispatch({ type: DRAGGED })
-    }
+    dispatch({ type: ACTIONS.DRAGGED })
   }
   const handleDrop = e => {
     e.preventDefault()
     e.stopPropagation()
-    dispatch({ type: DROPPED })
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      if (e.dataTransfer.files.length > 1) {
+        return dispatch({ type: ACTIONS.ERROR, payload: { error: `Max Number of Files: 1` } })
+      }
       handleFileDrop(e.dataTransfer.files[0])
       fileInputRef.current.files = e.dataTransfer.files
       e.dataTransfer.clearData()
-      setDragCounter(0)
     }
+    dispatch({ type: ACTIONS.DROPPED })
   }
 
   useEffect(() => {
-    const el = dragElRef.current
-    if (`draggable` in el || (`ondragstart` in el && `ondrop` in el)) {
-      el.addEventListener(`dragenter`, handleDragIn)
-      el.addEventListener(`dragleave`, handleDragOut)
-      el.addEventListener(`dragover`, handleDrag)
-      el.addEventListener(`drop`, handleDrop)
+    const form = formRef.current
+    if (`draggable` in form || (`ondragstart` in form && `ondrop` in form)) {
+      form.addEventListener(`drag`, handleDrag)
+      form.addEventListener(`dragstart`, handleDrag)
+      form.addEventListener(`dragover`, handleDragIn)
+      form.addEventListener(`dragenter`, handleDragIn)
+      form.addEventListener(`dragleave`, handleDragOut)
+      form.addEventListener(`dragend`, handleDragOut)
+      form.addEventListener(`drop`, handleDrop)
     } else {
-      setDragSupport(false)
+      dispatch({ type: ACTIONS.SET_SUPPORT, payload: { dragSupported: false } })
     }
     const fileInput = fileInputRef.current
     fileInput.addEventListener(`change`, handleFileSelection)
-    const uploadBtn = uploadBtnRef.current
-    uploadBtn.addEventListener(`click`, handleFileUpload)
+
     return () => {
-      if (dragSupported) {
-        const el = dragElRef.current
-        el.removeEventListener(`dragenter`, handleDragIn)
-        el.removeEventListener(`dragleave`, handleDragOut)
-        el.removeEventListener(`dragover`, handleDrag)
-        el.removeEventListener(`drop`, handleDrop)
+      const form = formRef.current
+      if (hookState.dragSupported) {
+        form.removeEventListener(`drag`, handleDrag)
+        form.removeEventListener(`dragstart`, handleDrag)
+        form.removeEventListener(`dragover`, handleDragIn)
+        form.removeEventListener(`dragenter`, handleDragIn)
+        form.removeEventListener(`dragleave`, handleDragOut)
+        form.removeEventListener(`dragend`, handleDragOut)
+        form.removeEventListener(`drop`, handleDrop)
       }
       const fileInput = fileInputRef.current
       fileInput.removeEventListener(`change`, handleFileSelection)
-      const uploadBtn = uploadBtnRef.current
-      uploadBtn.removeEventListener(`click`, handleFileUpload)
     }
   }, [])
 
   useEffect(() => {
-    if (file && typeof FileReader !== `undefined`) {
+    if (hookState.file && typeof FileReader !== `undefined`) {
       const reader = new FileReader()
       reader.onload = (function () {
         return function (e) {
-          setSrc(e.target.result)
+          dispatch({ type: ACTIONS.ADD_SRC, payload: { imgSrc: e.target.result } })
         }
-      })(file)
-      reader.readAsDataURL(file)
+      })(hookState.file)
+      reader.readAsDataURL(hookState.file)
     }
-  }, [file])
+  }, [hookState.file])
+
+  useEffect(() => {
+    if (
+      hookState.loaded ||
+      hookState.error === `Cannot Find Company` ||
+      hookState.error === `DB Error` ||
+      hookState.error === `The user aborted a request`
+    ) {
+      setTimeout(() => {
+        formRef.current.reset()
+        dispatch({ type: ACTIONS.INITIAL })
+      }, 5000)
+    }
+  }, [hookState.loaded, hookState.error])
 
   return {
-    dragSupported,
     hookState,
-    img: {
-      src: fileSrc,
-      name: file ? file.name : ``,
-    },
+    handleFileUpload,
   }
 }
 

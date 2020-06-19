@@ -1,24 +1,26 @@
-const router = require('express').Router();
-const asyncMiddleware = require('../../middleware/async-middleware');
-const passport = require('passport');
-const { ROLES } = require('../../config');
-const { utils } = require('../../auth');
-const customerController = require('../../controllers/customer');
+const router = require(`express`).Router()
+const asyncMiddleware = require(`../../middleware/async-middleware`)
+const { ROLES } = require(`../../config`)
+const { utils } = require(`../../auth`)
+const customerController = require(`../../controllers/customer`)
+const bodyParser = require(`body-parser`)
 
 /**
  * Function to add routes as middleware on app via app.Router in express
  * @param {Object} app - Initialized Express App with properties
  * @param {Object} app.app - The initialized Express App Object
- * @param {Object} app.urlParsers - two different parsers for various encoding
- * @param {Object} app.urlParsers.extendedUrlParser - exteneded url encoding
- * @param {Object} app.urlParsers.unextendedUrlParser - unexteneded url encoding
  * @param {string} app.version - representing version of this api
  */
-module.exports = async ({ app, urlParsers, version = 'v1' }) => {
+module.exports = async ({ app, version = `v1` }) => {
+  // ADD routes here who don't need bodyparser
+  router.use(bodyParser.json())
+  router.use(bodyParser.text())
+  router.use(bodyParser.json({ type: `application/*+json` }))
   router.use(
-    passport.authenticate('jwt', { failureRedirect: '/login' }),
-    utils.checkIsInRole(ROLES.Customer)
-  );
+    bodyParser.urlencoded({
+      extended: true,
+    })
+  )
 
-  app.use(`${process.env.BASE_API_URL}/${version}/customer`, router);
-};
+  app.use(`${process.env.BASE_API_URL}/${version}/customer`, router)
+}

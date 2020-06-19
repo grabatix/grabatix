@@ -1,39 +1,56 @@
 import React, {useRef} from 'react'
 import useFileUpload from "../../../../hooks/useFileUpload"
+import { FaCloudUploadAlt } from 'react-icons/fa'
+import Loading from "../../Loading"
 import "./index.css"
 
-const ImageUpload = ({endpoint}) => {
-    const dragElRef = useRef();
+const ImageUpload = ({endpoint, title = `Upload Image`}) => {
     const fileInputRef = useRef();
-    const uploadBtnRef = useRef();
-    const { dragSupported, hookState: { dragging, disabled, dropped, uploading }, img } = useFileUpload(dragElRef, fileInputRef, uploadBtnRef, endpoint)
+    const formRef = useRef();
+    const { hookState: { dragging, disabled, dropped, uploading, loaded, error, dragSupported, file, imgSrc }, handleFileUpload } = useFileUpload({ fileInputRef, formRef, endpoint})
     return (
-        <>
-            {
-                dragSupported && (
-                    <div className="drag-container-outer" ref={dragElRef}>
-                        <div className={`drag-container-inner ${dragging && `dragging`}`}>
-                            {
-                                dropped ? (
-                                    <img src={img.src} title={img.name} alt={img.name} className="drag-img"/>
+        <form className="upload-form" ref={formRef} onSubmit={handleFileUpload}>
+            { 
+                uploading && <Loading />
+            }
+            <h3>{title}</h3>
+            <div className="drag-container-outer">
+                <div className={`drag-container-inner${dragging ? ` dragging` : ``}${error ? ` error` : ``}${dropped || loaded || uploading ? ` dropped` : ``}`}>
+                    <div id={`form-field-file`} className={`form-group`}>
+
+                        <input type="file" ref={fileInputRef} name="file-upload" id="file-upload" disabled={uploading || loaded} accept="image/png,image/jpeg,image/gif,image/svg+xml,image/webp"/>
+                        <label htmlFor="file-upload">
+                            <FaCloudUploadAlt style={{fontSize: 36}}/>
+                            <br/>
+                            { 
+                                loaded ? (
+                                    <b>File Successfully Loaded!!!</b>
                                 ) : (
-                                    <div className="drag-text">                         
-                                        drop here :)
-                                    </div>
+                                    <>
+                                        <b>Select File</b>
+                                        {
+                                            dragSupported && ` or drag it here.`
+                                        } 
+                                        {` (Max: 1MB)`}
+                                    </>
                                 )
                             }
-                        </div>
+                        </label>
                     </div>
+                </div>
+            </div>
+            <div className="input-error">{error}</div>
+            {
+                dropped && (
+                    <>
+                        <div className="img-block">
+                            <img src={imgSrc} title={file.name} alt={file.name} className="drag-img"/>
+                        </div>
+                        <button className="upload-btn" disabled={disabled} type="submit">Upload</button>
+                    </>
                 )
             }
-            <div id={`form-field-file`} className={`form-group`}>
-                <label htmlFor="file-upload">
-                    Select File
-                </label>
-                <input type="file" ref={fileInputRef} name="file-upload" id="file-upload" disabled={uploading} accept="image/*"/>
-            </div>
-            <button className="upload-btn" disabled={disabled} ref={uploadBtnRef}>Upload</button>
-        </>
+        </form>
     )
 }
 

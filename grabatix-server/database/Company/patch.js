@@ -6,10 +6,24 @@ const updateTokens = async ({ companyId, tokens }) => {
   return Company.findOneAndUpdate(query, { Tokens: tokens }, options)
 }
 
+const updateLogo = async ({ companyId, image }) => {
+  const query = { _id: companyId }
+  const options = { new: true, upsert: true }
+  return Company.findByIdAndUpdate(
+    query,
+    {
+      Logo: image,
+    },
+    options
+  )
+}
+
 const addAdminUser = async ({ companyId, userId }) => {
   const query = { _id: companyId }
   const company = await Company.findOne(query)
-  const idx = company.grabatix.adminUsers.findIndex((user) => user.id === userId)
+  const idx = company.grabatix.adminUsers.findIndex(
+    (user) => user.id === userId
+  )
   if (idx < 0) {
     company.grabatix.adminUsers.push(userId)
   }
@@ -46,4 +60,9 @@ const addCompanyInfoFromQBO = async ({ companyId, CompanyInfo, Tokens }) => {
   )
 }
 
-module.exports = { updateTokens, addCompanyInfoFromQBO, addAdminUser }
+module.exports = {
+  updateTokens,
+  addCompanyInfoFromQBO,
+  addAdminUser,
+  updateLogo,
+}

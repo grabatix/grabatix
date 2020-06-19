@@ -113,6 +113,9 @@ select.error:after,
 select:invalid:after {
   background-color: var(--inputErrorColor);
 }
+.input-error {
+  color: var(--inputErrorColor);
+}
 input.validated,
 select.validated {
   background-color: var(--green);
