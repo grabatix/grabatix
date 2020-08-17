@@ -19,7 +19,7 @@ const ProductSchema = new Schema({
   PricePoints: [
     {
       id: Number,
-      price: Number,
+      price: Schema.Types.Decimal128,
       minQuantity: Number,
       maxQuantity: Number,
     },

@@ -8,6 +8,9 @@ const {
   addAdminUser,
   updateLogo,
 } = require(`../../database/Company`)
+const {
+  getTransactionsByCompanyId
+} = require(`../../database/Transaction`)
 const { createUserWithRoles } = require(`../../database/User`)
 const { hashPassword } = require(`../../auth/utils`)
 const { qboAuth } = require(`../../utils/quickbooks-helpers`)
@@ -371,4 +374,14 @@ exports.updateEmployee = async (req, res) => {
       ` PUT ` +
       req.params.employeeid
   )
+}
+
+exports.getTransactions = async (req, res) => {
+  const { companyid } = req.params
+  try {
+    const transactions = await getTransactionsByCompanyId(companyid)
+    res.json({ transactions })
+  } catch (err) {
+    return res.status(500).json({ error: { message: `DB Error`, data: err } })
+  }
 }

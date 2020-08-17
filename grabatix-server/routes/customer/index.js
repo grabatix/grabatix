@@ -23,5 +23,10 @@ module.exports = async ({ app, version = `v1` }) => {
     })
   )
 
+  router.post(
+    `/transaction/:customerId/:companyId`,
+    customerController.postTransaction
+  )
+
   app.use(`${process.env.BASE_API_URL}/${version}/customer`, router)
 }

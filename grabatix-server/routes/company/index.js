@@ -138,5 +138,12 @@ module.exports = async ({ app, version = `v1` }) => {
     companyController.company_processpayment_post
   )
 
+  // get transaction reports
+  router.get(
+    `/transactions/:companyId`,
+    companyController.getCompany,
+    companyController.getTransactions
+  )
+
   app.use(`${process.env.BASE_API_URL}/${version}/company`, router)
 }
