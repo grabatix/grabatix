@@ -1,6 +1,5 @@
 const router = require(`express`).Router()
 const asyncMiddleware = require(`../../middleware/async-middleware`)
-const passport = require(`passport`)
 const { ROLES } = require(`../../config`)
 const { utils } = require(`../../auth`)
 const attendantController = require(`../../controllers/attendant`)

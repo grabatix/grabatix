@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const EmployeeSchema = require('./EmployeeSchema');
 const ProductSchema = require('./ProductSchema');
 const IntuitTokenSchema = require('./IntuitTokenSchema');
 const CloudinaryImageSchema = require('./CloudinaryImageSchema');
@@ -32,6 +31,9 @@ const GrabatixSchema = new Schema({
   },
   adminUsers: {
     type: [{ type: Schema.Types.ObjectId, ref: `User` }],
+  },
+  attendantUsers: {
+    type: [{ type: Schema.Types.ObjectId, ref: `User` }],
   }
 })
 
@@ -39,7 +41,7 @@ const CompanySchema = new Schema({
   grabatix: {
     type: GrabatixSchema,
   },
-  Subdomain: String,
+  subdomain: String,
   Logo: {
     type: CloudinaryImageSchema,
   },
@@ -61,9 +63,8 @@ const CompanySchema = new Schema({
   PrimaryPhone: {
     type: PrimaryPhoneSchema,
   },
-  Employees: [EmployeeSchema],
-  Products: [ProductSchema],
-  Tokens: {
+  products: [ProductSchema],
+  tokens: {
     type: IntuitTokenSchema,
   },
 });

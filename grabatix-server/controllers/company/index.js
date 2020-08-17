@@ -79,7 +79,7 @@ exports.addCompany = async function (req, res, next) {
   let user
   try {
     user = await createUserWithRoles({
-      role: ROLES.Admin,
+      role: ROLES.ADMIN,
       username,
       password: hash,
       companyId: company.id,

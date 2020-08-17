@@ -4,6 +4,7 @@ import React, { useReducer, useContext } from 'react'
 import { LOGIN, LOGOUT, SIGNUP, EDIT_PROFILE } from './actions/auth-actions'
 import reducer from './reducers/auth-reducer'
 import { AppContext } from './AppProvider'
+import { userAuthenticationService } from '../services/user-auth'
 
 export const AuthContext = React.createContext()
 
@@ -24,17 +25,23 @@ const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     // call login service
-    //const user = await authenticationService(username, password)
+    try {
+      const user = await userAuthenticationService(username, password)
 
-    //validate results
-    // temporary user
-    let user = {
-      displayName: ``,
-      roles: [],
-      imgUrl: ``,
-      authToken: ``,
+      //validate results
+      // temporary user
+      // let user = {
+      //   displayName: ``,
+      //   roles: [],
+      //   imgUrl: ``,
+      //   authToken: ``,
+      // }
+      console.log(user)
+      dispatch({ type: LOGIN, payload: { user } })
+    } catch (err) {
+      console.error(`AuthServiceError`)
+      throw new Error(err.message)
     }
-    dispatch({ type: LOGIN, payload: { user } })
   }
 
   const signup = async (username, password, companyName) => {

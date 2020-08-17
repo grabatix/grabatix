@@ -6,9 +6,13 @@ const {
 const { createCompany } = require(`./create`)
 const {
   addAdminUser,
+  addAttendantUser,
   updateTokens,
   addCompanyInfoFromQBO,
   updateLogo,
+  addProduct,
+  removeProduct,
+  updateProduct,
 } = require(`./patch`)
 
 module.exports = {
@@ -19,5 +23,9 @@ module.exports = {
   updateTokens,
   addCompanyInfoFromQBO,
   addAdminUser,
+  addAttendantUser,
   updateLogo,
+  addProduct,
+  removeProduct,
+  updateProduct,
 }

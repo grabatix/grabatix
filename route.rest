@@ -6,14 +6,34 @@ POST http://localhost:4000/api/v1/user/signup
 content-type: application/json
 
 {
-    "username": "wesley@wearecreativ.media",
+    "username": "wesleylhandy@gmail.com",
     "password": "s0m3un!quePW",
     "confirmPassword": "s0m3un!quePW"
 }
 
 ###
 
-GET http://localhost:4000/api/v1/company/db/5eeace4631621e51fc9e2c75
+POST http://localhost:4000/api/v1/user/login
+content-type: application/json
+
+{
+    "username": "wesleylhandy@gmail.com",
+    "password": "s0m3un!quePW"
+}
+
+###
+
+POST http://localhost:4000/api/v1/user/login
+content-type: application/json
+
+{
+    "username": "wesley@wearecreativ.media",
+    "password": "s0m3un!quePW"
+}
+
+###
+
+GET http://localhost:4000/api/v1/company/db/5f3ad92fcc9b5ab85785864d
 
 ###
 
@@ -29,11 +49,11 @@ content-type: application/json
 
 ###
 
-GET http://localhost:4000/api/v1/company/db/5eec2b822e1e4c3126a09229
+GET http://localhost:4000/api/v1/company/db/5f3ad92fcc9b5ab85785864d
 
 ###
 
-POST http://localhost:4000/api/v1/company/upload/5eec2b822e1e4c3126a09229
+POST http://localhost:4000/api/v1/company/upload/5f3ad92fcc9b5ab85785864d
 content-type: multipart/form-data; boundary=------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; fieldname="image"; filename="handy_profile_colorful.jpg"
 Content-Type: image/jpg

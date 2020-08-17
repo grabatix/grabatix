@@ -61,13 +61,17 @@ const Login = props => {
     formTitle = `Log-Out`
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
     console.log(`Submit Clicked`)
     if (isLoggedIn) {
       logout()
     } else if (!isLoggedIn && !!loginMatch) {
-      login(fields.username, fields.password)
+      try {
+        const res = await login(fields.username, fields.password)
+      } catch (err) {
+        // handle errors
+      }
     } else {
       signup(fields.username, fields.password, fields.companyname)
     }

@@ -13,6 +13,7 @@ const bodyParser = require(`body-parser`)
  */
 module.exports = async ({ app, version = `v1` }) => {
   // ADD routes here who don't need bodyparser
+
   router.use(bodyParser.json())
   router.use(bodyParser.text())
   router.use(bodyParser.json({ type: `application/*+json` }))

@@ -32,9 +32,9 @@ const Cart = props => {
   } = paths
   return (
     <>
-      <h2 class="my-3">My Cart</h2>
+      <h2 className="my-3">My Cart</h2>
       <FlexContainer flexClasses="row justify-between align-start">
-        <table class="cart-table">
+        <table className="cart-table">
           <thead>
             <tr>
               <th>Name</th>

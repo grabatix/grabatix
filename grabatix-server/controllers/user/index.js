@@ -26,17 +26,32 @@ exports.validateUsernameAndPassword = async (req, res, next) => {
   next()
 }
 
+const authenticationError = (msg) => {
+  return res
+    .status(500)
+    .json({ success: false, data: msg })
+}
+
 exports.loginUser = async (req, res, next) => {
   const { username, password } = req.body
+  if (!validUsername(username) || !validPassword(password)) {
+    return res
+      .status(400)
+      .json({ success: false, message: `Invalid credentials.` })
+  }
   const [err, user] = await to(getUserByUsername(username))
 
-  const authenticationError = () => {
-    return res
-      .status(500)
-      .json({ success: false, data: `Authentication error!` })
+  if (err) {
+    return authenticationError(`Authentication error!`)
   }
 
-  res.json({ message: `login user not implemented` })
+  const [ verificationError, verified ] = await to(verifyPassword(password, user.password))
+
+  if (verificationError) {
+    return authenticationError(`Username and Password do not match!`)
+  }
+
+  res.json({ user: { id: user._id, username: user.username, roles: user.roles } })
 }
 
 exports.createUser = async (req, res, next) => {
