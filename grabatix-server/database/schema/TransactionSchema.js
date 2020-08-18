@@ -3,11 +3,11 @@ const { Schema } = mongoose
 mongoose.Promise = Promise
 
 const TransactionSchema = new Schema({
-  company: {
+  companyId: {
     type: Schema.Types.ObjectId,
     ref: `Company`,
   },
-  user: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: `User`,
   },

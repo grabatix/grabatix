@@ -7,12 +7,12 @@ const {
 exports.postTransaction = async (req, res) => {
     const companyId = req.params.companyId
     const userId = req.params.userId
-    const cart = req.body.cart
-    const total = req.body.total
+    const transactionData = { userId, companyId, cart: req.body.cart, total: req.body.total }
+    console.log(transactionData)
     let transaction
     try {
-        const transactionData = { cart, total }
-        transaction = await createTransaction(userId, companyId, transactionData)
+        
+        transaction = await createTransaction(transactionData)
     } catch (err) {
         return res.status(500).json({ error: { message: `DB Error`, data: err } })
     }

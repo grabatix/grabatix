@@ -24,7 +24,7 @@ module.exports = async ({ app, version = `v1` }) => {
   )
 
   router.post(
-    `/transaction/:customerId/:companyId`,
+    `/transaction/:userId/:companyId`,
     customerController.postTransaction
   )
 
