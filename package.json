@@ -32,7 +32,7 @@
   "homepage": "https://github.com/grabatix/grabatix#readme",
   "dependencies": {
     "await-to-js": "^2.1.1",
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.19.0",
     "compression": "^1.7.4",
