@@ -53,7 +53,7 @@ module.exports = async ({ app, version = `v1` }) => {
   )
   // GET, POST, PATCH company details
   router.get(`/db/:companyId`, companyController.getCompany, (req, res) => {
-    res.json(res.company)
+    res.json(req.company)
   })
   router.get(
     `/qb/:companyId`,

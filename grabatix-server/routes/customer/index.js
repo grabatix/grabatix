@@ -3,6 +3,7 @@ const asyncMiddleware = require(`../../middleware/async-middleware`)
 const { ROLES } = require(`../../config`)
 const { utils } = require(`../../auth`)
 const customerController = require(`../../controllers/customer`)
+const companyController = require(`../../controllers/company`)
 const bodyParser = require(`body-parser`)
 
 /**
@@ -25,6 +26,7 @@ module.exports = async ({ app, version = `v1` }) => {
 
   router.post(
     `/transaction/:userId/:companyId`,
+    companyController.getCompany,
     customerController.postTransaction
   )
 

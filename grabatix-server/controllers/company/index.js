@@ -34,7 +34,7 @@ exports.getCompanyDetail = async (req, res, next) => {
   } catch (error) {
     return qboAuth.handleQBError(res, error)
   }
-  res.company = company
+  req.company = company
   next()
 }
 
@@ -50,7 +50,7 @@ exports.getCompany = async function (req, res, next) {
     return res.status(500).json({ error: { message: `DB Error`, data: err } })
   }
 
-  res.company = company
+  req.company = company
   next()
 }
 
@@ -180,13 +180,13 @@ exports.getCompanyFromState = async (req, res, next) => {
     return res.status(500).json({ error: { message: `DB Error`, data: err } })
   }
 
-  res.company = company
+  req.company = company
   next()
 }
 
 // Handle companyauthcallback on GET.
 exports.storeAuthToken = async (req, res, next) => {
-  let company = res.company
+  let company = req.company
 
   try {
     const authResponse = await qboAuth.oAuthClient.createToken(req.url)

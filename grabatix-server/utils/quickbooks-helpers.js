@@ -1,20 +1,5 @@
 const OAuthClient = require("intuit-oauth");
-
-const oAuthConfig = {
-  clientId: process.env.QB_CLIENT_ID,
-  clientSecret: process.env.QB_CLIENT_SECRET,
-  environment:
-    process.env.NODE_ENV !== "production" ? "sandbox" : "production",
-  redirectUri: process.env.QB_REDIRECT_URI
-}
-
-const MINOR_VERSION = '51'
-
-const paymentsAPIEndpoints = {
-  tokens: "/quickbooks/v4/payments/tokens",
-  charges: "/quickbooks/v4/payments/charges",
-  echecks: "/quickbooks/v4/payments/echecks"
-}
+const { INTUIT: { MINOR_VERSION, OAUTH } } = require("../config")
 
 class QBOAuth {
   constructor(oAuthConfig, minorVersion){
@@ -45,21 +30,6 @@ class QBOAuth {
       return Promise.reject(e)
     }
   }
-
-  createQuickBooksOptionsObject = (method = "POST", body, oauth2_token_json) => {
-    // console.log({ oauth2_token_json });
-    const headers = {
-      Accept: "application/json",
-      "Request-Id": uuidv4(),
-      Authorization: `Bearer ${oauth2_token_json["access_token"]}`,
-      "Content-Type": "application/json;charset=UTF-8"
-    };
-    return {
-      headers,
-      method,
-      body: JSON.stringify(body)
-    };
-  };
 
   queryQuickbooks = async (query) => {
     const {oAuthClient, quickbooksBaseUri, realmId, minorVersion} = this;
@@ -107,7 +77,7 @@ class QBOAuth {
   }
 }
 
-const qboAuth = new QBOAuth(oAuthConfig, MINOR_VERSION)
+const qboAuth = new QBOAuth(OAUTH, MINOR_VERSION)
 
 module.exports = {
   qboAuth
