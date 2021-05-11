@@ -1,4 +1,4 @@
-const Transaction = require('../models/Transaction/index')
+const Transaction = require(`../models/Transaction/index`)
 
 const getTransactionById = async (id) => {
   return await Transaction.findById(id)

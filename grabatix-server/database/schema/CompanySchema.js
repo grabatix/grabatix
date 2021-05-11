@@ -1,72 +1,88 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require(`mongoose`)
+const { Schema } = mongoose
+const { decimal2JSON } = require(`../../utils/mongoose`)
+const { REGEX } = require(`../../config`)
 
-const ProductSchema = require('./ProductSchema');
-const IntuitTokenSchema = require('./IntuitTokenSchema');
-const CloudinaryImageSchema = require('./CloudinaryImageSchema');
-const AddressSchema = require('./AddressSchema');
+const ProductSchema = require(`./ProductSchema`)
+const IntuitTokenSchema = require(`./IntuitTokenSchema`)
+const CloudinaryImageSchema = require(`./CloudinaryImageSchema`)
+const AddressSchema = require(`./AddressSchema`)
+const SubscriptionSchema = require(`./SubscriptionSchema`)
 
-mongoose.Promise = Promise;
-
-const EmailSchema = new Schema({
-  Address: String,
-})
-
-const WebAddrSchema = new Schema({
-  URI: String,
-})
-
-const PrimaryPhoneSchema = new Schema({
-  FreeFormNumber: String,
-})
-
-const GrabatixSchema = new Schema({
-  CompanyIdentifier: {
-    type: String,
-    required: true,
-  },
-  Email: {
-    type: String,
-    required: true,
-  },
-  adminUsers: {
-    type: [{ type: Schema.Types.ObjectId, ref: `User` }],
-  },
-  attendantUsers: {
-    type: [{ type: Schema.Types.ObjectId, ref: `User` }],
-  }
-})
+mongoose.Promise = Promise
 
 const CompanySchema = new Schema({
-  grabatix: {
-    type: GrabatixSchema,
+  grabatixIdentifier: {
+    type: String,
+    unique: true,
+    validate: {
+      validator: (v) => REGEX.gbtxIdent.test(v),
+      message: (props) =>
+        `${props.value} is not a valid Grabatix Identifier. Omit special characters and spaces.`,
+    },
   },
-  subdomain: String,
-  Logo: {
+  logo: {
     type: CloudinaryImageSchema,
   },
-  Id: String,
-  SyncToken: String,
-  CompanyName: String,
+  realmId: {
+    type: String,
+    unique: true,
+  },
+  companyName: {
+    type: String,
+    default: ``,
+  },
+  users: {
+    type: [{ type: Schema.Types.ObjectId, ref: `User` }],
+  },
   WebAddr: {
-    type: WebAddrSchema,
+    type: String,
   },
-  Email: {
-    type: EmailSchema,
+  emailAddress: {
+    type: String,
+    validate: {
+      validator: (v) => REGEX.emailAddress.test(v),
+      message: (props) => `${props.value} is not a valid email address.`,
+    },
   },
-  CustomerCommunicationAddr: {
-    type: AddressSchema,
-  },
-  CompanyAddr: {
-    type: AddressSchema,
-  },
-  PrimaryPhone: {
-    type: PrimaryPhoneSchema,
+  addresses: [{ type: AddressSchema }],
+  phone: {
+    type: String,
   },
   products: [ProductSchema],
   tokens: {
     type: IntuitTokenSchema,
   },
-});
+  isInvited: {
+    type: Boolean,
+    default: false,
+  },
+  invitation: {
+    type: Schema.Types.ObjectId,
+    ref: `Invitation`,
+  },
+  isQuickbooksAuthorized: {
+    type: Boolean,
+    default: false,
+  },
+  isRegistered: {
+    type: Boolean,
+    default: false,
+  },
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  subscription: {
+    type: SubscriptionSchema,
+  },
+})
 
-module.exports = CompanySchema;
+CompanySchema.set(`toJSON`, {
+  transform: (doc, ret) => {
+    decimal2JSON(ret)
+    return ret
+  },
+})
+
+module.exports = CompanySchema

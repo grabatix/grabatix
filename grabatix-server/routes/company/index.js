@@ -1,6 +1,6 @@
 const router = require(`express`).Router()
 const nonJsonRouter = require(`express`).Router()
-const {upload, imageStore} = require(`../../middleware/cloudinary-multer`)
+const { upload, imageStore } = require(`../../middleware/cloudinary-multer`)
 const { ROLES } = require(`../../config`)
 const { utils } = require(`../../auth`)
 const companyController = require(`../../controllers/company`)

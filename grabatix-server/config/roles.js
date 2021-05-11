@@ -1,7 +1,8 @@
 const ROLES = {
-  ADMIN: 'Admin',
-  ATTENDANT: 'Attendant',
-  CUSTOMER: 'Customer',
-};
+  SUPER_ADMIN: `SuperAdmin`,
+  ADMIN: `Admin`,
+  ATTENDANT: `Attendant`,
+  CUSTOMER: `Customer`,
+}
 
-module.exports = { ROLES };
+module.exports = { ROLES }

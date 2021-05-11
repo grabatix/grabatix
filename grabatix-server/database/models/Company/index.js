@@ -1,6 +1,6 @@
-const { model } = require('mongoose');
-const CompanySchema = require('../../schema/CompanySchema');
+const { model } = require(`mongoose`)
+const CompanySchema = require(`../../schema/CompanySchema`)
 
-const Company = model('Company', CompanySchema);
+const Company = model(`Company`, CompanySchema)
 
-module.exports = Company;
+module.exports = Company

@@ -47,4 +47,4 @@ async function getErrorBody(response, contentType = `text`) {
   return body
 }
 
-module.exports = callApi
+module.exports = { callApi }

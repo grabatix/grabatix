@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-const CloudinaryImageSchema = require('./CloudinaryImageSchema');
+const mongoose = require(`mongoose`)
+const { Schema } = mongoose
+const CloudinaryImageSchema = require(`./CloudinaryImageSchema`)
 
-mongoose.Promise = Promise;
+mongoose.Promise = Promise
 
 const ProductCategorySchema = new Schema({
   Id: String,
@@ -17,6 +17,6 @@ const ProductCategorySchema = new Schema({
   Icon: {
     type: CloudinaryImageSchema,
   },
-});
+})
 
-module.exports = ProductCategorySchema;
+module.exports = ProductCategorySchema

@@ -1,35 +1,67 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-const ProductCategorySchema = require('./ProductCategorySchema');
-const CloudinaryImageSchema = require('./CloudinaryImageSchema');
+const mongoose = require(`mongoose`)
+const { decimal2JSON } = require(`../../helpers/mongoose`)
+const { Schema } = mongoose
+const CloudinaryImageSchema = require(`./CloudinaryImageSchema`)
+const DiscountSchema = require(`./DiscountSchema`)
 
-mongoose.Promise = Promise;
+const ProductImageSchema = new Schema({
+  icon: {
+    type: CloudinaryImageSchema,
+  },
+  backgroundImage: {
+    type: CloudinaryImageSchema,
+  },
+})
+
+mongoose.Promise = Promise
 
 const ProductSchema = new Schema({
-  Id: String,
-  SyncToken: String,
-  Name: String,
-  Type: String,
-  SubItem: Boolean,
-  ParentRef: {
-    name: String,
-    value: String,
+  productId: String,
+  isActive: Boolean,
+  displayLabel: {
+    type: String,
+    required: true,
   },
-  UnitPrice: Number,
-  PricePoints: [
+  description: String,
+  useOptions: {
+    maxUses: Number,
+    startDate: Date,
+    hasExpiration: {
+      type: Boolean,
+      default: false,
+    },
+    timeUntilExpiration: Number,
+    expirationDate: Date,
+  },
+  eventOptions: {
+    type: Schema.Types.ObjectId,
+    ref: `Event`,
+  },
+  pricePoints: [
     {
-      id: Number,
       price: Schema.Types.Decimal128,
       minQuantity: Number,
       maxQuantity: Number,
     },
   ],
-  Category: {
-    type: ProductCategorySchema,
+  discounts: [
+    {
+      DiscountSchema,
+    },
+  ],
+  images: {
+    type: ProductImageSchema,
   },
-  BackgroundImage: {
-    type: CloudinaryImageSchema,
+  productOrder: {
+    type: Number,
   },
-});
+})
 
-module.exports = ProductSchema;
+ProductSchema.set(`toJSON`, {
+  transform: (doc, ret) => {
+    decimal2JSON(ret)
+    return ret
+  },
+})
+
+module.exports = ProductSchema

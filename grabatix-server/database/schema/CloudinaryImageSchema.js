@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-mongoose.Promise = Promise;
+const mongoose = require(`mongoose`)
+const { Schema } = mongoose
+mongoose.Promise = Promise
 
 const CloudinaryImageSchema = new Schema({
   width: Number,
@@ -10,6 +10,6 @@ const CloudinaryImageSchema = new Schema({
   created_at: String,
   url: String,
   secure_url: String,
-});
+})
 
-module.exports = CloudinaryImageSchema;
+module.exports = CloudinaryImageSchema

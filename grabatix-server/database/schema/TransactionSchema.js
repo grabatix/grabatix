@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require(`mongoose`)
 const { Schema } = mongoose
 mongoose.Promise = Promise
 
@@ -28,6 +28,13 @@ const TransactionSchema = new Schema({
   ],
   total: Schema.Types.Decimal128,
   modifications: Schema.Types.Mixed,
+})
+
+TransactionSchema.set(`toJSON`, {
+  transform: (doc, ret) => {
+    decimal2JSON(ret)
+    return ret
+  },
 })
 
 module.exports = TransactionSchema

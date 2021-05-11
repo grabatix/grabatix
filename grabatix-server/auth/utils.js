@@ -1,64 +1,65 @@
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const User = require('../database/models/User');
+const passport = require(`passport`)
+const jwt = require(`jsonwebtoken`)
+const bcrypt = require(`bcrypt`)
+const User = require(`../database/models/User`)
+const { ROLES } = require('../config')
 
 const setup = () => {
-  passport.serializeUser((user, done) => done(null, user._id));
+  passport.serializeUser((user, done) => done(null, user._id))
 
   passport.deserializeUser(async (id, done) => {
     try {
-      const user = await User.findById(id);
-      return done(null, user);
+      const user = await User.findById(id)
+      return done(null, user)
     } catch (err) {
-      return done(err, null);
+      return done(err, null)
     }
-  });
-};
+  })
+}
 
 const signToken = (user) => {
   return jwt.sign({ data: user }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: '8h',
-  });
-};
+    expiresIn: `8h`,
+  })
+}
 
 const hashPassword = async (password) => {
   if (!password) {
-    throw new Error('Password was not provided');
+    throw new Error(`Password was not provided`)
   }
-  const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
-};
+  const salt = await bcrypt.genSalt(10)
+  return await bcrypt.hash(password, salt)
+}
 
 const verifyPassword = async (candidate, actual) => {
-  return await bcrypt.compare(candidate, actual);
-};
+  return await bcrypt.compare(candidate, actual)
+}
 
 const checkIsInRole = (...roles) => (req, res, next) => {
   if (!req.user) {
-    return res.redirect('/login');
+    return res.redirect(`/login`)
   }
 
-  const hasRole = roles.find((role) => req.user.role === role);
+  const hasRole = roles.find((role) => req.user.role === role)
   if (!hasRole) {
-    return res.redirect('/login');
+    return res.redirect(`/login`)
   }
 
-  return next();
-};
+  return next()
+}
 
 const getRedirectUrl = (role) => {
   switch (role) {
     case ROLES.Admin:
-      return '/admin';
+      return `/admin`
     case ROLES.Attendant:
-      return '/attendant';
+      return `/attendant`
     case ROLES.Customer:
-      return '/customer';
+      return `/customer`
     default:
-      return '/';
+      return `/`
   }
-};
+}
 
 module.exports = {
   setup,
@@ -67,4 +68,4 @@ module.exports = {
   verifyPassword,
   checkIsInRole,
   getRedirectUrl,
-};
+}

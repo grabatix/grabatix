@@ -8,9 +8,7 @@ const {
   addAdminUser,
   updateLogo,
 } = require(`../../database/Company`)
-const {
-  getTransactionsByCompanyId
-} = require(`../../database/Transaction`)
+const { getTransactionsByCompanyId } = require(`../../database/Transaction`)
 const { createUserWithRoles } = require(`../../database/User`)
 const { hashPassword } = require(`../../auth/utils`)
 const { qboAuth } = require(`../../utils/quickbooks-helpers`)

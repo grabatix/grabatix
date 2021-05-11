@@ -1,10 +1,10 @@
 const { to } = require(`await-to-js`)
 const { createUser, getUserByUsername } = require(`../../database/User`)
 const { hashPassword, verifyPassword } = require(`../../auth/utils`)
-const { REGX } = require(`../../config`)
+const { REGEX } = require(`../../config`)
 
-const validUsername = (username) => REGX.username.test(username)
-const validPassword = (password) => REGX.password.test(password)
+const validUsername = (username) => REGEX.username.test(username)
+const validPassword = (password) => REGEX.password.test(password)
 
 exports.validateUsernameAndPassword = async (req, res, next) => {
   const { username, password, confirmPassword } = req.body
@@ -27,9 +27,7 @@ exports.validateUsernameAndPassword = async (req, res, next) => {
 }
 
 const authenticationError = (msg) => {
-  return res
-    .status(500)
-    .json({ success: false, data: msg })
+  return res.status(500).json({ success: false, data: msg })
 }
 
 exports.loginUser = async (req, res, next) => {
@@ -45,13 +43,17 @@ exports.loginUser = async (req, res, next) => {
     return authenticationError(`Authentication error!`)
   }
 
-  const [ verificationError, verified ] = await to(verifyPassword(password, user.password))
+  const [verificationError, verified] = await to(
+    verifyPassword(password, user.password)
+  )
 
   if (verificationError) {
     return authenticationError(`Username and Password do not match!`)
   }
 
-  res.json({ user: { id: user._id, username: user.username, roles: user.roles } })
+  res.json({
+    user: { id: user._id, username: user.username, roles: user.roles },
+  })
 }
 
 exports.createUser = async (req, res, next) => {
@@ -73,7 +75,7 @@ exports.createUser = async (req, res, next) => {
     })
   } catch (err) {
     return res
-      .status(err.message === "Email is already in use" ? 400 : 500)
+      .status(err.message === `Email is already in use` ? 400 : 500)
       .json({ success: false, message: err.message })
   }
 

@@ -1,15 +1,16 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require(`mongoose`)
+const { Schema } = mongoose
 
-mongoose.Promise = Promise;
+mongoose.Promise = Promise
 
 const AddressSchema = new Schema({
-  City: String,
-  Country: String,
-  Line1: String,
-  PostalCode: String,
-  CountrySubDivisionCode: String,
+  city: String,
+  country: String,
+  address1: String,
+  address2: String,
+  postalCode: String,
+  state: String,
   Id: String,
-});
+})
 
-module.exports = AddressSchema;
+module.exports = AddressSchema

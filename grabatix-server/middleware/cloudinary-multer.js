@@ -1,7 +1,7 @@
 const cloudinary = require(`cloudinary`).v2
 const multer = require(`multer`)
-const Datauri = require('datauri');
-const path = require('path');
+const Datauri = require(`datauri`)
+const path = require(`path`)
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -15,14 +15,17 @@ const imageStore = {
       return next()
     }
 
-    const dUri = new Datauri();
+    const dUri = new Datauri()
     /**
      * @description This function converts the buffer to data url
      * @param {Object} req containing the field object
      * @return {String} The data url from the string buffer
      */
     const dataUri = (req) =>
-      dUri.format(path.extname(req.file.originalname).toString(), req.file.buffer);
+      dUri.format(
+        path.extname(req.file.originalname).toString(),
+        req.file.buffer
+      )
 
     const file = dataUri(req).content
     cloudinary.uploader
@@ -51,7 +54,7 @@ const imageStore = {
 const storage = multer.memoryStorage()
 const upload = multer({
   storage,
-  limits: { fileSize: 1024 * 1024 * 2 }
+  limits: { fileSize: 1024 * 1024 * 2 },
 })
 
 module.exports = {

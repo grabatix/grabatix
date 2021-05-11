@@ -1,31 +1,49 @@
 const {
+  getCompanyByQBORealmId,
   getCompanyByCompanyIdentifier,
   getCompanyByEmail,
   getCompanyById,
+  getProductsByRealmId,
+  getUsersByRealmId,
 } = require(`./get`)
-const { createCompany } = require(`./create`)
 const {
-  addAdminUser,
-  addAttendantUser,
+  createCompany,
+  createCompanyFromRealmId,
+  createTemporaryCompany,
+} = require(`./create`)
+const {
+  addCompanyUser,
+  removeCompanyUser,
   updateTokens,
+  updateTokensByRealmId,
   addCompanyInfoFromQBO,
   updateLogo,
-  addProduct,
+  addOrUpdateProduct,
   removeProduct,
-  updateProduct,
+  updateGrabatixIdentifier,
+  completeRegistration,
+  importProducts,
 } = require(`./patch`)
 
 module.exports = {
   createCompany,
+  createCompanyFromRealmId,
+  createTemporaryCompany,
+  getCompanyByQBORealmId,
   getCompanyByCompanyIdentifier,
   getCompanyByEmail,
   getCompanyById,
+  getProductsByRealmId,
+  getUsersByRealmId,
   updateTokens,
+  updateTokensByRealmId,
   addCompanyInfoFromQBO,
-  addAdminUser,
-  addAttendantUser,
+  addCompanyUser,
+  removeCompanyUser,
   updateLogo,
-  addProduct,
+  addOrUpdateProduct,
+  importProducts,
   removeProduct,
-  updateProduct,
+  updateGrabatixIdentifier,
+  completeRegistration,
 }

@@ -1,4 +1,13 @@
-const { getUserById, getUserByUsername } = require('./get');
-const { createUser, createUserWithRoles } = require('./create');
+const { getUserById, getUserByUsername, getRolesUserById } = require(`./get`)
+const { createUser, createUserWithRole } = require(`./create`)
+const { addCompanyUserRole, removeCompanyUserRole } = require(`./patch`)
 
-module.exports = { getUserById, getUserByUsername, createUser, createUserWithRoles };
+module.exports = {
+  getUserById,
+  getUserByUsername,
+  getRolesUserById,
+  createUser,
+  createUserWithRole,
+  addCompanyUserRole,
+  removeCompanyUserRole,
+}
