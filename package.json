@@ -68,7 +68,7 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.0.1",
     "semver": "^7.3.2",
-    "simpl-schema": "^1.9.0",
+    "simpl-schema": "^1.10.2",
     "sticky-session": "^1.1.2",
     "supports-color": "^7.1.0",
     "twilio": "^3.39.3",
